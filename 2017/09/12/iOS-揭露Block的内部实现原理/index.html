@@ -1,0 +1,437 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="LinXunFeng‘s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://linxunfeng.top">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>iOS - 揭露Block的内部实现原理 | LinXunFeng‘s Blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="LinXunFeng‘s Blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://7xpw2b.com1.z0.glb.clouddn.com/hexo-sinppet/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='LinXunFeng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/iOS/"><i class="fa "></i>iOS</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Linux/"><i class="fa "></i>Linux</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="iOS - 揭露Block的内部实现原理">
+            
+	            iOS - 揭露Block的内部实现原理
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/iOS">
+            iOS
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/Objective-C" title='Objective-C'>
+                        Objective-C
+                    </a>
+                
+                    <a href="/tags/iOS" title='iOS'>
+                        iOS
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2017/09/12</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <excerpt in="" index="" |="" 首页摘要=""> 
+
+<p>想必大家对block都很熟悉了，虽然都会用，但是你真的知道它的原理吗？比如为什么要加上__block，这个修饰符到底有什么用？不加会有什么后果？block又是如何实现的等等。。。该篇文章就为大家揭晓关于Block的实现原理~</p>
+<p>+<a id="more"></a></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<blockquote>
+<p>想必大家对block都很熟悉了，虽然都会用，但是你真的知道它的原理吗？比如为什么要加上__block，这个修饰符到底有什么用？不加会有什么后果？block又是如何实现的等等。。。该篇文章就为大家揭晓关于Block的实现原理~</p>
+</blockquote>
+<h2 id="抛砖引玉"><a href="#抛砖引玉" class="headerlink" title="抛砖引玉"></a>抛砖引玉</h2><p>先给出问题，大家思考下结果吧，如果分别调用以下两个方法，结果如何？<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> blockFunc1()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> num = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">void</span> (^block)() = ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"num equal %d"</span>, num);</span><br><span class="line">    &#125;;</span><br><span class="line">    num = <span class="number">200</span>;</span><br><span class="line">    block();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> blockFunc2()</span><br><span class="line">&#123;</span><br><span class="line">    __block <span class="keyword">int</span> num = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">void</span> (^block)() = ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"num equal %d"</span>, num);</span><br><span class="line">    &#125;;</span><br><span class="line">    num = <span class="number">200</span>;</span><br><span class="line">    block();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>答案是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">blockFunc1 : num equal 100</span><br><span class="line">blockFunc2 : num equal 200</span><br></pre></td></tr></table></figure></p>
+<p>是不是有人答错了？再来两个函数。这两个的结果与blockFunc2一样，打印出来的 num 为 200<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 全局变量</span></span><br><span class="line"><span class="keyword">int</span> num = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">void</span> blockFunc3()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">void</span> (^block)() = ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"num equal %d"</span>, num);</span><br><span class="line">    &#125;;</span><br><span class="line">    num = <span class="number">200</span>;</span><br><span class="line">    block();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> blockFunc4()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> num = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">void</span> (^block)() = ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"num equal %d"</span>, num);</span><br><span class="line">    &#125;;</span><br><span class="line">    num = <span class="number">200</span>;</span><br><span class="line">    block();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>疑问：<br>我们发现num做为局部变量时加上 _ _block 修饰符、num做为全局变量以及num为静态局部变量时在block中输出结果是一样的，皆为被修改之后的值，而做为局部变量并且未加上__block的num在block中输出的值却还是未赋值之前的值。这是为什么呢？探索这个问题我们就需要看看底层结构是如何实现的了</p>
+</blockquote>
+<h2 id="探索内部原理"><a href="#探索内部原理" class="headerlink" title="探索内部原理"></a>探索内部原理</h2><p>Objective-C是一个全动态语言，它的一切都是基于runtime实现的！在运行时会将OC转换成C，我们可以利用这个来查看关于block在内部是如何实现的<br>新建一个Command Line Tool项目，将以上代码放入main.m中，如图</p>
+<p><img src="http://linxunfeng.github.io/images/2017/09/iOS - 揭露Block的内部实现原理/1.png" alt="main.m"></p>
+<p>这里我们打开终端，cd到项目目录下，然后将用下面的命令将OC重写为C<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -rewrite-objc main.m</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://linxunfeng.github.io/images/2017/09/iOS - 揭露Block的内部实现原理/2.png" alt="rewrite-objc"><br>这时我们可以发现当前目录下多了一个main.cpp文件，打开它并滚到最下面<br><img src="http://linxunfeng.github.io/images/2017/09/iOS - 揭露Block的内部实现原理/3.png" alt="打开main.cpp"></p>
+<p><img src="http://linxunfeng.github.io/images/2017/09/iOS - 揭露Block的内部实现原理/4.png" alt="main.cpp"><br>这里我们可以看到blockFunc1的C语言实现方法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">blockFunc1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> num = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">void</span> (*block)() = ((<span class="keyword">void</span> (*)())&amp;__blockFunc1_block_impl_0((<span class="keyword">void</span> *)__blockFunc1_block_func_0, &amp;__blockFunc1_block_desc_0_DATA, num));</span><br><span class="line">    num = <span class="number">200</span>;</span><br><span class="line">    ((<span class="keyword">void</span> (*)(__block_impl *))((__block_impl *)block)-&gt;FuncPtr)((__block_impl *)block);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>去掉类型转换<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">blockFunc1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> num = <span class="number">100</span>;</span><br><span class="line">    <span class="comment">// *************************重点句***********************</span></span><br><span class="line">    <span class="keyword">void</span> (*block)() = &amp;__blockFunc1_block_impl_0(__blockFunc1_block_func_0, &amp;__blockFunc1_block_desc_0_DATA, num));</span><br><span class="line">    <span class="comment">// *****************************************************</span></span><br><span class="line">    num = <span class="number">200</span>;</span><br><span class="line">    ((<span class="keyword">void</span> (*)(__block_impl *))((__block_impl *)block)-&gt;FuncPtr)((__block_impl *)block);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里我们可以看到</p>
+<blockquote>
+<p>block实际上是指向结构体的指针</p>
+</blockquote>
+<p>该结构体为<br><img src="http://linxunfeng.github.io/images/2017/09/iOS - 揭露Block的内部实现原理/5.png" alt="__blockFunc1_block_impl_0"></p>
+<p>我们来看下带__block的blockFunc2</p>
+<p><img src="http://linxunfeng.github.io/images/2017/09/iOS - 揭露Block的内部实现原理/6.png" alt="blockFunc2"><br>在 blockFunc1 中，block指向了一个名为<strong>blockFunc1_block_impl_0的结构体，并且在初始化时输入了三个参数(</strong>blockFunc1_block_impl_0最后的flags有默认参数，所以可以不用传参)，第三个参数就是我们写的num，与blockFunc2相比较，这里的num并没有带*号，所以说在这里它只是传值而非传址，而下面的【num = 200;】也就没什么卵用了。这就是blockFunc2、blockFunc3与blockFunc4为什么能打印出num改变后的值，而blockFunc1不行的原因。</p>
+<p><img src="http://linxunfeng.github.io/images/2017/09/iOS - 揭露Block的内部实现原理/7.png" alt=""></p>
+<p>在这里我们也可以看出：</p>
+<blockquote>
+<p>编译器会将block的内部代码生成对应的函数</p>
+</blockquote>
+<p><strong> SO </strong></p>
+<blockquote>
+<p>我们总结下，block在内部会作为一个指向结构体的指针，当调用block的时候其实就是根据block对应的指针找到相应的函数，进而进行调用，并传入自身</p>
+</blockquote>
+<h2 id="block的实现"><a href="#block的实现" class="headerlink" title="__block的实现"></a>__block的实现</h2><p>我们再来看看 _ <em>block，</em> _block也被转换成了结构体，并含有5个变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">struct __Block_byref_num_0 &#123;</span><br><span class="line">  void *__isa;  // isa指针</span><br><span class="line">__Block_byref_num_0 *__forwarding;  // 实例本身</span><br><span class="line"> int __flags; </span><br><span class="line"> int __size;</span><br><span class="line"> int num;  // 我们的num值</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://linxunfeng.github.io/images/2017/09/iOS - 揭露Block的内部实现原理/8.png" alt=""><br>图片对应着blockFunc2中的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__block int num = 100;</span><br></pre></td></tr></table></figure>
+<p>当创建num并用__block修饰的时候，会初始化这五个变量<br>当我们执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num = 200;</span><br></pre></td></tr></table></figure></p>
+<p>对应着<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(num.__forwarding-&gt;num) = 200;</span><br></pre></td></tr></table></figure></p>
+<p>上面刚刚提到过 _ _forwarding是实例本身，即类型结构体__Block_byref_num_0的&amp;num，再找到对应的num变量，将其原来的100修改为200~~</p>
+<p>到此，关于Block内部实现的揭晓也就到此结束了，希望本文能让你对block有更深的理解，感谢你耐心的阅读！</p>
+</the></excerpt>
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2017/09/12/iOS-给高仿微信添加直播聊天功能/" class="pre-post btn btn-default" title='iOS - 给高仿微信添加直播聊天功能'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">iOS - 给高仿微信添加直播聊天功能</span>
+        </a>
+    
+    
+        <a href="/2017/09/12/iOS-Swift-面向协议编程（二）/" class="next-post btn btn-default" title='iOS - Swift 面向协议编程（二）'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">iOS - Swift 面向协议编程（二）</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMzA1MS85NjEz">
+  <script type="text/javascript">
+     (function(d, s) {
+         var j, e = d.getElementsByTagName(s)[0];
+         if (typeof LivereTower === 'function') { return; }
+         j = d.createElement(s);
+         j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+         j.async = true;
+         e.parentNode.insertBefore(j, e);
+     })(document, 'script');
+  </script>
+</div>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+        
+        
+    <div class="widget">    
+        <h3 class="title">Search</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">localSearch</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget notification">
+        <h3 class="title">网站公告</h3>
+        <div>
+            <p>博客终于主题啦！欢迎访问~ 🚀🚀🚀</p>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Social</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/LinXunFeng" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="github fa fa-github"></i>
+			    </a>
+            
+	            <a href="mailto:598600855@qq.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="//juejin.im/user/58f8065e61ff4b006646c72d/posts" rel="external nofollow" title="掘金" target="_blank">
+			    	<i class="forumbee fa fa-forumbee"></i>
+			    </a>
+            
+	            <a href="//www.jianshu.com/u/31e85e7a22a2" rel="external nofollow" title="简书" target="_blank">
+			    	<i class="book fa fa-book"></i>
+			    </a>
+            
+	            <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
+			    	<i class="feed fa fa-feed"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Categories</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/"><i class="fa" aria-hidden="true">Linux</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/"><i class="fa" aria-hidden="true">Python</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/"><i class="fa" aria-hidden="true">iOS</i></a><span class="category-list-count">27</span></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Archives</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/"><i class="fa" aria-hidden="true">May 2018</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/"><i class="fa" aria-hidden="true">April 2018</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/"><i class="fa" aria-hidden="true">October 2017</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/"><i class="fa" aria-hidden="true">September 2017</i></a><span class="archive-list-count">19</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">Tag Cloud</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/Cocoapods/" style="font-size: 15.71px;">Cocoapods</a> <a href="/tags/Git/" style="font-size: 15.71px;">Git</a> <a href="/tags/GitHub/" style="font-size: 15.71px;">GitHub</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Objective-C/" style="font-size: 17.14px;">Objective-C</a> <a href="/tags/RxSwift/" style="font-size: 12.86px;">RxSwift</a> <a href="/tags/Swift/" style="font-size: 18.57px;">Swift</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS项目/" style="font-size: 11.43px;">iOS项目</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/组件化/" style="font-size: 14.29px;">组件化</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Friends</h3>
+        <div class="content friends-link">
+        
+            <a href="https://juejin.im/user/58f8065e61ff4b006646c72d/posts" class="fa" target="_blank">掘金</a>
+        
+            <a href="https://www.jianshu.com/u/31e85e7a22a2" class="fa" target="_blank">简书</a>
+        
+        </div>
+    </div>
+
+
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+	<script src="/js/search.js?rev=@@hash"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="LinXunFeng‘s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://linxunfeng.top">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>iOS - 采集音视频及写入文件 | LinXunFeng‘s Blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="LinXunFeng‘s Blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://7xpw2b.com1.z0.glb.clouddn.com/hexo-sinppet/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='LinXunFeng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/iOS/"><i class="fa "></i>iOS</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Linux/"><i class="fa "></i>Linux</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="iOS - 采集音视频及写入文件">
+            
+	            iOS - 采集音视频及写入文件
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/iOS">
+            iOS
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/Swift" title='Swift'>
+                        Swift
+                    </a>
+                
+                    <a href="/tags/iOS" title='iOS'>
+                        iOS
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2017/09/26</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <excerpt in="" index="" |="" 首页摘要=""> 
+
+<p>音视频采集包括两部分：视频采集和音频采集。在iOS中可以同步采集视频与音频，通过系统框架AVFoundation，可以帮助我们采集音频与视频，对于视频还可以进行切换前后摄像头，最终我们将录制好的视频写入沙盒中</p>
+<p>+<a id="more"></a></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<blockquote>
+<p>音视频采集包括两部分：视频采集和音频采集。在iOS中可以同步采集视频与音频，通过系统框架AVFoundation，可以帮助我们采集音频与视频，对于视频还可以进行切换前后摄像头，最终我们将录制好的视频写入沙盒中</p>
+</blockquote>
+<p><img src="http://linxunfeng.github.io/images/2017/09/iOS - 采集音视频及写入文件/1.gif" alt="目录"></p>
+<h2 id="音视频数据的采集与展示"><a href="#音视频数据的采集与展示" class="headerlink" title="音视频数据的采集与展示"></a>音视频数据的采集与展示</h2><h3 id="一、初始化视频的输入与输出"><a href="#一、初始化视频的输入与输出" class="headerlink" title="一、初始化视频的输入与输出"></a>一、初始化视频的输入与输出</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 懒加载一个session，所有的操作都需要session来执行</span></span><br><span class="line"><span class="keyword">fileprivate</span> <span class="built_in">lazy</span> <span class="keyword">var</span> session: <span class="type">AVCaptureSession</span> = <span class="type">AVCaptureSession</span>()</span><br><span class="line"><span class="comment">// 保存视频输出</span></span><br><span class="line"><span class="keyword">fileprivate</span> <span class="keyword">var</span> videoOutput: <span class="type">AVCaptureVideoDataOutput</span>?</span><br><span class="line"><span class="comment">// 保存视频输入</span></span><br><span class="line"><span class="keyword">fileprivate</span> <span class="keyword">var</span> videoInput: <span class="type">AVCaptureDeviceInput</span>?</span><br><span class="line"><span class="comment">// 保存预览图层</span></span><br><span class="line"><span class="keyword">fileprivate</span> <span class="keyword">var</span> previewLayer: <span class="type">AVCaptureVideoPreviewLayer</span>?</span><br></pre></td></tr></table></figure>
+<p>设置视频输入源与输出源<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置视频输入源</span></span><br><span class="line"><span class="keyword">guard</span> <span class="keyword">let</span> devices = <span class="type">AVCaptureDevice</span>.devices() <span class="keyword">as</span>? [<span class="type">AVCaptureDevice</span>] <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line"><span class="comment">// 获取我们的前置摄像头(后置为.back)</span></span><br><span class="line"><span class="keyword">guard</span> <span class="keyword">let</span> device = devices.<span class="built_in">filter</span>(&#123; $<span class="number">0</span>.position == .front &#125;).first <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line"><span class="keyword">guard</span> <span class="keyword">let</span> input = <span class="keyword">try</span>? <span class="type">AVCaptureDeviceInput</span>(device: device) <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line"><span class="keyword">self</span>.videoInput = input</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置视频输出源</span></span><br><span class="line"><span class="keyword">let</span> output = <span class="type">AVCaptureVideoDataOutput</span>()</span><br><span class="line"><span class="keyword">let</span> queue = <span class="type">DispatchQueue</span>.global()</span><br><span class="line"><span class="comment">// 设置代理，并在代理中获取采集到的数据，需要遵守 AVCaptureVideoDataOutputSampleBufferDelegate</span></span><br><span class="line">output.setSampleBufferDelegate(<span class="keyword">self</span>, queue: queue)</span><br><span class="line"><span class="keyword">self</span>.videoOutput = output</span><br></pre></td></tr></table></figure></p>
+<p>设置音频的输入源与输出源<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置音频的输入源</span></span><br><span class="line"><span class="keyword">guard</span> <span class="keyword">let</span> device = <span class="type">AVCaptureDevice</span>.defaultDevice(withMediaType: <span class="type">AVMediaTypeAudio</span>) <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line"><span class="keyword">guard</span> <span class="keyword">let</span> input = <span class="keyword">try</span>? <span class="type">AVCaptureDeviceInput</span>(device: device) <span class="keyword">else</span> &#123;<span class="keyword">return</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置音频输出源</span></span><br><span class="line"><span class="keyword">let</span> output = <span class="type">AVCaptureAudioDataOutput</span>()</span><br><span class="line"><span class="keyword">let</span> queue = <span class="type">DispatchQueue</span>.global()</span><br><span class="line"><span class="comment">// 需要遵守 AVCaptureAudioDataOutputSampleBufferDelegate</span></span><br><span class="line">output.setSampleBufferDelegate(<span class="keyword">self</span>, queue: queue)</span><br></pre></td></tr></table></figure></p>
+<p>添加音频与视频的输入与输出到session中，但是每次添加之前需要先判断是否可以添加</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加输入与输出</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意：每次对session进行设置之前都需要调用session的【beginConfiguration】方法</span></span><br><span class="line"><span class="comment">// 来告诉系统你现在要开始进行配置，结束配置后再调用【commitConfiguration】方法来提交配置</span></span><br><span class="line">session.beginConfiguration()</span><br><span class="line"><span class="keyword">if</span> session.canAddInput(input) &#123;</span><br><span class="line">    session.addInput(input)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> session.canAddOutput(output) &#123;</span><br><span class="line">    session.addOutput(output)</span><br><span class="line">&#125;</span><br><span class="line">session.commitConfiguration()</span><br></pre></td></tr></table></figure>
+<h3 id="二、实现音视频的采集代理"><a href="#二、实现音视频的采集代理" class="headerlink" title="二、实现音视频的采集代理"></a>二、实现音视频的采集代理</h3><p>音视频虽然需要遵守的代理名称不一样，但是需要实现的方法是一致的，所以要拿到音频或者视频就得先进行判断，需要用到AVCaptureOutput的这个方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// This convenience method returns the first AVCaptureConnection in the receiver&apos;s</span><br><span class="line">// connections array that has an AVCaptureInputPort of the specified mediaType. If </span><br><span class="line">// no connection with the specified mediaType is found, nil is returned.</span><br><span class="line"></span><br><span class="line">open func connection(withMediaType mediaType: String!) -&gt; AVCaptureConnection!</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">AVCaptureVideoDataOutputSampleBufferDelegate</span>, <span class="title">AVCaptureAudioDataOutputSampleBufferDelegate</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">captureOutput</span><span class="params">(<span class="number">_</span> captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> videoOutput?.connection(withMediaType: <span class="type">AVMediaTypeVideo</span>) == connection &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"视频数据"</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"音频数据"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="三、初始化一个预览图层用来显示采集到的视频（非采集所必须的步骤）"><a href="#三、初始化一个预览图层用来显示采集到的视频（非采集所必须的步骤）" class="headerlink" title="三、初始化一个预览图层用来显示采集到的视频（非采集所必须的步骤）"></a>三、初始化一个预览图层用来显示采集到的视频（非采集所必须的步骤）</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建预览图层</span></span><br><span class="line"><span class="keyword">guard</span> <span class="keyword">let</span> previewLayer = <span class="type">AVCaptureVideoPreviewLayer</span>(session: session) <span class="keyword">else</span> &#123;<span class="keyword">return</span>&#125;</span><br><span class="line">previewLayer.frame = view.bounds</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将图层添加到控制器的view的layer中</span></span><br><span class="line">view.layer.insertSublayer(previewLayer, at: <span class="number">0</span>)</span><br><span class="line"><span class="keyword">self</span>.previewLayer = previewLayer</span><br></pre></td></tr></table></figure>
+<p>现在基本功能都有了，如果想要开始采集音视频只需要调用<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 开始录制</span></span><br><span class="line">session.startRunning()</span><br><span class="line"><span class="comment">// 结束录制</span></span><br><span class="line">session.stopRunning()</span><br></pre></td></tr></table></figure></p>
+<h3 id="切换镜头"><a href="#切换镜头" class="headerlink" title="切换镜头"></a>切换镜头</h3><p>其实就是换掉当前的视频输入法制，这里的过程跟上面的设置输入源一样。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.取出之前镜头的方向</span></span><br><span class="line"><span class="keyword">guard</span> <span class="keyword">let</span> videoInput = videoInput <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line"><span class="keyword">let</span> position: <span class="type">AVCaptureDevicePosition</span> = videoInput.device.position == .front ? .back : .front</span><br><span class="line"></span><br><span class="line"><span class="keyword">guard</span> <span class="keyword">let</span> devices = <span class="type">AVCaptureDevice</span>.devices() <span class="keyword">as</span>? [<span class="type">AVCaptureDevice</span>] <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line"><span class="keyword">guard</span> <span class="keyword">let</span> device = devices.<span class="built_in">filter</span>(&#123; $<span class="number">0</span>.position == position &#125;).first <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line"><span class="keyword">guard</span> <span class="keyword">let</span> newInput = <span class="keyword">try</span>? <span class="type">AVCaptureDeviceInput</span>(device: device) <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2.移除之前的input，添加新的input</span></span><br><span class="line">session.beginConfiguration()</span><br><span class="line">session.removeInput(videoInput)</span><br><span class="line"><span class="keyword">if</span> session.canAddInput(newInput) &#123;</span><br><span class="line">    session.addInput(newInput)</span><br><span class="line">&#125;</span><br><span class="line">session.commitConfiguration()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3.保存最新的input</span></span><br><span class="line"><span class="keyword">self</span>.videoInput = newInput</span><br></pre></td></tr></table></figure></p>
+<h2 id="录制视频写入文件"><a href="#录制视频写入文件" class="headerlink" title="录制视频写入文件"></a>录制视频写入文件</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fileprivate</span> <span class="keyword">var</span> movieOutput: <span class="type">AVCaptureMovieFileOutput</span>?</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在开始采集音视频的时候就要开始写入文件</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 开始写入文件 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1、创建写入文件的输出</span></span><br><span class="line"><span class="keyword">let</span> fileOutput = <span class="type">AVCaptureMovieFileOutput</span>()</span><br><span class="line"><span class="keyword">self</span>.movieOutput = fileOutput <span class="comment">// 保存起来，用于停止写入文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置类型，不然报错(这两句很重要)</span></span><br><span class="line"><span class="keyword">let</span> connection = fileOutput.connection(withMediaType: <span class="type">AVMediaTypeVideo</span>)</span><br><span class="line">connection?.automaticallyAdjustsVideoMirroring = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> session.canAddOutput(fileOutput) &#123;</span><br><span class="line">    session.addOutput(fileOutput)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、直接开始写入文件</span></span><br><span class="line"><span class="keyword">let</span> filePath = <span class="type">NSSearchPathForDirectoriesInDomains</span>(.documentDirectory, .userDomainMask, <span class="literal">true</span>).first! + <span class="string">"/abc.mp4"</span></span><br><span class="line"><span class="keyword">let</span> fileUrl = <span class="type">URL</span>(fileURLWithPath: filePath)</span><br><span class="line">fileOutput.startRecording(toOutputFileURL: fileUrl, recordingDelegate: <span class="keyword">self</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在停止采集音视频的时候停止写入文件</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 停止写入文件</span><br><span class="line">movieOutput?.stopRecording()</span><br></pre></td></tr></table></figure>
+<p>详情请看 <a href="https://github.com/LinXunFeng/LXFRecordAndWriteMediaDemo" target="_blank" rel="noopener">DEMO</a></p>
+</the></excerpt>
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2017/10/16/iOS-视频采集详解/" class="pre-post btn btn-default" title='iOS - 视频采集详解'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">iOS - 视频采集详解</span>
+        </a>
+    
+    
+        <a href="/2017/09/25/iOS-LXFDrawBoard-多功能小画板/" class="next-post btn btn-default" title='iOS - LXFDrawBoard 多功能小画板'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">iOS - LXFDrawBoard 多功能小画板</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMzA1MS85NjEz">
+  <script type="text/javascript">
+     (function(d, s) {
+         var j, e = d.getElementsByTagName(s)[0];
+         if (typeof LivereTower === 'function') { return; }
+         j = d.createElement(s);
+         j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+         j.async = true;
+         e.parentNode.insertBefore(j, e);
+     })(document, 'script');
+  </script>
+</div>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+        
+        
+    <div class="widget">    
+        <h3 class="title">Search</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">localSearch</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget notification">
+        <h3 class="title">网站公告</h3>
+        <div>
+            <p>博客终于主题啦！欢迎访问~ 🚀🚀🚀</p>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Social</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/LinXunFeng" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="github fa fa-github"></i>
+			    </a>
+            
+	            <a href="mailto:598600855@qq.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="//juejin.im/user/58f8065e61ff4b006646c72d/posts" rel="external nofollow" title="掘金" target="_blank">
+			    	<i class="forumbee fa fa-forumbee"></i>
+			    </a>
+            
+	            <a href="//www.jianshu.com/u/31e85e7a22a2" rel="external nofollow" title="简书" target="_blank">
+			    	<i class="book fa fa-book"></i>
+			    </a>
+            
+	            <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
+			    	<i class="feed fa fa-feed"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Categories</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/"><i class="fa" aria-hidden="true">Linux</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/"><i class="fa" aria-hidden="true">Python</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/"><i class="fa" aria-hidden="true">iOS</i></a><span class="category-list-count">27</span></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Archives</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/"><i class="fa" aria-hidden="true">May 2018</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/"><i class="fa" aria-hidden="true">April 2018</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/"><i class="fa" aria-hidden="true">October 2017</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/"><i class="fa" aria-hidden="true">September 2017</i></a><span class="archive-list-count">19</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">Tag Cloud</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/Cocoapods/" style="font-size: 15.71px;">Cocoapods</a> <a href="/tags/Git/" style="font-size: 15.71px;">Git</a> <a href="/tags/GitHub/" style="font-size: 15.71px;">GitHub</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Objective-C/" style="font-size: 17.14px;">Objective-C</a> <a href="/tags/RxSwift/" style="font-size: 12.86px;">RxSwift</a> <a href="/tags/Swift/" style="font-size: 18.57px;">Swift</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS项目/" style="font-size: 11.43px;">iOS项目</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/组件化/" style="font-size: 14.29px;">组件化</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Friends</h3>
+        <div class="content friends-link">
+        
+            <a href="https://juejin.im/user/58f8065e61ff4b006646c72d/posts" class="fa" target="_blank">掘金</a>
+        
+            <a href="https://www.jianshu.com/u/31e85e7a22a2" class="fa" target="_blank">简书</a>
+        
+        </div>
+    </div>
+
+
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+	<script src="/js/search.js?rev=@@hash"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

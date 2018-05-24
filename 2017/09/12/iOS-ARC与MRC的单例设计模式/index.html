@@ -1,0 +1,458 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="LinXunFeng‘s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://linxunfeng.top">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>iOS - ARC与MRC的单例设计模式 | LinXunFeng‘s Blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="LinXunFeng‘s Blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://7xpw2b.com1.z0.glb.clouddn.com/hexo-sinppet/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='LinXunFeng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/iOS/"><i class="fa "></i>iOS</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Linux/"><i class="fa "></i>Linux</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="iOS - ARC与MRC的单例设计模式">
+            
+	            iOS - ARC与MRC的单例设计模式
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/iOS">
+            iOS
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/Objective-C" title='Objective-C'>
+                        Objective-C
+                    </a>
+                
+                    <a href="/tags/iOS" title='iOS'>
+                        iOS
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2017/09/12</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <excerpt in="" index="" |="" 首页摘要=""> 
+
+<p>单例设计模式(Singleton) 就是保证某个类创建出来的对象从始到终只有一个的一种方案</p>
+<p>+<a id="more"></a></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h2 id="单例设计模式-Singleton"><a href="#单例设计模式-Singleton" class="headerlink" title="单例设计模式(Singleton)"></a>单例设计模式(Singleton)</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>就是保证某个类创建出来的对象从始到终只有一个的一种方案</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ul>
+<li>节省内存开销</li>
+<li>保证整个程序中使用同一份资源</li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>首先将我们的环境设置为非ARC环境，即MRC，如图<br><img src="http://linxunfeng.github.io/images/2017/09/iOS - ARC与MRC的单例设计模式/1.png" alt="MRC环境"></p>
+<blockquote>
+<p>在MRC模式下，我们得自己手动释放资源，所以得重写一些与资源创建与释放相关的方法，以保证单例对象的唯一。</p>
+</blockquote>
+<p>新建一个继承于NSObject的类 LXFFileTool，我直接上代码，并写上注释<br>LXFFileTool.h<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">LXFFileTool</span> : <span class="title">NSObject</span></span></span><br><span class="line">+ (<span class="keyword">instancetype</span>)sharedFileTool;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>LXFFileTool.m<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"LXFFileTool.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">LXFFileTool</span></span></span><br><span class="line"><span class="keyword">static</span> LXFFileTool *_fileTools = <span class="literal">nil</span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  alloc方法内部会调用allocWithZone:</span></span><br><span class="line"><span class="comment"> *  @param zone 系统分配给app的内存</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="keyword">instancetype</span>)allocWithZone:(<span class="keyword">struct</span> _NSZone *)zone &#123;</span><br><span class="line">    <span class="keyword">if</span> (_fileTools == <span class="literal">nil</span>) &#123;</span><br><span class="line">        <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</span><br><span class="line">        <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;    <span class="comment">// 安全(这个代码只会被调用一次)</span></span><br><span class="line">            _fileTools = [<span class="keyword">super</span> allocWithZone:zone];</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> _fileTools;</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">oneway</span> <span class="keyword">void</span>)release &#123;</span><br><span class="line">    <span class="comment">// 在allocWithZone中使用了GCD令创建对象的代码只执行一次，如果_fileTools被释放则无法再创建</span></span><br><span class="line">    <span class="comment">// 重写release方法，防止_fileTools被释放</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 重写retain方法</span></span><br><span class="line">- (<span class="keyword">instancetype</span>)<span class="keyword">retain</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 重写retainCount锁定引用计数</span></span><br><span class="line">- (<span class="built_in">NSUInteger</span>)retainCount &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 重写init方法，防止单例所拥有的属性值被重置</span></span><br><span class="line"><span class="comment">// 让初始化的方法只能执行一次，自然属性值就没有机会被重置</span></span><br><span class="line">- (<span class="keyword">instancetype</span>)init &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</span><br><span class="line">        _fileTools = [<span class="keyword">super</span> init];  <span class="comment">// init会先调用alloc方法</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> _fileTools;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 仿造系统的单例创建方式，提供类方法</span></span><br><span class="line">+ (<span class="keyword">instancetype</span>)sharedFileTool &#123;</span><br><span class="line">    <span class="comment">// 由于我们已经重写了init方法保证了单例对象的唯一了，所以这里直接调用init方法即可。</span></span><br><span class="line">    <span class="keyword">return</span> [[<span class="keyword">self</span> alloc] init];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>MRC下就是这样，我们的目的就是只能创建和初始化一次对象，不给机会释放，也不给机会重新初始化，从而保证了该对象的唯一。</p>
+</blockquote>
+<p>那现在来看看ARC下是如何实现单例的吧。其实ARC下与MRC的区别就是ARC下我们不用自己再手动去释放资源了，从而使代码上大同小异，如下所示。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"LXFFileTool.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">LXFFileTool</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> LXFFileTool *_fileTools = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">instancetype</span>)allocWithZone:(<span class="keyword">struct</span> _NSZone *)zone &#123;</span><br><span class="line">    <span class="keyword">if</span> (_fileTools == <span class="literal">nil</span>) &#123;</span><br><span class="line">        <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</span><br><span class="line">        <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</span><br><span class="line">            _fileTools = [<span class="keyword">super</span> allocWithZone:zone];</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> _fileTools;</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">instancetype</span>)init &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</span><br><span class="line">        _fileTools = [<span class="keyword">super</span> init];</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> _fileTools;</span><br><span class="line">&#125;</span><br><span class="line">+ (<span class="keyword">instancetype</span>)sharedFileTool &#123;</span><br><span class="line">    <span class="keyword">return</span> [[<span class="keyword">self</span> alloc] init];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="批量创建单例"><a href="#批量创建单例" class="headerlink" title="批量创建单例"></a>批量创建单例</h2><blockquote>
+<p>现在我们已经知道了ARC与MRC下分别是如何创建单例的了，但是如果我们一个项目里需要多个单例，那我们只能把代码复制粘贴再改改就完事吗？这未免也太麻烦了吧。那我们能不能做到快速且方便的创建单例对象呢？可以的，利用宏</p>
+</blockquote>
+<p>首先先说下一些关于宏的知识吧</p>
+<ul>
+<li>使用 #define 关键字来定义宏</li>
+<li>宏定义只能是单行的，不能换行</li>
+</ul>
+<p>那现在来讨论下一些疑惑吧，你说宏只能单行，可是创建单例的代码可是有很多行呀！还有我们如何做到自定义类方法名(就是 sharedXXX )？好，我们来介绍下宏下的两个特殊符号</p>
+<h3 id="宏的特殊符号"><a href="#宏的特殊符号" class="headerlink" title="宏的特殊符号"></a>宏的特殊符号</h3><table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\</td>
+<td style="text-align:center">用来转译换行符，即屏蔽换行符</td>
+</tr>
+<tr>
+<td style="text-align:center">##</td>
+<td style="text-align:center">将两个相邻的标记(token)连接为一个单独的标记</td>
+</tr>
+</tbody>
+</table>
+<p>想了解其它关于宏的预处理命令可以自行百度参考”C语言的预处理命令”</p>
+<blockquote>
+<p>简单来说，\用于取消换行，##用来连接，而我们就用##来实现自定义类方法名</p>
+</blockquote>
+<p>创建一个头文件Singleton.h用来存放宏定义<br>先来看看定义.h中 sharedXXX 是如何通过宏来定义的<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// .h文件的实现</span></span><br><span class="line"><span class="meta">#define SingletonH(methodName) + (instancetype)shared##methodName;</span></span><br></pre></td></tr></table></figure></p>
+<p>现在回到LXFFileTool.h中，直接一行定义sharedFileTool这个类方法<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"Singleton.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">LXFFileTool</span> : <span class="title">NSObject</span></span></span><br><span class="line">SingletonH(FileTool)</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>我们只需要将方法名FileTool传入SingletonH()中就可以拼接为sharedFileTool</p>
+<p>那现在再来看看定义.m中创建单例的方式，以ARC为例<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#define SingletonM(methodName) \</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">id</span> _instance = <span class="literal">nil</span>; \</span><br><span class="line">+ (<span class="keyword">instancetype</span>)allocWithZone:(<span class="keyword">struct</span> _NSZone *)zAone &#123; \</span><br><span class="line">    <span class="keyword">if</span> (_instance == <span class="literal">nil</span>) &#123; \</span><br><span class="line">        <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken; \</span><br><span class="line">        <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123; \</span><br><span class="line">            _instance = [<span class="keyword">super</span> allocWithZone:zone]; \</span><br><span class="line">        &#125;); \</span><br><span class="line">    &#125; \</span><br><span class="line">    <span class="keyword">return</span> _instance; \</span><br><span class="line">&#125; \</span><br><span class="line">\</span><br><span class="line">- (<span class="keyword">instancetype</span>)init &#123; \</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken; \</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123; \</span><br><span class="line">        _instance = [<span class="keyword">super</span> init]; \</span><br><span class="line">    &#125;); \</span><br><span class="line">    <span class="keyword">return</span> _instance; \</span><br><span class="line">&#125; \</span><br><span class="line">\</span><br><span class="line">+ (<span class="keyword">instancetype</span>)shared<span class="meta">##methodName &#123; \</span></span><br><span class="line">    <span class="keyword">return</span> [[<span class="keyword">self</span> alloc] init]; \</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>在每一个行后面加上(反斜杠)取消换行，使用##来拼接传入的方法名，但还有一点需要注意：最后一行不能加反斜杠</p>
+</blockquote>
+<p>回到LXFFileTool.m中，一行实现创建单例<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"LXFFileTool.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">LXFFileTool</span></span></span><br><span class="line">SingletonM(FileTool)</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>好，现在还有一个问题，就是如果我的项目中有个别文件是需要MRC环境的，那我该怎么办才能让创建单例也是如此简单呢？很简单，加个判断就好了，大致判断如下，详情看文章最后附上的Demo<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#if __has_feature(objc_arc) // ARC</span></span><br><span class="line"><span class="comment">// 写上ARC下的定义代码</span></span><br><span class="line"><span class="meta">#else   // 非ARC</span></span><br><span class="line"><span class="comment">// 写上MRC下的定义代码</span></span><br><span class="line"><span class="meta">#endif</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>好了，现在用起来是不是方便多了？我们只要创建一个类，然后在.h文件中写SingletonH(XXX)，再在.m文件中写SingletonM(XXX)就可以实现单例了~</p>
+</blockquote>
+<h3 id="指定环境"><a href="#指定环境" class="headerlink" title="指定环境"></a>指定环境</h3><p>顺便提下如何在MRC下指定某个类文件使用的环境为ARC<br><img src="http://linxunfeng.github.io/images/2017/09/iOS - ARC与MRC的单例设计模式/2.png" alt="指定环境"><br>如图，可以在 Build Phases -&gt; Compile Sources 中双击某个需要ARC环境的类文件，然后写上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-fobjc-arc</span><br></pre></td></tr></table></figure>
+<p>如果是指定MRC，则写上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-fno-objc-arc</span><br></pre></td></tr></table></figure></p>
+<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><p>最后，附上Demo: <a href="https://github.com/LinXunFeng/LXFSingleton" target="_blank" rel="noopener">LXFSingleton</a></p>
+<div class="github-widget" data-repo="LinXunFeng/LXFSingleton"></div></the></excerpt>
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2017/09/12/iOS-Swift-高仿微信/" class="pre-post btn btn-default" title='iOS - Swift 高仿微信'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">iOS - Swift 高仿微信</span>
+        </a>
+    
+    
+        <a href="/2017/09/12/iOS-Swift-UIButton中ImageView的animationImages动画执行完毕后，图标变暗/" class="next-post btn btn-default" title='iOS - Swift UIButton中ImageView的animationImages动画执行完毕后，图标变暗'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">iOS - Swift UIButton中ImageView的animationImages动画执行完毕后，图标变暗</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMzA1MS85NjEz">
+  <script type="text/javascript">
+     (function(d, s) {
+         var j, e = d.getElementsByTagName(s)[0];
+         if (typeof LivereTower === 'function') { return; }
+         j = d.createElement(s);
+         j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+         j.async = true;
+         e.parentNode.insertBefore(j, e);
+     })(document, 'script');
+  </script>
+</div>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+        
+        
+    <div class="widget">    
+        <h3 class="title">Search</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">localSearch</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget notification">
+        <h3 class="title">网站公告</h3>
+        <div>
+            <p>博客终于主题啦！欢迎访问~ 🚀🚀🚀</p>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Social</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/LinXunFeng" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="github fa fa-github"></i>
+			    </a>
+            
+	            <a href="mailto:598600855@qq.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="//juejin.im/user/58f8065e61ff4b006646c72d/posts" rel="external nofollow" title="掘金" target="_blank">
+			    	<i class="forumbee fa fa-forumbee"></i>
+			    </a>
+            
+	            <a href="//www.jianshu.com/u/31e85e7a22a2" rel="external nofollow" title="简书" target="_blank">
+			    	<i class="book fa fa-book"></i>
+			    </a>
+            
+	            <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
+			    	<i class="feed fa fa-feed"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Categories</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/"><i class="fa" aria-hidden="true">Linux</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/"><i class="fa" aria-hidden="true">Python</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/"><i class="fa" aria-hidden="true">iOS</i></a><span class="category-list-count">27</span></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Archives</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/"><i class="fa" aria-hidden="true">May 2018</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/"><i class="fa" aria-hidden="true">April 2018</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/"><i class="fa" aria-hidden="true">October 2017</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/"><i class="fa" aria-hidden="true">September 2017</i></a><span class="archive-list-count">19</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">Tag Cloud</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/Cocoapods/" style="font-size: 15.71px;">Cocoapods</a> <a href="/tags/Git/" style="font-size: 15.71px;">Git</a> <a href="/tags/GitHub/" style="font-size: 15.71px;">GitHub</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Objective-C/" style="font-size: 17.14px;">Objective-C</a> <a href="/tags/RxSwift/" style="font-size: 12.86px;">RxSwift</a> <a href="/tags/Swift/" style="font-size: 18.57px;">Swift</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS项目/" style="font-size: 11.43px;">iOS项目</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/组件化/" style="font-size: 14.29px;">组件化</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Friends</h3>
+        <div class="content friends-link">
+        
+            <a href="https://juejin.im/user/58f8065e61ff4b006646c72d/posts" class="fa" target="_blank">掘金</a>
+        
+            <a href="https://www.jianshu.com/u/31e85e7a22a2" class="fa" target="_blank">简书</a>
+        
+        </div>
+    </div>
+
+
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+	<script src="/js/search.js?rev=@@hash"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

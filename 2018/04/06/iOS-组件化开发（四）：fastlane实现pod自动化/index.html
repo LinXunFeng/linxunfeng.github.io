@@ -1,0 +1,451 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="LinXunFeng‘s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://linxunfeng.top">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>iOS 组件化开发（四）：fastlane实现pod自动化 | LinXunFeng‘s Blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="LinXunFeng‘s Blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://7xpw2b.com1.z0.glb.clouddn.com/hexo-sinppet/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='LinXunFeng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/iOS/"><i class="fa "></i>iOS</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Linux/"><i class="fa "></i>Linux</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="iOS 组件化开发（四）：fastlane实现pod自动化">
+            
+	            iOS 组件化开发（四）：fastlane实现pod自动化
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/iOS">
+            iOS
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/Git" title='Git'>
+                        Git
+                    </a>
+                
+                    <a href="/tags/GitHub" title='GitHub'>
+                        GitHub
+                    </a>
+                
+                    <a href="/tags/Cocoapods" title='Cocoapods'>
+                        Cocoapods
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/04/06</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <excerpt in="" index="" |="" 首页摘要=""> 
+
+<p>在第一次组件化的时候，需要执行很多操作，这些操作可以在【<a href="http://linxunfeng.top/2018/04/06/iOS-组件化开发（一）：远程私有库的基本使用/">iOS 组件化开发（一）：远程私有库的基本使用</a>】，这里就不再赘述，在组件化后的重复性操作就是升级，而升级这个过程是一模一样的。那么，我们有什么办法可以很方便的搞定这一过程来节约我们大量的时间呢？</p>
+<p>+<a id="more"></a></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<p><img src="http://linxunfeng.github.io/images/2018/04/iOS 组件化开发（四）：fastlane实现pod自动化/fastlane.png" alt=""></p>
+<blockquote>
+<p>在第一次组件化的时候，需要执行很多操作，这些操作可以在【<a href="http://linxunfeng.top/2018/04/06/iOS-组件化开发（一）：远程私有库的基本使用/">iOS 组件化开发（一）：远程私有库的基本使用</a>】，这里就不再赘述，在组件化后的重复性操作就是升级，而升级这个过程是一模一样的。那么，我们有什么办法可以很方便的搞定这一过程来节约我们大量的时间呢？</p>
+</blockquote>
+<h2 id="一、升级必备操作"><a href="#一、升级必备操作" class="headerlink" title="一、升级必备操作"></a>一、升级必备操作</h2><p>修改完核心代码后，一共还需要做以下几步：<br><br>1、修改spec文件（修改s.version，s.description等）<br><br>2、<code>pod install</code> （使Example与pod下来的库产生关联）<br><br>3、提交本地仓库代码至远程仓库<br><br>4、打标签，并提交至远程<br><br>5、验证spec，并提至私有索引库</p>
+<h2 id="二、Fastlane"><a href="#二、Fastlane" class="headerlink" title="二、Fastlane"></a>二、Fastlane</h2><h3 id="1、简介"><a href="#1、简介" class="headerlink" title="1、简介"></a>1、简介</h3><p><a href="https://docs.fastlane.tools/" target="_blank" rel="noopener">Fastlane文档说明 </a><br>Fastlane是一个ruby脚本集合，它可以按照我们指定的路线，在指定位置执行我们所要执行的操作。这里我们称这样的路线为「航道(lane)」，这样的操作称为「Action」</p>
+<p>Action是Fastlane自动化流程中的最小执行单元，用来执行Fastlane脚本中的命令，关于更多的描述可以到<a href="https://docs.fastlane.tools/actions/Actions/" target="_blank" rel="noopener">Actions - fastlane docs</a>查看，里面也介绍了常用的action有哪些，顺带附上<a href="https://github.com/fastlane/fastlane/tree/master/fastlane/lib/fastlane/actions" target="_blank" rel="noopener">action的源码地址</a>，这个源码在后面自定义起参考作用</p>
+<h3 id="2、-安装"><a href="#2、-安装" class="headerlink" title="2、 安装"></a>2、 安装</h3><ul>
+<li><p>确保ruby为最新版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew update</span><br><span class="line">brew install ruby</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装fastlane</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gem install -n /usr/local/bin fastlane</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看当前fastlane版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastlane --version</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看所有action</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastlane actions</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="三、fastlane初始化"><a href="#三、fastlane初始化" class="headerlink" title="三、fastlane初始化"></a>三、fastlane初始化</h3><p>cd到你的本地组件仓库的根目录</p>
+<ul>
+<li><del>初始化fastlane</del><br><del><code>fastlane init</code></del><br><del>不过这个步骤对我们来说可以跳过，在init后提示你输入一些东西，包括上传需要用到的APPLE ID什么的一堆东西，由于我们并不涉及这些，所以我们使用更方便的方式</del></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 创建一个fastlane文件夹</span><br><span class="line"># 进入fastlane目录</span><br><span class="line"># 创建一个Fastfile文件</span><br><span class="line">mkdir fastlane</span><br><span class="line">cd fastlane</span><br><span class="line">touch Fastfile</span><br></pre></td></tr></table></figure>
+<p><img src="http://linxunfeng.github.io/images/2018/04/iOS 组件化开发（四）：fastlane实现pod自动化/目录结构.png" alt="目录结构"></p>
+<h3 id="1、修改Fastfile"><a href="#1、修改Fastfile" class="headerlink" title="1、修改Fastfile"></a>1、修改Fastfile</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">desc &apos;描述航道作用&apos;</span><br><span class="line">lane :航道名称 do |options|</span><br><span class="line"></span><br><span class="line">// options 可以用来传递参数</span><br><span class="line">// 示例：varName = options[:name]</span><br><span class="line"></span><br><span class="line">// 航道上需要执行的操作</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>航道上要扫描的操作可以到<a href="https://docs.fastlane.tools/actions" target="_blank" rel="noopener">Actions</a>上查找，可以通过关键字搜索，如下图<br><img src="http://linxunfeng.github.io/images/2018/04/iOS 组件化开发（四）：fastlane实现pod自动化/cocoapods.png" alt="cocoapods"><br>点进去可以看到具体的使用及参数说明</p>
+<p><img src="http://linxunfeng.github.io/images/2018/04/iOS 组件化开发（四）：fastlane实现pod自动化/使用说明.png" alt="使用说明"></p>
+<p>这里附上本人的Fastfile内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">desc &apos;LXFUpdatePodTool 航道用来自动化升级维护私有库&apos;</span><br><span class="line">lane : LXFUpdatePodTool do |options|</span><br><span class="line"></span><br><span class="line">tagNum = options[:tag]</span><br><span class="line">podspecName = options[:specName]</span><br><span class="line"></span><br><span class="line"># 航道上需要执行的操作</span><br><span class="line"># 具体action到 https://docs.fastlane.tools/actions 上面查找</span><br><span class="line"># 这里的路径以仓库根目录为准</span><br><span class="line"></span><br><span class="line"># 1、修改spec文件（修改s.version，s.description等）</span><br><span class="line"># 2、pod install （使Example与pod下来的库产生关联）</span><br><span class="line">cocoapods(</span><br><span class="line">  clean: true,</span><br><span class="line">  podfile: &quot;./Example/Podfile&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 3、提交本地仓库代码至远程仓库</span><br><span class="line">git_add(path: &quot;.&quot;)</span><br><span class="line">git_commit(path: &quot;.&quot;, message: &quot;upgrade repo&quot;)</span><br><span class="line">push_to_git_remote</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 4、打标签，并提交至远程</span><br><span class="line">add_git_tag(</span><br><span class="line">  tag: tagNum</span><br><span class="line">)</span><br><span class="line">push_git_tags</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 5、验证spec，并提至私有索引库</span><br><span class="line">pod_lib_lint(allow_warnings: true)</span><br><span class="line"># 因为本地索引库repo的名字是基本上不会去改变的，所以这里直接写死 LXFSpecs</span><br><span class="line"># podspec的名字需要由外界传入</span><br><span class="line">pod_push(path: &quot;#&#123;podspecName&#125;.podspec&quot;, repo: &quot;LXFSpecs&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
+<h3 id="2、验证Fastfile"><a href="#2、验证Fastfile" class="headerlink" title="2、验证Fastfile"></a>2、验证Fastfile</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastlane lanes</span><br></pre></td></tr></table></figure>
+<p><img src="http://linxunfeng.github.io/images/2018/04/iOS 组件化开发（四）：fastlane实现pod自动化/Fastfile验证成功.png" alt="Fastfile验证成功"></p>
+<h3 id="3、执行fastlane"><a href="#3、执行fastlane" class="headerlink" title="3、执行fastlane"></a>3、执行fastlane</h3><p><strong>需要在组件仓库的根目录下执行</strong><br><img src="http://linxunfeng.github.io/images/2018/04/iOS 组件化开发（四）：fastlane实现pod自动化/根目录.png" alt="根目录"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastlane LXFUpdatePodTool tag:0.1.1 specName:LXFMain</span><br></pre></td></tr></table></figure>
+<p><img src="http://linxunfeng.github.io/images/2018/04/iOS 组件化开发（四）：fastlane实现pod自动化/开始执行.png" alt="开始执行"></p>
+<p><img src="http://linxunfeng.github.io/images/2018/04/iOS 组件化开发（四）：fastlane实现pod自动化/上传完成.png" alt="上传完成"></p>
+<p>整个执行过程不超过30秒～</p>
+<h2 id="四、自定义Action"><a href="#四、自定义Action" class="headerlink" title="四、自定义Action"></a>四、自定义Action</h2><p>以上的过程已经可以完成一整个自动化更新了，但是有一点需要注意的是，这个输入的tag可能会面临一个问题，那就是本地和远程都可能已经存在，即发生冲突，这个时候我们可以选择自动删除本地和远程冲突的那个tag，再重新上传当前tag</p>
+<h3 id="1、创建一个新的action"><a href="#1、创建一个新的action" class="headerlink" title="1、创建一个新的action"></a>1、创建一个新的action</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastlane new_action</span><br></pre></td></tr></table></figure>
+<p>按要求输入Action名称<br><img src="http://linxunfeng.github.io/images/2018/04/iOS 组件化开发（四）：fastlane实现pod自动化/输入action名称.png" alt="输入action名称"></p>
+<p>完成后fastlane目录下就会多出一个名为actions的文件夹，里面存放的就是你自定义action<br><img src="http://linxunfeng.github.io/images/2018/04/iOS 组件化开发（四）：fastlane实现pod自动化/actions文件夹.png" alt=""></p>
+<h3 id="2、编辑自定义action"><a href="#2、编辑自定义action" class="headerlink" title="2、编辑自定义action"></a>2、编辑自定义action</h3><p>打开remove_git_tag.rb，开始自定义我们的action吧，什么？不会语法怎么办？可以参考别人的嘛，上面给出的<a href="https://github.com/fastlane/fastlane/tree/master/fastlane/lib/fastlane/actions" target="_blank" rel="noopener">action的源码地址</a>就有用武之地了，比如<a href="https://github.com/fastlane/fastlane/blob/master/fastlane/lib/fastlane/actions/pod_push.rb" target="_blank" rel="noopener">pod_push</a>。这里我直接贴出我已经完成的主要代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"># 可以使用 fastlane action remove_git_tag 来参看详细描述</span><br><span class="line"></span><br><span class="line">def self.run(params)</span><br><span class="line">  # 这里写要执行的操作 </span><br><span class="line">  # params[:参数名称] 参数名称与下面self.available_options中的保持一致</span><br><span class="line">  tagNum = params[:tagNum]</span><br><span class="line">  rmLocalTag = params[:rmLocalTag]</span><br><span class="line">  rmRemoteTag = params[:rmRemoteTag]</span><br><span class="line"></span><br><span class="line">  command = []</span><br><span class="line">  if rmLocalTag</span><br><span class="line">    # 删除本地标签</span><br><span class="line">    # git tag -d 标签名称</span><br><span class="line">    command &lt;&lt; &quot;git tag -d #&#123;tagNum&#125;&quot;</span><br><span class="line">  end</span><br><span class="line">  if rmRemoteTag</span><br><span class="line">    # 删除远程标签</span><br><span class="line">    # git push origin :标签名称</span><br><span class="line">    command &lt;&lt; &quot;git push origin :#&#123;tagNum&#125;&quot;</span><br><span class="line">  end</span><br><span class="line"></span><br><span class="line">  result = Actions.sh(command.join(&apos;&amp;&apos;))</span><br><span class="line">  UI.success(&quot;Successfully remove tag 🚀 &quot;)</span><br><span class="line">  return result</span><br><span class="line"></span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">def self.description</span><br><span class="line">  # 对当前脚本的简单描述</span><br><span class="line">  &quot;删除tag&quot;</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">def self.details</span><br><span class="line">  # 对当前脚本的具体描述</span><br><span class="line">  &quot;使用当前action来删除本地和远程冲突的tag&quot;</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">def self.available_options</span><br><span class="line">  # 用来传递参数</span><br><span class="line">  [ </span><br><span class="line">    FastlaneCore::ConfigItem.new(key: :tagNum,</span><br><span class="line">                                  description: &quot;输入即将删除的tag&quot;,</span><br><span class="line">                                  is_string: true),</span><br><span class="line">    FastlaneCore::ConfigItem.new(key: :rmLocalTag,</span><br><span class="line">                                  description: &quot;是否删除本地tag&quot;,</span><br><span class="line">                                  optional:true,</span><br><span class="line">                                  is_string: false,</span><br><span class="line">                                  default_value: true),</span><br><span class="line">    FastlaneCore::ConfigItem.new(key: :rmRemoteTag,</span><br><span class="line">                                  description: &quot;是否删除远程tag&quot;,</span><br><span class="line">                                  optional:true,</span><br><span class="line">                                  is_string: false,</span><br><span class="line">                                  default_value: true)</span><br><span class="line">  ]</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">def self.authors</span><br><span class="line">  # 作者姓名</span><br><span class="line">  [&quot;LinXunFeng&quot;]</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h3 id="3、查看action描述"><a href="#3、查看action描述" class="headerlink" title="3、查看action描述"></a>3、查看action描述</h3><p>同样，这里先cd到组件库的根目录下执行，原因是这个自定义action只存在当前根目录下的fastlane中，其它fastlane的非自定义的action就不用在当前根目录下操作～<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastlane action remove_git_tag</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://linxunfeng.github.io/images/2018/04/iOS 组件化开发（四）：fastlane实现pod自动化/查看具体描述.png" alt="查看具体描述"></p>
+<h3 id="4、测试执行"><a href="#4、测试执行" class="headerlink" title="4、测试执行"></a>4、测试执行</h3><p>先来看看当前组件库已存在的tag<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://linxunfeng.github.io/images/2018/04/iOS 组件化开发（四）：fastlane实现pod自动化/已存在的tag.png" alt="已存在的tag"></p>
+<p>可以看到，我是已经有一个<code>0.1.1</code>版本的了。这时我们再来执行一次LXFUpdatePodTool航道<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastlane LXFUpdatePodTool tag:0.1.1 specName:LXFMain</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://linxunfeng.github.io/images/2018/04/iOS 组件化开发（四）：fastlane实现pod自动化/自动清除.png" alt="自动清除"></p>
+<h2 id="五、工具拿走"><a href="#五、工具拿走" class="headerlink" title="五、工具拿走"></a>五、工具拿走</h2><p><a href="https://github.com/LinXunFeng/LXFUpdatePodTool" target="_blank" rel="noopener">LXFUpdatePodTool</a> 已经传到我的GitHub上，需要的同学就拿走吧，顺手给个Star咯 Orz</p>
+</the></excerpt>
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2018/04/07/iOS-面向协议方式封装空白页功能/" class="pre-post btn btn-default" title='iOS 面向协议方式封装空白页功能'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">iOS 面向协议方式封装空白页功能</span>
+        </a>
+    
+    
+        <a href="/2018/04/06/iOS-组件化开发（三）：加载资源文件/" class="next-post btn btn-default" title='iOS 组件化开发（三）：加载资源文件'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">iOS 组件化开发（三）：加载资源文件</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMzA1MS85NjEz">
+  <script type="text/javascript">
+     (function(d, s) {
+         var j, e = d.getElementsByTagName(s)[0];
+         if (typeof LivereTower === 'function') { return; }
+         j = d.createElement(s);
+         j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+         j.async = true;
+         e.parentNode.insertBefore(j, e);
+     })(document, 'script');
+  </script>
+</div>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+        
+        
+    <div class="widget">    
+        <h3 class="title">Search</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">localSearch</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget notification">
+        <h3 class="title">网站公告</h3>
+        <div>
+            <p>博客终于主题啦！欢迎访问~ 🚀🚀🚀</p>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Social</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/LinXunFeng" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="github fa fa-github"></i>
+			    </a>
+            
+	            <a href="mailto:598600855@qq.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="//juejin.im/user/58f8065e61ff4b006646c72d/posts" rel="external nofollow" title="掘金" target="_blank">
+			    	<i class="forumbee fa fa-forumbee"></i>
+			    </a>
+            
+	            <a href="//www.jianshu.com/u/31e85e7a22a2" rel="external nofollow" title="简书" target="_blank">
+			    	<i class="book fa fa-book"></i>
+			    </a>
+            
+	            <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
+			    	<i class="feed fa fa-feed"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Categories</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/"><i class="fa" aria-hidden="true">Linux</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/"><i class="fa" aria-hidden="true">Python</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/"><i class="fa" aria-hidden="true">iOS</i></a><span class="category-list-count">27</span></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Archives</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/"><i class="fa" aria-hidden="true">May 2018</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/"><i class="fa" aria-hidden="true">April 2018</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/"><i class="fa" aria-hidden="true">October 2017</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/"><i class="fa" aria-hidden="true">September 2017</i></a><span class="archive-list-count">19</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">Tag Cloud</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/Cocoapods/" style="font-size: 15.71px;">Cocoapods</a> <a href="/tags/Git/" style="font-size: 15.71px;">Git</a> <a href="/tags/GitHub/" style="font-size: 15.71px;">GitHub</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Objective-C/" style="font-size: 17.14px;">Objective-C</a> <a href="/tags/RxSwift/" style="font-size: 12.86px;">RxSwift</a> <a href="/tags/Swift/" style="font-size: 18.57px;">Swift</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS项目/" style="font-size: 11.43px;">iOS项目</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/组件化/" style="font-size: 14.29px;">组件化</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Friends</h3>
+        <div class="content friends-link">
+        
+            <a href="https://juejin.im/user/58f8065e61ff4b006646c72d/posts" class="fa" target="_blank">掘金</a>
+        
+            <a href="https://www.jianshu.com/u/31e85e7a22a2" class="fa" target="_blank">简书</a>
+        
+        </div>
+    </div>
+
+
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+	<script src="/js/search.js?rev=@@hash"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

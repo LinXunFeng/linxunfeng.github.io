@@ -1,0 +1,451 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="LinXunFeng‘s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://linxunfeng.top">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>Cocoapods 创建第三方框架 | LinXunFeng‘s Blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="LinXunFeng‘s Blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://7xpw2b.com1.z0.glb.clouddn.com/hexo-sinppet/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='LinXunFeng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/iOS/"><i class="fa "></i>iOS</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Linux/"><i class="fa "></i>Linux</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Cocoapods 创建第三方框架">
+            
+	            Cocoapods 创建第三方框架
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/iOS">
+            iOS
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/Git" title='Git'>
+                        Git
+                    </a>
+                
+                    <a href="/tags/GitHub" title='GitHub'>
+                        GitHub
+                    </a>
+                
+                    <a href="/tags/Cocoapods" title='Cocoapods'>
+                        Cocoapods
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/04/06</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p><excerpt in="" index="" |="" 首页摘要=""><br>将框架中的主要文件放入到一个指定文件夹中，比如叫Classes或者Lib都可以</excerpt></p>
+<p>+<a id="more"></a></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h2 id="一、上传项目到github"><a href="#一、上传项目到github" class="headerlink" title="一、上传项目到github"></a>一、上传项目到github</h2><p>将框架中的主要文件放入到一个指定文件夹中，比如叫Classes或者Lib都可以<br><img src="http://linxunfeng.github.io/images/2018/04/Cocoapods 创建第三方框架/目录结构.png" alt="目录结构"></p>
+<ul>
+<li>打开终端，cd到框架目录 </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /Users/lxf/xxxx/LXFPhotoHelper</span><br></pre></td></tr></table></figure>
+<ul>
+<li>初始化仓库</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+<ul>
+<li>将当前目录添加到缓存区</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>提交到本地仓库</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &apos;描述&apos;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>添加远程仓库地址</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin https://github.com/LinXunFeng/xxx.git</span><br></pre></td></tr></table></figure>
+<ul>
+<li>提交到远程仓库</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<p>如果出现如下提示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal: unable to access &apos;https://github.com/xxx/xxx.git/&apos;: The requested URL returned error: 403</span><br></pre></td></tr></table></figure></p>
+<p>原因是本地缓存了用户名和密码<br>编辑.git目录下的config文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi .git/config</span><br></pre></td></tr></table></figure></p>
+<p>找到url那一行，在github.com前加上用户名后保存，再重新执行推送操作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url = https://LinXunFeng@github.com/LinXunFeng/xxx.git</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>打标签</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 具体说明可以执行`git tag --help`后查看</span><br><span class="line">// git tag -a &apos;版本号&apos; -m &apos;tag描述&apos;</span><br><span class="line">// 注意一下，这里打的标签只是在本地</span><br><span class="line">git tag &apos;0.0.1&apos;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>推着所有标签至远程仓库</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 只推着指定版本</span><br><span class="line">// git push origin 版本号 </span><br><span class="line">git push --tags</span><br></pre></td></tr></table></figure>
+<h2 id="二、创建并修改podspec文件"><a href="#二、创建并修改podspec文件" class="headerlink" title="二、创建并修改podspec文件"></a>二、创建并修改podspec文件</h2><ul>
+<li>创建Spec文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 名称一般与工程名称保持一致</span><br><span class="line">pod spec create 框架名称</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="http://linxunfeng.github.io/images/2018/04/Cocoapods 创建第三方框架/podspec文件.png" alt="podspec文件"></p>
+<ul>
+<li>修改Spec文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">s.name         = &quot;LXFPhotoHelper（仓库名称）&quot;</span><br><span class="line">s.version      = &quot;0.0.1（版本号，这里跟下面s.source中的tag有关）&quot;</span><br><span class="line">s.summary      = &quot;对你自己仓库的简单描述，不要写太多字&quot;</span><br><span class="line">s.description  = &quot;这个是详细描述，这里需要注意的是，这里文字的长度需要比  </span><br><span class="line">s.summary的要长，不然会出现警告&quot;</span><br><span class="line">s.homepage     = &quot;仓库首页地址，如https://github.com/LinXunFeng/LXFPhotoHelper&quot;</span><br><span class="line">s.license      = &quot;MIT&quot;</span><br><span class="line">s.author       = &#123; &quot;LinXunFeng&quot; =&gt; &quot;598600855@qq.com&quot; &#125;</span><br><span class="line"># source存放的地址是代码的真正地址</span><br><span class="line">s.source       = &#123; :git =&gt; &quot;仓库对应的git地址，如https://github.com/LinXunFeng/LXFPhotoHelper.git&quot;, :tag =&gt; &quot;#&#123;s.version&#125;&quot; &#125;</span><br><span class="line"># pod install时真正下载下来的文件路径，这里指定的是你仓库下的Classes目录中的所有.h和.m文件（填写的是相对地址）</span><br><span class="line"># ** 通配目录</span><br><span class="line">s.source_files  = &quot;Classes&quot;, &quot;Classes/**/*.&#123;h,m&#125;&quot;</span><br><span class="line"></span><br><span class="line"># s.library = &quot;sqlite3&quot; # 框架依赖系统的sqlite3</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>也可以上官网的手册【<a href="https://guides.cocoapods.org/syntax/podspec.html" target="_blank" rel="noopener">Podspec Syntax Reference</a>】上查看</p>
+<p>这里需要我们注意的是<code>s.version= &quot;0.0.1&quot;</code>，这里的版本号要与刚刚打的tag一致</p>
+<h2 id="三、注册trunk"><a href="#三、注册trunk" class="headerlink" title="三、注册trunk"></a>三、注册trunk</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// --verbose 打印详情信息</span><br><span class="line">// pod trunk register 邮箱 &apos;你的名称&apos; --verbose</span><br><span class="line">pod trunk register 598600855@qq.com &apos;LinXunFeng&apos; --verbose</span><br></pre></td></tr></table></figure>
+<p>然后去验证邮箱<br><img src="http://linxunfeng.github.io/images/2018/04/Cocoapods 创建第三方框架/验证成功.png" alt="验证成功"><br>验证成功后会提示我们回到终端，并敲入<code>pod trunk push 名称.podspec</code></p>
+<h2 id="四、上传Spec"><a href="#四、上传Spec" class="headerlink" title="四、上传Spec"></a>四、上传Spec</h2><p>执行<code>pod trunk push</code>后会有一个审核的过程，如果提示没有通过，有ERROR就修改好后重新push，如果只是WARN可以选择在<code>pod trunk push</code>后面加上<code>--allow-warnings</code>来忽略它们<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod trunk push LXFPhotoHelper.podspec --allow-warnings</span><br></pre></td></tr></table></figure></p>
+<p>如果出现如下信息，则说明你的框架名字已被占用，得重新改个名字～<br>所以，在创建你自己的cocoapods仓库时最好是到<a href="https://cocoapods.org/" target="_blank" rel="noopener">cocoapods.org</a>上先查一下有没有相同名字的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[!] You (xxx@qq.com) are not allowed to push new versions for this pod. The owners of this pod are yyy@qq.com.</span><br></pre></td></tr></table></figure></p>
+<p>上传成功后会自动帮我们更新本地仓库，如果无法搜索到自己的框架，可以先删掉本地的索引文件后再搜索一次<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm ~/Library/Caches/CocoaPods/search_index.json</span><br></pre></td></tr></table></figure></p>
+<p>当使用pod search 命令可以搜索自己的框架时, 那么就意味着审核通过了</p>
+</the>
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2018/04/06/iOS-组件化开发（一）：远程私有库的基本使用/" class="pre-post btn btn-default" title='iOS 组件化开发（一）：远程私有库的基本使用'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">iOS 组件化开发（一）：远程私有库的基本使用</span>
+        </a>
+    
+    
+        <a href="/2018/04/02/Python-虚拟环境/" class="next-post btn btn-default" title='Python - 虚拟环境'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Python - 虚拟环境</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMzA1MS85NjEz">
+  <script type="text/javascript">
+     (function(d, s) {
+         var j, e = d.getElementsByTagName(s)[0];
+         if (typeof LivereTower === 'function') { return; }
+         j = d.createElement(s);
+         j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+         j.async = true;
+         e.parentNode.insertBefore(j, e);
+     })(document, 'script');
+  </script>
+</div>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+        
+        
+    <div class="widget">    
+        <h3 class="title">Search</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">localSearch</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget notification">
+        <h3 class="title">网站公告</h3>
+        <div>
+            <p>博客终于主题啦！欢迎访问~ 🚀🚀🚀</p>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Social</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/LinXunFeng" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="github fa fa-github"></i>
+			    </a>
+            
+	            <a href="mailto:598600855@qq.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="//juejin.im/user/58f8065e61ff4b006646c72d/posts" rel="external nofollow" title="掘金" target="_blank">
+			    	<i class="forumbee fa fa-forumbee"></i>
+			    </a>
+            
+	            <a href="//www.jianshu.com/u/31e85e7a22a2" rel="external nofollow" title="简书" target="_blank">
+			    	<i class="book fa fa-book"></i>
+			    </a>
+            
+	            <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
+			    	<i class="feed fa fa-feed"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Categories</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/"><i class="fa" aria-hidden="true">Linux</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/"><i class="fa" aria-hidden="true">Python</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/"><i class="fa" aria-hidden="true">iOS</i></a><span class="category-list-count">27</span></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Archives</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/"><i class="fa" aria-hidden="true">May 2018</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/"><i class="fa" aria-hidden="true">April 2018</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/"><i class="fa" aria-hidden="true">October 2017</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/"><i class="fa" aria-hidden="true">September 2017</i></a><span class="archive-list-count">19</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">Tag Cloud</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/Cocoapods/" style="font-size: 15.71px;">Cocoapods</a> <a href="/tags/Git/" style="font-size: 15.71px;">Git</a> <a href="/tags/GitHub/" style="font-size: 15.71px;">GitHub</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Objective-C/" style="font-size: 17.14px;">Objective-C</a> <a href="/tags/RxSwift/" style="font-size: 12.86px;">RxSwift</a> <a href="/tags/Swift/" style="font-size: 18.57px;">Swift</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS项目/" style="font-size: 11.43px;">iOS项目</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/组件化/" style="font-size: 14.29px;">组件化</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Friends</h3>
+        <div class="content friends-link">
+        
+            <a href="https://juejin.im/user/58f8065e61ff4b006646c72d/posts" class="fa" target="_blank">掘金</a>
+        
+            <a href="https://www.jianshu.com/u/31e85e7a22a2" class="fa" target="_blank">简书</a>
+        
+        </div>
+    </div>
+
+
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+	<script src="/js/search.js?rev=@@hash"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

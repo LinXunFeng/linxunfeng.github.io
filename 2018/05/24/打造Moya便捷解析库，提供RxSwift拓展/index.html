@@ -1,0 +1,458 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="LinXunFeng‘s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://linxunfeng.top">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>打造Moya便捷解析库，提供RxSwift拓展 | LinXunFeng‘s Blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="LinXunFeng‘s Blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://7xpw2b.com1.z0.glb.clouddn.com/hexo-sinppet/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='LinXunFeng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/iOS/"><i class="fa "></i>iOS</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Linux/"><i class="fa "></i>Linux</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="打造Moya便捷解析库，提供RxSwift拓展">
+            
+	            打造Moya便捷解析库，提供RxSwift拓展
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/iOS">
+            iOS
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/RxSwift" title='RxSwift'>
+                        RxSwift
+                    </a>
+                
+                    <a href="/tags/Swift" title='Swift'>
+                        Swift
+                    </a>
+                
+                    <a href="/tags/iOS" title='iOS'>
+                        iOS
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/05/24</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <excerpt in="" index="" |="" 首页摘要=""> 
+
+<p>MoyaMapper是基于Moya和SwiftyJSON封装的工具，以Moya的plugin的方式来实现间接解析，支持RxSwift</p>
+<p>+<a id="more"></a></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h2 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h2><p>1、相信大家在使用Swift开发时，<a href="https://github.com/Moya/Moya" target="_blank" rel="noopener">Moya</a>是首选的网络工具，在模型解析这一块，Swift版模型解析的相关第三方库有很多，本人最习惯用的就是<a href="https://github.com/SwiftyJSON/SwiftyJSON" target="_blank" rel="noopener">SwiftyJSON</a>。</p>
+<p>2、下面会开始讲解整个主要的开发功能与思想。</p>
+<p>3、以下内容是基于大家会使用Moya和SwiftJSON的前提下所著，还不会的同学可以先简单了解后再来阅读本篇文章哦～</p>
+<h2 id="二、功能开发与思想讲解"><a href="#二、功能开发与思想讲解" class="headerlink" title="二、功能开发与思想讲解"></a>二、功能开发与思想讲解</h2><h3 id="1、尝试模型解析"><a href="#1、尝试模型解析" class="headerlink" title="1、尝试模型解析"></a>1、尝试模型解析</h3><p>Moya请求服务器返回的数据以Response类返回给我们，那我们就给Response类做一个扩展，这里以解析模型为例<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 需要传入一个参数，告知我们要转换出什么模型</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">mapObject</span>&lt;T: Modelable&gt;<span class="params">(<span class="number">_</span> type: T.<span class="keyword">Type</span>)</span></span> -&gt; <span class="type">T</span> &#123;</span><br><span class="line">    <span class="comment">// 模型解析过程</span></span><br><span class="line">    。。。</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">return</span> <span class="type">T</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Q: 那中间的解析过程该怎么写呢？</p>
+<p>A: <code>可以让开发者遵守某个协议，实现指定的转换方法并描述转换关系。其转换过程我们不需要知道，交给开发者即可。</code></p>
+<p>那接着我们来定义一个协议Modelable，并声明转换方法<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">Modelable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">mapping</span><span class="params">(<span class="number">_</span> json: JSON)</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>开发者创建一个<code>MyMoel</code>的结构体，遵守协议<code>Modelable</code>,并实现<code>mapping</code>，书写转换关系<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyModel</span>: <span class="title">Modelable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> _id = <span class="string">""</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">mapping</span><span class="params">(<span class="number">_</span> json: JSON)</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>._id = json[<span class="string">"_id"</span>].stringValue</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以目前的现状来分析一下：<code>mapObject</code>可以让开发者传入<code>模型类型</code>，而我们的协议方法却并非是个类方法。那我们需要先得到这个<code>模型类型</code>的对象，再来调用<code>mapping</code>方法</p>
+<h3 id="2、模型解析的驱动开发"><a href="#2、模型解析的驱动开发" class="headerlink" title="2、模型解析的驱动开发"></a>2、模型解析的驱动开发</h3><p>Q: 怎么得到这个对象？</p>
+<p>A: <code>可以在协议中声明一个初始化方法来创建对象。是的，我们在mapObject中创建对应模型类型的对象，调用mapping方法来转换数据，再把模型对象传出去即可。</code></p>
+<p>那我们在<code>Modelable</code>中声明一个init方法，并传入一个参数，区别于其它初始化方法<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">Modelable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">mapping</span><span class="params">(<span class="number">_</span> json: JSON)</span></span></span><br><span class="line">    <span class="keyword">init</span>(<span class="number">_</span> json: <span class="type">JSON</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>OK，现在把<code>mapObject</code>方法补齐模型解析过程</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">mapObject</span>&lt;T: Modelable&gt;<span class="params">(<span class="number">_</span> type: T.<span class="keyword">Type</span>)</span></span> -&gt; <span class="type">T</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> modelJson = <span class="type">JSON</span>(data)[<span class="string">"modelKey"</span>]</span><br><span class="line">    <span class="comment">// 模型解析过程</span></span><br><span class="line">    <span class="keyword">var</span> obj = <span class="type">T</span>.<span class="keyword">init</span>(modelJson)</span><br><span class="line">    obj.mapping(modelJson)</span><br><span class="line">    <span class="keyword">return</span> obj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3、自定义解析键名"><a href="#3、自定义解析键名" class="headerlink" title="3、自定义解析键名"></a>3、自定义解析键名</h3><p>Q: 这样是搞定解析了，但是网络请求回来的json格式错综复杂，有什么办法可以让开发者来自行指定model对应的键名呢？</p>
+<p>A: <code>嗯嗯，既然解析过程是在 Response 扩展里操作的，那我们可以通过协议定义键名属性，并且使用 Runtime 给Response动态添加一个属性，来记录遵守协议后的相应类名</code></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">ModelableParameterType</span> </span>&#123;</span><br><span class="line">    <span class="comment">/// 请求成功时状态码对应的值</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> successValue: <span class="type">String</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="comment">/// 状态码对应的键</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> statusCodeKey: <span class="type">String</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="comment">/// 请求后的提示语对应的键</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> tipStrKey: <span class="type">String</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="comment">/// 请求后的主要模型数据的键</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> modelKey: <span class="type">String</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MARK:- runtime</span></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Response</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">struct</span> <span class="title">AssociatedKeys</span> </span>&#123;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">var</span> lxf_modelableParameterKey = <span class="string">"lxf_modelableParameterKey"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> lxf_modelableParameter: <span class="type">ModelableParameterType</span>.<span class="type">Type</span> &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> value = objc_getAssociatedObject(<span class="keyword">self</span>, &amp;<span class="type">AssociatedKeys</span>.lxf_modelableParameterKey) <span class="keyword">as</span> <span class="type">AnyObject</span></span><br><span class="line">            <span class="keyword">guard</span> <span class="keyword">let</span> type = value <span class="keyword">as</span>? <span class="type">ModelableParameterType</span>.<span class="type">Type</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="type">NullParameter</span>.<span class="keyword">self</span> &#125;</span><br><span class="line">            <span class="keyword">return</span> type</span><br><span class="line">        &#125; <span class="keyword">set</span> &#123;</span><br><span class="line">            objc_setAssociatedObject(<span class="keyword">self</span>, &amp;<span class="type">AssociatedKeys</span>.lxf_modelableParameterKey, newValue, .<span class="type">OBJC_ASSOCIATION_RETAIN_NONATOMIC</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>这里有个坑：_SwiftValue问题</strong> (献上 <a href="https://stackoverflow.com/questions/42033735/failing-cast-in-swift-from-any-to-protocol/42034523#42034523" target="_blank" rel="noopener">参考链接</a>)<br>如果我们存储的不是OC对象，那么<code>objc_getAssociatedObject</code>取出来的值的类型统统为<code>_SwiftValue</code>，直接<code>as? ModelableParameterType.Type</code>绝对是nil，需要在取出来后<code>as AnyObject</code>再转换为其它类型才会成功～～ </p>
+</blockquote>
+<p>现在开发者就可以创建一个类来遵守<code>ModelableParameterType</code>协议，并自定义解析键名<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">NetParameter</span> : <span class="title">ModelableParameterType</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> successValue: <span class="type">String</span> &#123; <span class="keyword">return</span> <span class="string">"false"</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> statusCodeKey: <span class="type">String</span> &#123; <span class="keyword">return</span> <span class="string">"error"</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> tipStrKey: <span class="type">String</span> &#123; <span class="keyword">return</span> <span class="string">"errMsg"</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> modelKey: <span class="type">String</span> &#123; <span class="keyword">return</span> <span class="string">"results"</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="4、插件注入"><a href="#4、插件注入" class="headerlink" title="4、插件注入"></a>4、插件注入</h3><p>Q: 厉害了，不过要在什么时机下存储这个自定义键名的<code>NetParameter</code>？</p>
+<p>A: 额，这个～～～ 哦，对了，可以通过Moya提供的插件机制！</p>
+<p>翻出Moya中的Plugin.Swift，找到这个<code>process</code>方法，看看方法说明。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// 在结束之前，可以被用来修改请求结果</span></span><br><span class="line"><span class="comment">/// Called to modify a result before completion.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">process</span><span class="params">(<span class="number">_</span> result: Result&lt;Moya.Response, MoyaError&gt;, target: TargetType)</span></span> -&gt; <span class="type">Result</span>&lt;<span class="type">Moya</span>.<span class="type">Response</span>, <span class="type">MoyaError</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<p>那好，我们也做一个插件<code>MoyaMapperPlugin</code>给开发者使用，在创建<code>MoyaMapperPlugin</code>时把自定义解析键名的类型传进来<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">struct</span> <span class="title">MoyaMapperPlugin</span>: <span class="title">PluginType</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> parameter: <span class="type">ModelableParameterType</span>.<span class="type">Type</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">init</span>&lt;<span class="type">T</span>: <span class="type">ModelableParameterType</span>&gt;(<span class="number">_</span> type: <span class="type">T</span>.<span class="type">Type</span>) &#123;</span><br><span class="line">        parameter = type</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// modify response</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">process</span><span class="params">(<span class="number">_</span> result: Result&lt;Response, MoyaError&gt;, target: TargetType)</span></span> -&gt; <span class="type">Result</span>&lt;<span class="type">Response</span>, <span class="type">MoyaError</span>&gt; &#123;</span><br><span class="line">        <span class="number">_</span> = result.<span class="built_in">map</span> &#123; (response) -&gt; <span class="type">Response</span> <span class="keyword">in</span></span><br><span class="line">            <span class="comment">// 趁机添加相关数据 </span></span><br><span class="line">            response.lxf_modelableParameter = parameter</span><br><span class="line">            <span class="keyword">return</span> response</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用：开发者在创建<code>MoyaProvider</code>对象时，顺便注入插件。(OS: 这一步堪称“注入灵魂”)<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">MoyaProvider</span>&lt;<span class="type">LXFNetworkTool</span>&gt;(plugins: [<span class="type">MoyaMapperPlugin</span>(<span class="type">NetParameter</span>.<span class="keyword">self</span>)])</span><br></pre></td></tr></table></figure></p>
+<h3 id="5、总结"><a href="#5、总结" class="headerlink" title="5、总结"></a>5、总结</h3><blockquote>
+<p>以上就是主要的踩坑过程了。模型数组解析和指定解析也跟这些差不多的，这里就不再赘述。本人已经将其封装成一个开源库 <a href="https://github.com/LinXunFeng/MoyaMapper" target="_blank" rel="noopener">MoyaMapper</a>，包含了上述已经和未曾说明的功能，下面会讲解如何去使用。以上部分可以称为开胃菜，目的就是平滑过渡到下面MoyaMapper的具体使用。</p>
+</blockquote>
+<p>可能单单使用<code>MoyaMapper</code>的默认子库<code>Core</code>，作用体会上并不会很深。但是，如果你也是使用RxSwift来开发项目的话，请安装<code>&#39;MoyaMapper/Rx&#39;</code>吧，绝对一个字：「爽」</p>
+<h2 id="二、MoyaMapper的使用"><a href="#二、MoyaMapper的使用" class="headerlink" title="二、MoyaMapper的使用"></a>二、MoyaMapper的使用</h2><p><img src="http://linxunfeng.github.io/images/2018/05/打造Moya便捷解析库，提供RxSwift拓展/MoyaMapper.png" alt="MoyaMapper"></p>
+<p>MoyaMapper是基于Moya和SwiftyJSON封装的工具，以Moya的plugin的方式来实现间接解析，支持RxSwift</p>
+<p><img src="http://linxunfeng.github.io/images/2018/05/打造Moya便捷解析库，提供RxSwift拓展/JSON数据对照.png" alt="JSON数据对照"></p>
+<h3 id="1、定义并注入自定义键名类"><a href="#1、定义并注入自定义键名类" class="headerlink" title="1、定义并注入自定义键名类"></a>1、定义并注入自定义键名类</h3><ol>
+<li>定义一个遵守ModelableParameterType协议的结构体</li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 各参数返回的内容请参考上面JSON数据对照图</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">NetParameter</span> : <span class="title">ModelableParameterType</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> successValue: <span class="type">String</span> &#123; <span class="keyword">return</span> <span class="string">"false"</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> statusCodeKey: <span class="type">String</span> &#123; <span class="keyword">return</span> <span class="string">"error"</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> tipStrKey: <span class="type">String</span> &#123; <span class="keyword">return</span> <span class="string">""</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> modelKey: <span class="type">String</span> &#123; <span class="keyword">return</span> <span class="string">"results"</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>此外，这里还可以做简单的路径处理，以应付各种情况，以’&gt;’隔开</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 假设返回的json数据关于请求状态的相关数据如下所示，</span><br><span class="line">error: &#123;</span><br><span class="line">    'errorStatus':false</span><br><span class="line">    'errMsg':'error Argument type'</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 我们指明解析路径：error对象下的errMsg字段，一层层表示下去即可</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">var</span> tipStrKey: <span class="type">String</span> &#123; <span class="keyword">return</span> <span class="string">"error&gt;errMsg"</span> &#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>以plugin的方式传递给MoyaProvider</li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MoyaMapperPlugin这里只需要传入类型</span></span><br><span class="line"><span class="type">MoyaProvider</span>&lt;<span class="type">LXFNetworkTool</span>&gt;(plugins: [<span class="type">MoyaMapperPlugin</span>(<span class="type">NetParameter</span>.<span class="keyword">self</span>)])</span><br></pre></td></tr></table></figure>
+<h3 id="2、定义解析模型"><a href="#2、定义解析模型" class="headerlink" title="2、定义解析模型"></a>2、定义解析模型</h3><p>创建一个遵守Modelable协议的结构体</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyModel</span>: <span class="title">Modelable</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> _id = <span class="string">""</span></span><br><span class="line">    ...</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">init</span>(<span class="number">_</span> json: <span class="type">JSON</span>) &#123; &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">mapping</span><span class="params">(<span class="number">_</span> json: JSON)</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>._id = json[<span class="string">"_id"</span>].stringValue</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">遵守<span class="type">Modelable</span>协议，实现协议的两个方法，在`mapping`方法中描述模型字段的具体解析</span><br></pre></td></tr></table></figure>
+<h3 id="3、解析数据"><a href="#3、解析数据" class="headerlink" title="3、解析数据"></a>3、解析数据</h3><h4 id="0x00-请求结果与模型解析"><a href="#0x00-请求结果与模型解析" class="headerlink" title="0x00 请求结果与模型解析"></a>0x00 请求结果与模型解析</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Result</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">mapResult</span><span class="params">(params: ModelableParamsBlock? = <span class="literal">nil</span>)</span></span> -&gt; <span class="type">MoyaMapperResult</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Model</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">mapObject</span>&lt;T: Modelable&gt;<span class="params">(<span class="number">_</span> type: T.<span class="keyword">Type</span>, modelKey: String? = <span class="literal">nil</span>)</span></span> -&gt; <span class="type">T</span></span><br><span class="line"><span class="comment">// Result+Model</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">mapObjResult</span>&lt;T: Modelable&gt;<span class="params">(<span class="number">_</span> type: T.<span class="keyword">Type</span>, params: ModelableParamsBlock? = <span class="literal">nil</span>)</span></span> -&gt; (<span class="type">MoyaMapperResult</span>, <span class="type">T</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Models</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">mapArray</span>&lt;T: Modelable&gt;<span class="params">(<span class="number">_</span> type: T.<span class="keyword">Type</span>, modelKey: String? = <span class="literal">nil</span>)</span></span> -&gt; [<span class="type">T</span>]</span><br><span class="line"><span class="comment">// Result+Models</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">mapArrayResult</span>&lt;T: Modelable&gt;<span class="params">(<span class="number">_</span> type: T.<span class="keyword">Type</span>, params: ModelableParamsBlock? = <span class="literal">nil</span>)</span></span> -&gt; (<span class="type">MoyaMapperResult</span>, [<span class="type">T</span>])</span><br></pre></td></tr></table></figure>
+<p>上面的五个方法，观其名，知其意，这里就不过多解释了，主要注意两点：</p>
+<ul>
+<li><p>result</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 元祖类型</span></span><br><span class="line"><span class="comment">// 参数1：根据statusCodeKey取出的值与successValue是否相等</span></span><br><span class="line"><span class="comment">// 参数2：根据tipStrKey取出的值</span></span><br><span class="line">result：(<span class="type">Bool</span>, <span class="type">String</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>params</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// params: ModelableParamsBlock? = nil</span></span><br><span class="line"><span class="comment">// 这里只有在特殊场景下才需要使用到。如：项目中需要在某处使用特定接口，但是返回的json格式跟自己项目的不一样，并且只有这么一两处用得着该额外接口，那就需要我们这个参数了，以Block的方式返回解析参数类型。</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="0x01、特定解析"><a href="#0x01、特定解析" class="headerlink" title="0x01、特定解析"></a>0x01、特定解析</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Model</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">toJSON</span><span class="params">(modelKey: String? = <span class="literal">nil</span>)</span></span> -&gt; <span class="type">JSON</span></span><br><span class="line"><span class="comment">// 获取指定路径的值</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">fetchJSONString</span><span class="params">(path: String? = <span class="literal">nil</span>, keys: [JSONSubscriptType])</span></span> -&gt; <span class="type">String</span></span><br></pre></td></tr></table></figure>
+<p>这两个方法，如果没有指定路径，默认都是针对modelKey的<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fetchJSONString(keys: &lt;[JSONSubscriptType]&gt;)</span></span><br><span class="line"><span class="number">1</span>、通过 keys 传递数组, 该数组可传入的类型为 <span class="type">Int</span> 和 <span class="type">String</span></span><br><span class="line"><span class="number">2</span>、默认是以 modelKey 所示路径，来获取相应的数值。如果modelKey并非是你所想要使用的解析路径，可以使用下方的重载方法重新指定路径即可</span><br><span class="line"></span><br><span class="line"><span class="comment">// response.fetchJSONString(path: &lt;String?&gt;, keys: &lt;[JSONSubscriptType]&gt;)</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>MoyaMapper也提供了Rx子库，为方便RxSwift的流式编程下便捷解析数据</strong></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MoyaMapper默认只安装Core下的文件</span><br><span class="line">pod <span class="string">'MoyaMapper'</span></span><br><span class="line"></span><br><span class="line">RxSwift拓展</span><br><span class="line">pod <span class="string">'MoyaMapper/Rx'</span></span><br></pre></td></tr></table></figure>
+<p>具体使用还不是很明白的同学可以下载并运行<code>Example</code>看看</p>
+<p><strong>如果<a href="https://github.com/LinXunFeng/MoyaMapper" target="_blank" rel="noopener">MoyaMapper</a>有什么不足的地方，欢迎提出issues，感谢大家的支持</strong></p>
+</the></excerpt>
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2018/04/07/iOS-面向协议方式封装空白页功能/" class="next-post btn btn-default" title='iOS 面向协议方式封装空白页功能'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">iOS 面向协议方式封装空白页功能</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMzA1MS85NjEz">
+  <script type="text/javascript">
+     (function(d, s) {
+         var j, e = d.getElementsByTagName(s)[0];
+         if (typeof LivereTower === 'function') { return; }
+         j = d.createElement(s);
+         j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+         j.async = true;
+         e.parentNode.insertBefore(j, e);
+     })(document, 'script');
+  </script>
+</div>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+        
+        
+    <div class="widget">    
+        <h3 class="title">Search</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">localSearch</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget notification">
+        <h3 class="title">网站公告</h3>
+        <div>
+            <p>博客终于主题啦！欢迎访问~ 🚀🚀🚀</p>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Social</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/LinXunFeng" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="github fa fa-github"></i>
+			    </a>
+            
+	            <a href="mailto:598600855@qq.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="//juejin.im/user/58f8065e61ff4b006646c72d/posts" rel="external nofollow" title="掘金" target="_blank">
+			    	<i class="forumbee fa fa-forumbee"></i>
+			    </a>
+            
+	            <a href="//www.jianshu.com/u/31e85e7a22a2" rel="external nofollow" title="简书" target="_blank">
+			    	<i class="book fa fa-book"></i>
+			    </a>
+            
+	            <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
+			    	<i class="feed fa fa-feed"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Categories</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/"><i class="fa" aria-hidden="true">Linux</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/"><i class="fa" aria-hidden="true">Python</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/"><i class="fa" aria-hidden="true">iOS</i></a><span class="category-list-count">27</span></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Archives</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/"><i class="fa" aria-hidden="true">May 2018</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/"><i class="fa" aria-hidden="true">April 2018</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/"><i class="fa" aria-hidden="true">October 2017</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/"><i class="fa" aria-hidden="true">September 2017</i></a><span class="archive-list-count">19</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">Tag Cloud</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/Cocoapods/" style="font-size: 15.71px;">Cocoapods</a> <a href="/tags/Git/" style="font-size: 15.71px;">Git</a> <a href="/tags/GitHub/" style="font-size: 15.71px;">GitHub</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Objective-C/" style="font-size: 17.14px;">Objective-C</a> <a href="/tags/RxSwift/" style="font-size: 12.86px;">RxSwift</a> <a href="/tags/Swift/" style="font-size: 18.57px;">Swift</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS项目/" style="font-size: 11.43px;">iOS项目</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/组件化/" style="font-size: 14.29px;">组件化</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Friends</h3>
+        <div class="content friends-link">
+        
+            <a href="https://juejin.im/user/58f8065e61ff4b006646c72d/posts" class="fa" target="_blank">掘金</a>
+        
+            <a href="https://www.jianshu.com/u/31e85e7a22a2" class="fa" target="_blank">简书</a>
+        
+        </div>
+    </div>
+
+
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+	<script src="/js/search.js?rev=@@hash"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>

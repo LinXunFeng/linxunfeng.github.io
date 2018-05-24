@@ -1,0 +1,416 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="LinXunFeng‘s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://linxunfeng.top">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>iOS - Swift 仿微信聊天图片显示 | LinXunFeng‘s Blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="LinXunFeng‘s Blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://7xpw2b.com1.z0.glb.clouddn.com/hexo-sinppet/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='LinXunFeng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/iOS/"><i class="fa "></i>iOS</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Linux/"><i class="fa "></i>Linux</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="iOS - Swift 仿微信聊天图片显示">
+            
+	            iOS - Swift 仿微信聊天图片显示
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/iOS">
+            iOS
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/Swift" title='Swift'>
+                        Swift
+                    </a>
+                
+                    <a href="/tags/iOS" title='iOS'>
+                        iOS
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2017/09/12</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <excerpt in="" index="" |="" 首页摘要=""> 
+
+<p>其实原理比较简单，准备一张图片MaskImgae，先对其进行拉伸，然后按照其轮廓对图片进行裁剪就行了</p>
+<p>+<a id="more"></a></p>
+<the rest="" of="" contents="" |="" 余下全文="">
+
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p>如图所示，图片左侧有个小箭头<br><img src="http://linxunfeng.github.io/images/2017/09/iOS - Swift 仿微信聊天图片显示/1.png" alt="效果图"></p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>其实原理比较简单，准备一张图片MaskImgae，先对其进行拉伸，然后按照其轮廓对图片进行裁剪就行了<br><img src="http://linxunfeng.github.io/images/2017/09/iOS - Swift 仿微信聊天图片显示/2.png" alt="MaskImgae"></p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>这里摘重点说，布局什么的按自己意愿去弄吧。我固定了图片的显示大小为 102 * 152</p>
+<h3 id="1、对MaskImgae进行拉伸"><a href="#1、对MaskImgae进行拉伸" class="headerlink" title="1、对MaskImgae进行拉伸"></a>1、对MaskImgae进行拉伸</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置拉伸范围</span></span><br><span class="line"><span class="keyword">let</span> stretchInsets = <span class="type">UIEdgeInsetsMake</span>(<span class="number">30</span>, <span class="number">28</span>, <span class="number">23</span>, <span class="number">28</span>)</span><br><span class="line"><span class="comment">// 待拉伸的图片</span></span><br><span class="line"><span class="keyword">let</span> stretchImage = <span class="type">UIImage</span>(named: <span class="string">"SenderImageNodeMask"</span>)</span><br><span class="line"><span class="comment">// 进行拉伸</span></span><br><span class="line"><span class="keyword">let</span> bubbleMaskImage = stretchImage.resizableImage(withCapInsets: stretchInsets, resizingMode: .stretch)</span><br></pre></td></tr></table></figure>
+<p>拉伸的效果如图<br><img src="http://linxunfeng.github.io/images/2017/09/iOS - Swift 仿微信聊天图片显示/3.png" alt="拉伸效果"></p>
+<h3 id="2、对imageView设置裁剪区域"><a href="#2、对imageView设置裁剪区域" class="headerlink" title="2、对imageView设置裁剪区域"></a>2、对imageView设置裁剪区域</h3><p>这里我的 imageView 叫   chatImgView<br>上面的拉伸效果图是临时把拉伸好的图片赋值给了chatImgView，只是为了给大家看到效果而已，各位看官如果有赋值请记得改回来~~</p>
+<p><strong>好，下面进行裁剪</strong><br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 新建一个图层</span></span><br><span class="line"><span class="keyword">let</span> layer = <span class="type">CALayer</span>()</span><br><span class="line"><span class="comment">// 设置图层显示的内容为拉伸过的MaskImgae</span></span><br><span class="line">layer.contents = bubbleMaskImage.cgImage</span><br><span class="line"><span class="comment">// 设置拉伸范围(注意：这里contentsCenter的CGRect是比例（不是绝对坐标）)</span></span><br><span class="line">layer.contentsCenter = <span class="keyword">self</span>.<span class="type">CGRectCenterRectForResizableImage</span>(bubbleMaskImage)</span><br><span class="line"><span class="comment">// 设置图层大小与chatImgView相同</span></span><br><span class="line">layer.frame = <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: <span class="number">102</span>, height: <span class="number">152</span>)</span><br><span class="line"><span class="comment">// 设置比例</span></span><br><span class="line">layer.contentsScale = <span class="type">UIScreen</span>.main.scale</span><br><span class="line"><span class="comment">// 设置不透明度</span></span><br><span class="line">layer.opacity = <span class="number">1</span></span><br><span class="line"><span class="comment">// 设置裁剪范围</span></span><br><span class="line"><span class="keyword">self</span>.chatImgView.layer.mask = layer</span><br><span class="line"><span class="comment">// 设置裁剪掉超出的区域</span></span><br><span class="line"><span class="keyword">self</span>.chatImgView.layer.masksToBounds = <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CGRectCenterRectForResizableImage</span><span class="params">(<span class="number">_</span> image: UIImage)</span></span> -&gt; <span class="type">CGRect</span> &#123;</span><br><span class="line">    <span class="comment">// LXFLog("\(image.capInsets)")</span></span><br><span class="line">    <span class="comment">// 这里的image.capInsets就是UIEdgeInsetsMake(30, 28, 23, 28)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="type">CGRect</span>(</span><br><span class="line">        x: image.capInsets.<span class="keyword">left</span> / image.size.width,</span><br><span class="line">        y: image.capInsets.top / image.size.height,</span><br><span class="line">        width: (image.size.width - image.capInsets.<span class="keyword">right</span> - image.capInsets.<span class="keyword">left</span>) / image.size.width,</span><br><span class="line">        height: (image.size.height - image.capInsets.bottom - image.capInsets.top) / image.size.height</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样就完成了</p>
+<h2 id="解释一下下"><a href="#解释一下下" class="headerlink" title="解释一下下"></a>解释一下下</h2><h3 id="UIEdgeInsetsMake"><a href="#UIEdgeInsetsMake" class="headerlink" title="UIEdgeInsetsMake"></a>UIEdgeInsetsMake</h3><p>MaskImgae 的大小为 56 * 50<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UIEdgeInsetsMake(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat)</span></span><br><span class="line"><span class="type">UIEdgeInsetsMake</span>(<span class="number">30</span>, <span class="number">28</span>, <span class="number">23</span>, <span class="number">28</span>)</span><br></pre></td></tr></table></figure></p>
+<p>红色范围就是要拉伸的范围(随手一扣，不太准确，意思意思下就好了~~)<br><img src="http://linxunfeng.github.io/images/2017/09/iOS - Swift 仿微信聊天图片显示/4.png" alt="拉伸区域"></p>
+<h3 id="contentsCenter"><a href="#contentsCenter" class="headerlink" title="contentsCenter"></a>contentsCenter</h3><p>这是对某个区域进行全面拉伸，如果不设置的话默认值为<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: <span class="number">1</span>, height: <span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
+<p>就是直接进行缩放<br>那我们先来看看，如果不对contentsCenter这个值进行设置会是什么效果<br><img src="http://linxunfeng.github.io/images/2017/09/iOS - Swift 仿微信聊天图片显示/5.png" alt="直接拉伸"><br>我们来看下官方解释</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> contentsCenter: <span class="type">CGRect</span> &#123; <span class="keyword">get</span> <span class="keyword">set</span> &#125;</span><br><span class="line"><span class="type">Description</span>	</span><br><span class="line"><span class="type">The</span> rectangle that defines how the layer contents are scaled</span><br><span class="line"><span class="keyword">if</span> the layer’s contents are resized. <span class="type">Animatable</span>.</span><br></pre></td></tr></table></figure>
+<p>翻译：如果图层的内容是重新设置了尺寸的，那定义的这个矩形(contentsCenter)是为了告诉图层，图层的内容是如何被缩放的</p>
+<p>那明了，我们的图片是被拉伸后再绘制到layer上的，为了正确显示我们的图片，我们得告诉layer它是怎么被进行拉伸的。是的，就是下面代码所指定的范围<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UIEdgeInsetsMake</span>(<span class="number">30</span>, <span class="number">28</span>, <span class="number">23</span>, <span class="number">28</span>)</span><br></pre></td></tr></table></figure></p>
+<p>但是，正如上面提到过的，contentsCenter所要赋值的CGRect是比例，不是绝对坐标，所以现在我们得通过(30, 28, 23, 28)获取比例值，转换方法已经在上面给出了，就是CGRectCenterRectForResizableImage<br>我们来打印下 image.capInsets的内容<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LXFLog</span>(<span class="string">"<span class="subst">\(image.capInsets)</span>"</span>)</span><br><span class="line"><span class="type">LXFLog</span>(<span class="string">"<span class="subst">\(image.capInsets.top)</span>"</span>)</span><br><span class="line"><span class="type">LXFLog</span>(<span class="string">"<span class="subst">\(image.capInsets.bottom)</span>"</span>)</span><br><span class="line"><span class="type">LXFLog</span>(<span class="string">"<span class="subst">\(image.capInsets.<span class="keyword">left</span>)</span>"</span>)</span><br><span class="line"><span class="type">LXFLog</span>(<span class="string">"<span class="subst">\(image.capInsets.<span class="keyword">right</span>)</span>"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>打印结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">UIEdgeInsets(top: 30.0, left: 28.0, bottom: 23.0, right: 28.0)</span><br><span class="line">30.0</span><br><span class="line">23.0</span><br><span class="line">28.0</span><br><span class="line">28.0</span><br></pre></td></tr></table></figure></p>
+<p>好，现在结合 下面的图 与 CGRectCenterRectForResizableImage 方法中的代码就很明确比例是怎么取到的了<br><img src="http://linxunfeng.github.io/images/2017/09/iOS - Swift 仿微信聊天图片显示/6.png" alt="拉伸区域"></p>
+<p>附上相关项目：<a href="https://github.com/LinXunFeng/LXFWeChat" target="_blank" rel="noopener">Swift 3.0 高仿微信</a></p>
+<div class="github-widget" data-repo="LinXunFeng/LXFWeChat"></div></the></excerpt>
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2017/09/12/iOS-Swift-UITableView的scrollToRow的坑/" class="pre-post btn btn-default" title='iOS - Swift UITableView的scrollToRow的坑'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">iOS - Swift UITableView的scrollToRow的坑</span>
+        </a>
+    
+    
+        <a href="/2017/09/12/iOS-Swift-UICollectionView横向分页的问题/" class="next-post btn btn-default" title='iOS - Swift UICollectionView横向分页的问题'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">iOS - Swift UICollectionView横向分页的问题</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMzA1MS85NjEz">
+  <script type="text/javascript">
+     (function(d, s) {
+         var j, e = d.getElementsByTagName(s)[0];
+         if (typeof LivereTower === 'function') { return; }
+         j = d.createElement(s);
+         j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+         j.async = true;
+         e.parentNode.insertBefore(j, e);
+     })(document, 'script');
+  </script>
+</div>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+        
+        
+    <div class="widget">    
+        <h3 class="title">Search</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">localSearch</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget notification">
+        <h3 class="title">网站公告</h3>
+        <div>
+            <p>博客终于主题啦！欢迎访问~ 🚀🚀🚀</p>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Social</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/LinXunFeng" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="github fa fa-github"></i>
+			    </a>
+            
+	            <a href="mailto:598600855@qq.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="//juejin.im/user/58f8065e61ff4b006646c72d/posts" rel="external nofollow" title="掘金" target="_blank">
+			    	<i class="forumbee fa fa-forumbee"></i>
+			    </a>
+            
+	            <a href="//www.jianshu.com/u/31e85e7a22a2" rel="external nofollow" title="简书" target="_blank">
+			    	<i class="book fa fa-book"></i>
+			    </a>
+            
+	            <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
+			    	<i class="feed fa fa-feed"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Categories</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/"><i class="fa" aria-hidden="true">Linux</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/"><i class="fa" aria-hidden="true">Python</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/"><i class="fa" aria-hidden="true">iOS</i></a><span class="category-list-count">27</span></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">Archives</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/"><i class="fa" aria-hidden="true">May 2018</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/"><i class="fa" aria-hidden="true">April 2018</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/"><i class="fa" aria-hidden="true">October 2017</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/"><i class="fa" aria-hidden="true">September 2017</i></a><span class="archive-list-count">19</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">Tag Cloud</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/Cocoapods/" style="font-size: 15.71px;">Cocoapods</a> <a href="/tags/Git/" style="font-size: 15.71px;">Git</a> <a href="/tags/GitHub/" style="font-size: 15.71px;">GitHub</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Objective-C/" style="font-size: 17.14px;">Objective-C</a> <a href="/tags/RxSwift/" style="font-size: 12.86px;">RxSwift</a> <a href="/tags/Swift/" style="font-size: 18.57px;">Swift</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/iOS项目/" style="font-size: 11.43px;">iOS项目</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/组件化/" style="font-size: 14.29px;">组件化</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">Friends</h3>
+        <div class="content friends-link">
+        
+            <a href="https://juejin.im/user/58f8065e61ff4b006646c72d/posts" class="fa" target="_blank">掘金</a>
+        
+            <a href="https://www.jianshu.com/u/31e85e7a22a2" class="fa" target="_blank">简书</a>
+        
+        </div>
+    </div>
+
+
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+	<script src="/js/search.js?rev=@@hash"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
