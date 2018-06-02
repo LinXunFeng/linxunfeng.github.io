@@ -215,9 +215,9 @@
 <p>以上就是主要的踩坑过程了。模型数组解析和指定解析也跟这些差不多的，这里就不再赘述。本人已经将其封装成一个开源库 <a href="https://github.com/LinXunFeng/MoyaMapper" target="_blank" rel="noopener">MoyaMapper</a>，包含了上述已经和未曾说明的功能，下面会讲解如何去使用。以上部分可以称为开胃菜，目的就是平滑过渡到下面MoyaMapper的具体使用。</p>
 </blockquote>
 <p>可能单单使用<code>MoyaMapper</code>的默认子库<code>Core</code>，作用体会上并不会很深。但是，如果你也是使用RxSwift来开发项目的话，请安装<code>&#39;MoyaMapper/Rx&#39;</code>吧，绝对一个字：「爽」</p>
-<h2 id="二、MoyaMapper的使用"><a href="#二、MoyaMapper的使用" class="headerlink" title="二、MoyaMapper的使用"></a>二、MoyaMapper的使用</h2><p><img src="http://linxunfeng.github.io/images/2018/05/打造Moya便捷解析库，提供RxSwift拓展/MoyaMapper.png" alt="MoyaMapper"></p>
+<h2 id="二、MoyaMapper的使用"><a href="#二、MoyaMapper的使用" class="headerlink" title="二、MoyaMapper的使用"></a>二、MoyaMapper的使用</h2><p><img src="/images/2018/05/打造Moya便捷解析库，提供RxSwift拓展/MoyaMapper.png" alt="MoyaMapper"></p>
 <p>MoyaMapper是基于Moya和SwiftyJSON封装的工具，以Moya的plugin的方式来实现间接解析，支持RxSwift</p>
-<p><img src="http://linxunfeng.github.io/images/2018/05/打造Moya便捷解析库，提供RxSwift拓展/JSON数据对照.png" alt="JSON数据对照"></p>
+<p><img src="/images/2018/05/打造Moya便捷解析库，提供RxSwift拓展/JSON数据对照.png" alt="JSON数据对照"></p>
 <h3 id="1、定义并注入自定义键名类"><a href="#1、定义并注入自定义键名类" class="headerlink" title="1、定义并注入自定义键名类"></a>1、定义并注入自定义键名类</h3><ol>
 <li>定义一个遵守ModelableParameterType协议的结构体</li>
 </ol>

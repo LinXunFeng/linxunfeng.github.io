@@ -197,14 +197,14 @@
 <li>协议方法的具体实现需要在extension中来实现</li>
 </ul>
 <p>使Dog类遵守Eatable<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Dog: NSObject, Eatable &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这样我们就可以在其它地方轻松调用dog的eat方法，Person类与Robot类也是如法炮制<br><img src="http://linxunfeng.github.io/images/2017/09/iOS-Swift-面向协议编程（一）/1.png" alt=""></p>
+<p>这样我们就可以在其它地方轻松调用dog的eat方法，Person类与Robot类也是如法炮制<br><img src="/images/2017/09/iOS-Swift-面向协议编程（一）/1.png" alt=""></p>
 <p>至此，我们就可以通过面向协议的方式给类定制不同的功能，也就是模块化。可以发现Swift的面向协议编程跟c++的多继承很相似</p>
 <h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><p>现在的这个Eatable协议是可以被任意遵守的，如果我们有这么个需求，我们创建的协议只是被UIViewController遵守，那我们该怎么做呢？<br>【当然，Eatable协议只能被UIViewController遵守很扯淡，这里只是举例，不要太在意咯~~】</p>
 <blockquote>
 <p>在 extension 后面加上约束关键字【where】，并注明该协议只能被UIViewController这个类（包括子类）所遵守，而且此时我们还可以拿到遵守该协议的控制器的view</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//import Foundation</span><br><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">protocol Eatable &#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">extension Eatable where Self : UIViewController &#123;</span><br><span class="line">    func eat() &#123;</span><br><span class="line">        view.backgroundColor = UIColor.red</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/LinXunFeng/LXFPOP" target="_blank" rel="noopener">Demo</a><br>接下来以一个实际应用来巩固下吧 <a href="http://linxunfeng.github.io/2017/09/12/iOS-Swift-面向协议编程（二）/" target="_blank" rel="noopener">iOS - Swift 面向协议编程（二）</a></p>
+<p><a href="https://github.com/LinXunFeng/LXFPOP" target="_blank" rel="noopener">Demo</a><br>接下来以一个实际应用来巩固下吧 <a href="/2017/09/12/iOS-Swift-面向协议编程（二）/">iOS - Swift 面向协议编程（二）</a></p>
 </the></excerpt>
     </div>
 
