@@ -151,12 +151,12 @@
                         iOS
                     </a>
                 
-                    <a href="/tags/Android" title='Android'>
-                        Android
-                    </a>
-                
                     <a href="/tags/Ubuntu" title='Ubuntu'>
                         Ubuntu
+                    </a>
+                
+                    <a href="/tags/Linux" title='Linux'>
+                        Linux
                     </a>
                 
             
@@ -180,7 +180,7 @@
     <div class="post-body post-content">
         <excerpt in="" index="" |="" 首页摘要=""> 
 
-<p>记录AppRTC的搭建过程，实现iOS、安卓、browser同异设备的视频通信</p>
+<p>记录AppRTC的搭建过程，实现iOS、Android、Browser同异设备的视频通信</p>
 <a id="more"></a>
 <the rest="" of="" contents="" |="" 余下全文="">
 
@@ -343,7 +343,7 @@
 <li>重启Nginx服务器和php7.0-fpm</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service nginx restart </span><br><span class="line">service php7.0-fpm restart</span><br></pre></td></tr></table></figure>
-<h2 id="七、各端运行测试"><a href="#七、各端运行测试" class="headerlink" title="七、各端运行测试"></a>七、各端运行测试</h2><h3 id="1、浏览器"><a href="#1、浏览器" class="headerlink" title="1、浏览器"></a>1、浏览器</h3><p>浏览器直接打开即可，如果不能访问摄像头之类的，请查看<a href="#2、浏览器无法访问摄像头">疑难杂症 - 2</a></p>
+<h2 id="七、各端运行测试"><a href="#七、各端运行测试" class="headerlink" title="七、各端运行测试"></a>七、各端运行测试</h2><h3 id="1、Browser"><a href="#1、Browser" class="headerlink" title="1、Browser"></a>1、Browser</h3><p>浏览器直接打开即可，如果不能访问摄像头之类的，请查看<a href="#2、浏览器无法访问摄像头">疑难杂症 - 2</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://域名</span><br></pre></td></tr></table></figure>
 <h3 id="2、Android"><a href="#2、Android" class="headerlink" title="2、Android"></a>2、Android</h3><p><a href="https://github.com/duqian291902259/webrtc-android-demo-apprtc" target="_blank" rel="noopener">webrtc-android-demo-apprtc</a></p>
 <p>直接安装手机，打开软件，点击右上角的扳手跳转至设置界面，滚到界面最下方，找到<code>Room server URL.</code>，将其修改为刚刚搭建好的服务器域名即可，如</p>
