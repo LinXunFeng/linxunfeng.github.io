@@ -151,12 +151,12 @@
                         iOS
                     </a>
                 
-                    <a href="/tags/Ubuntu" title='Ubuntu'>
-                        Ubuntu
+                    <a href="/tags/Android" title='Android'>
+                        Android
                     </a>
                 
-                    <a href="/tags/Linux" title='Linux'>
-                        Linux
+                    <a href="/tags/Ubuntu" title='Ubuntu'>
+                        Ubuntu
                     </a>
                 
             
@@ -207,7 +207,10 @@
 <h3 id="2、编译"><a href="#2、编译" class="headerlink" title="2、编译"></a>2、编译</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 当前目录 -- apprtc</span><br><span class="line">grunt build</span><br></pre></td></tr></table></figure>
 <p>编译好后<code>apprtc</code>目录下就会多出一个名为<code>out</code>的目录，里面存放的就是编译好的<code>room server</code></p>
 <h3 id="3、GoogleAppEngine的安装与配置"><a href="#3、GoogleAppEngine的安装与配置" class="headerlink" title="3、GoogleAppEngine的安装与配置"></a>3、GoogleAppEngine的安装与配置</h3><p>官网：<a href="https://cloud.google.com/appengine/downloads#Google_App_Engine_SDK_for_Python" target="_blank" rel="noopener">GoogleAppEngine</a></p>
-<p>可以在此路径找最新版本<br><code>GoogleAppEngine -&gt; Python -&gt; Download and install the original App Engine SDK for Python.</code></p>
+<p>可以在此路径找最新版本</p>
+<blockquote>
+<p>GoogleAppEngine -&gt; Python -&gt; Download and install the original App Engine SDK for Python.</p>
+</blockquote>
 <p>目前最新版本为：<a href="https://storage.googleapis.com/appengine-sdks/featured/google_appengine_1.9.70.zip" target="_blank" rel="noopener">google_appengine_1.9.70.zip</a></p>
 <ul>
 <li>下载 GoogleAppEngine</li>
@@ -363,6 +366,22 @@
 <p>完整指令<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./dev_appserver.py --enable_host_checking=false --host=172.18.141.108 ../apprtc/out/app_engine/</span><br></pre></td></tr></table></figure></p>
 <h3 id="2、浏览器无法访问摄像头"><a href="#2、浏览器无法访问摄像头" class="headerlink" title="2、浏览器无法访问摄像头"></a>2、浏览器无法访问摄像头</h3><p>浏览器访问设备的摄像头是需要使用<code>https</code>链接或者<code>localhost</code>来访问</p>
 <h3 id="3、端口"><a href="#3、端口" class="headerlink" title="3、端口"></a>3、端口</h3><p>阿里云等国内大厂提供的服务器基本上都有一个叫安全组的玩意儿，我们搭建AppRTC服务器的所有服务所需的端口均要添加至安全组</p>
+<h3 id="4、Failed-to-execute-‘pushState’-on-‘History’"><a href="#4、Failed-to-execute-‘pushState’-on-‘History’" class="headerlink" title="4、Failed to execute ‘pushState’ on ‘History’"></a>4、Failed to execute ‘pushState’ on ‘History’</h3><blockquote>
+<p>Failed to start signaling: Failed to execute ‘pushState’ on ‘History’: A history state object with URL ‘<a href="http://linxunfeng.top/r/598600855’">http://linxunfeng.top/r/598600855’</a> cannot be created in a document with origin ‘<a href="https://linxunfeng.top’" target="_blank" rel="noopener">https://linxunfeng.top’</a> and URL ‘<a href="https://linxunfeng.top/">https://linxunfeng.top/</a></p>
+</blockquote>
+<p>解决方法有两种</p>
+<ul>
+<li>解决方法1： </li>
+</ul>
+<blockquote>
+<p> 房间服务器编译完成后，在/root/apprtc/out/app_engine/js/apprtc.debug.js文件中找到window.history.pushState({‘roomId’: roomId, ‘roomLink’: roomLink}, roomId, roomLink)，把这句话注释掉，重新运行即可。（如果重新编译，需要重新修改）</p>
+</blockquote>
+<ul>
+<li>解决方法2： </li>
+</ul>
+<blockquote>
+<p> 在/root/apprtc/src/web_app/js/appcontroller.js文件中找到window.history.pushState({‘roomId’: roomId, ‘roomLink’: roomLink}, roomId, roomLink)，把这句话注释掉，然后重新编译，重新运行房间服务器即可。</p>
+</blockquote>
 </the></excerpt>
     </div>
 
