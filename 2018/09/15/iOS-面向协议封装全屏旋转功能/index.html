@@ -215,12 +215,7 @@
 </table>
 <p>使用Cocoapods的方式来安装即可</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod <span class="string">'LXFProtocolTool/FullScreenable'</span></span><br></pre></td></tr></table></figure>
-<h2 id="一、配置"><a href="#一、配置" class="headerlink" title="一、配置"></a>一、配置</h2><blockquote>
-<ul>
-<li>若项目支持横屏(Landscape)则跳过此配置步骤</li>
-<li>若项目只支持竖屏(Portrait)的话需要在<code>AppDelegate</code>中实现如下方法</li>
-</ul>
-</blockquote>
+<h2 id="一、配置"><a href="#一、配置" class="headerlink" title="一、配置"></a>一、配置</h2><p>在AppDelegate中实现如下方法</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(<span class="number">_</span> application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?)</span></span> -&gt; <span class="type">UIInterfaceOrientationMask</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">UIApplication</span>.shared.lxf.currentVcOrientationMask</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="二、使用案例"><a href="#二、使用案例" class="headerlink" title="二、使用案例"></a>二、使用案例</h2><blockquote>
 <p>方法与属性的调用都需要命名空间加上 <code>lxf</code>，如<code>isFullScreen</code> -&gt; <code>lxf.isFullScreen</code></p>
