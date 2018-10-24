@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>Tag: iOS | LinXunFeng‘s Blog</title>
+<title>Swift 优雅的适配大小 | LinXunFeng‘s Blog</title>
 
 
     <link rel="alternate" href="/atom.xml" title="LinXunFeng‘s Blog" type="application/atom+xml">
@@ -122,270 +122,164 @@
     <section class="content-wrap">
         <div class="container">
             <div class="row">
-                <main class="col-md-8 main-content ">
-                    <h3> 
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Swift 优雅的适配大小">
+            
+	            Swift 优雅的适配大小
+            
+        </h1>
+        <div class="post-meta">
     
-        iOS 
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/iOS">
+            iOS
+        </a>
+    </span>
     
     
-</h3>
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/iOS" title='iOS'>
+                        iOS
+                    </a>
+                
+                    <a href="/tags/Swift" title='Swift'>
+                        Swift
+                    </a>
+                
+            
+        </span>
+    </span>
+    
 
-    <article class="post">
+    
         
-        <div class="post-content">
-            <div class="post-head home-post-head">
-                <h1 class="post-title"> 
-                    <a href="/2018/10/24/Swift-优雅的适配大小/">Swift 优雅的适配大小</a>
-                </h1>
-                <div class="post-meta">  &bull;
-                    <time class="post-date" datetime="" title="">
-                        2018年10月24日
-                    </time>
-                </div>
-            </div>
-            <p class="brief">
-                
-                     
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/10/24</span>
+        </span>
+    
+</div>
 
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <excerpt in="" index="" |="" 首页摘要=""> 
 
-在日常开发中常常会对设备进行一定的适配，为了方便在多个项目里统一管理和使用，所以封装并开源了SwiftyFitsize这个库，可用于适配视图及字体大小
+<blockquote>
+<p>在日常开发中常常会对设备进行一定的适配，为了方便在多个项目里统一管理和使用，所以封装并开源了<code>SwiftyFitsize</code>这个库，可用于适配视图及字体大小</p>
+</blockquote>
+<p>GitHub: [SwiftyFitsize](</p>
+<p>+<a id="more"></a></p>
+<the rest="" of="" contents="" |="" 余下全文="">
 
-GitHub: [SwiftyFitsize](
-+…
-                
-            </p> 
+<blockquote>
+<p>在日常开发中常常会对设备进行一定的适配，为了方便在多个项目里统一管理和使用，所以封装并开源了<code>SwiftyFitsize</code>这个库，可用于适配视图及字体大小</p>
+</blockquote>
+<p>GitHub: <a href="https://github.com/LinXunFeng/SwiftyFitsize" target="_blank" rel="noopener">SwiftyFitsize</a></p>
+<p>最终的效果如下图所示</p>
+<p><img src="/images/2018/10/Swift-优雅的适配大小/exhibition.png" alt="效果图"></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>使用Cocoapods安装，或手动拖入项目<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod &apos;SwiftyFitsize&apos;</span><br></pre></td></tr></table></figure></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p><code>SwiftyFitsize</code>在默认状况下所使用的参照宽度为<code>iphone6</code>的<code>375</code><br>如果设计图所选用设备的宽度与默认值不同，可以在<code>AppDelegate</code>下初始化所参照的宽度</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">SwiftyFitsize</span>.reference(width: <span class="number">414</span>)</span><br></pre></td></tr></table></figure>
+<p>下面列出一些设备对应的分辨率，方便查找</p>
+<table>
+<thead>
+<tr>
+<th>设备</th>
+<th>逻辑分辨率(point)</th>
+<th>设备分辨率(pixel)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SE</td>
+<td>320x568</td>
+<td>640x1136</td>
+</tr>
+<tr>
+<td>6(S)／7／8</td>
+<td>375x667</td>
+<td>750x1334</td>
+</tr>
+<tr>
+<td>6(S)+／7+／8+</td>
+<td>414x736</td>
+<td>1080x1920</td>
+</tr>
+<tr>
+<td>X(S)</td>
+<td>375x812</td>
+<td>1125x2436</td>
+</tr>
+<tr>
+<td>XR</td>
+<td>414x896</td>
+<td>828x1792</td>
+</tr>
+<tr>
+<td>XS Max</td>
+<td>414x896</td>
+<td>1242x2688</td>
+</tr>
+</tbody>
+</table>
+<p>使用也是非常方便的，只需要在<code>Number</code>、<code>UIFont</code>、<code>CGPoint</code>、<code>CGSize</code>、<code>UIEdgeInsetsMake</code>这些类型的值后面加上<code>~</code>即可<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">100</span>~</span><br><span class="line"><span class="type">UIFont</span>.systemFont(ofSize: <span class="number">14</span>)~</span><br><span class="line"><span class="type">CGPoint</span>(x: <span class="number">10</span>, y: <span class="number">10</span>)~</span><br><span class="line"><span class="type">CGSize</span>(width: <span class="number">100</span>, height: <span class="number">100</span>)~</span><br><span class="line"><span class="type">CGRect</span>(x: <span class="number">10</span>, y: <span class="number">10</span>, width: <span class="number">100</span>, height: <span class="number">100</span>)~</span><br><span class="line"><span class="type">UIEdgeInsetsMake</span>(<span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>)~</span><br></pre></td></tr></table></figure></p>
+<p>注：<code>~</code>请不要相互嵌套使用，如<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">CGPoint</span>(x: <span class="number">10</span>~, y: <span class="number">10</span>~)~</span><br></pre></td></tr></table></figure></p>
+</the></excerpt>
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="http://linxunfeng.top/" target="_blank">LinXunFeng</a>
+            
         </div>
-    </article>
- 
-    <article class="post">
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2018/09/15/iOS-面向协议封装全屏旋转功能/" class="next-post btn btn-default" title='iOS 面向协议封装全屏旋转功能'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">iOS 面向协议封装全屏旋转功能</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
         
-        <div class="post-content">
-            <div class="post-head home-post-head">
-                <h1 class="post-title"> 
-                    <a href="/2018/09/15/iOS-面向协议封装全屏旋转功能/">iOS 面向协议封装全屏旋转功能</a>
-                </h1>
-                <div class="post-meta">  &bull;
-                    <time class="post-date" datetime="" title="">
-                        2018年09月15日
-                    </time>
-                </div>
-            </div>
-            <p class="brief">
-                
-                     
+	
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNjc3MC8xMzMwNQ">
+  <script type="text/javascript">
+     (function(d, s) {
+         var j, e = d.getElementsByTagName(s)[0];
+         if (typeof LivereTower === 'function') { return; }
+         j = d.createElement(s);
+         j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+         j.async = true;
+         e.parentNode.insertBefore(j, e);
+     })(document, 'script');
+  </script>
+</div>
 
 
-关于使用面向协议来封装功能的实战可以参考我上篇文章 【iOS 面向协议方式封装空白页功能】，这里就不再赘述，我们直接进入使用阶段吧。本篇文章只有一个目的，那就是只要遵守协议，一行代码随意切换全屏～
-
-如果对面向协议有疑问的同学可以看下我之前的两篇文章
-iOS - Swift 面向协议编程（一） 
-iOS - Swift 面向协议编程（二）
-+…
-                
-            </p> 
-        </div>
-    </article>
- 
-    <article class="post">
-        
-        <div class="post-content">
-            <div class="post-head home-post-head">
-                <h1 class="post-title"> 
-                    <a href="/2018/06/07/AppRTC实战/">AppRTC实战</a>
-                </h1>
-                <div class="post-meta">  &bull;
-                    <time class="post-date" datetime="" title="">
-                        2018年06月07日
-                    </time>
-                </div>
-            </div>
-            <p class="brief">
-                
-                     
-
-记录AppRTC的搭建过程，实现iOS、Android、Browser同异设备的视频通信…
-                
-            </p> 
-        </div>
-    </article>
- 
-    <article class="post">
-        
-        <div class="post-content">
-            <div class="post-head home-post-head">
-                <h1 class="post-title"> 
-                    <a href="/2018/05/24/打造Moya便捷解析库，提供RxSwift拓展/">打造Moya便捷解析库，提供RxSwift拓展</a>
-                </h1>
-                <div class="post-meta">  &bull;
-                    <time class="post-date" datetime="" title="">
-                        2018年05月24日
-                    </time>
-                </div>
-            </div>
-            <p class="brief">
-                
-                     
-
-MoyaMapper是基于Moya和SwiftyJSON封装的工具，以Moya的plugin的方式来实现间接解析，支持RxSwift
-+…
-                
-            </p> 
-        </div>
-    </article>
- 
-    <article class="post">
-        
-        <div class="post-content">
-            <div class="post-head home-post-head">
-                <h1 class="post-title"> 
-                    <a href="/2018/04/07/iOS-面向协议方式封装空白页功能/">iOS 面向协议方式封装空白页功能</a>
-                </h1>
-                <div class="post-meta">  &bull;
-                    <time class="post-date" datetime="" title="">
-                        2018年04月07日
-                    </time>
-                </div>
-            </div>
-            <p class="brief">
-                
-                     
-
-为了良好的交互体验，相信大家在对待scrollView无数据时的提示页都会使用一些第三方来定制，最典型的就是使用DZNEmptyDataSet。但是每个界面都写一堆与DZNEmptyDataSetDelegate，DZNEmptyDataSetSource相关的代码就不太好，那一般情况下自然的就会采用继承的方式来避免。而Swift除了可以面向对象编程，它还可以面向协议编程。那可不可以也用协议来解决情况呢？嘿嘿，这个可以有，那我们接下来就来试试怎么通过协议的方式来避免上述情况，并且实现一行代码添加空白页功能
-+…
-                
-            </p> 
-        </div>
-    </article>
- 
-    <article class="post">
-        
-        <div class="post-content">
-            <div class="post-head home-post-head">
-                <h1 class="post-title"> 
-                    <a href="/2018/04/06/iOS-组件化开发（四）：fastlane实现pod自动化/">iOS 组件化开发（四）：fastlane实现pod自动化</a>
-                </h1>
-                <div class="post-meta">  &bull;
-                    <time class="post-date" datetime="" title="">
-                        2018年04月06日
-                    </time>
-                </div>
-            </div>
-            <p class="brief">
-                
-                     
-
-在第一次组件化的时候，需要执行很多操作，这些操作可以在【iOS 组件化开发（一）：远程私有库的基本使用】，这里就不再赘述，在组件化后的重复性操作就是升级，而升级这个过程是一模一样的。那么，我们有什么办法可以很方便的搞定这一过程来节约我们大量的时间呢？
-+…
-                
-            </p> 
-        </div>
-    </article>
- 
-    <article class="post">
-        
-        <div class="post-content">
-            <div class="post-head home-post-head">
-                <h1 class="post-title"> 
-                    <a href="/2018/04/06/iOS-组件化开发（三）：加载资源文件/">iOS 组件化开发（三）：加载资源文件</a>
-                </h1>
-                <div class="post-meta">  &bull;
-                    <time class="post-date" datetime="" title="">
-                        2018年04月06日
-                    </time>
-                </div>
-            </div>
-            <p class="brief">
-                
-                     
-
-经过前两篇文章的学习，相信对组件化开发有了大致的了解，那我们这篇文章就来讲讲资源文件的加载吧
-+…
-                
-            </p> 
-        </div>
-    </article>
- 
-    <article class="post">
-        
-        <div class="post-content">
-            <div class="post-head home-post-head">
-                <h1 class="post-title"> 
-                    <a href="/2018/04/06/iOS-组件化开发（二）：远程私有库的更新与子库/">iOS 组件化开发（二）：远程私有库的更新与子库</a>
-                </h1>
-                <div class="post-meta">  &bull;
-                    <time class="post-date" datetime="" title="">
-                        2018年04月06日
-                    </time>
-                </div>
-            </div>
-            <p class="brief">
-                
-                     
-
-在上一篇【iOS 组件化开发（一）：远程私有库的基本使用】中我们已经实战了远程私有库的基本操作，但是组件不可能上传一次就完事了，随着业务的增加，我们的组件可能还需要添加更多的东西，或者修复一些问题，这就需要我们对私有库代码进行升级与维护
-+…
-                
-            </p> 
-        </div>
-    </article>
- 
-    <article class="post">
-        
-        <div class="post-content">
-            <div class="post-head home-post-head">
-                <h1 class="post-title"> 
-                    <a href="/2018/04/06/iOS-组件化开发（一）：远程私有库的基本使用/">iOS 组件化开发（一）：远程私有库的基本使用</a>
-                </h1>
-                <div class="post-meta">  &bull;
-                    <time class="post-date" datetime="" title="">
-                        2018年04月06日
-                    </time>
-                </div>
-            </div>
-            <p class="brief">
-                
-                     
-
-随着项目功能的不断增加，越来越多的开发人员加入，业务主线也随之越来越多，造成耦合越来越严重，编译越来越慢，测试不独立等一系列问题。为了解决此类情况，我们可以考虑到使用组件化开发
-+…
-                
-            </p> 
-        </div>
-    </article>
- 
-    <article class="post">
-        
-        <div class="post-content">
-            <div class="post-head home-post-head">
-                <h1 class="post-title"> 
-                    <a href="/2017/10/24/RxSwift-MJRefresh-打造自动处理刷新控件状态/">RxSwift + MJRefresh 打造自动处理刷新控件状态</a>
-                </h1>
-                <div class="post-meta">  &bull;
-                    <time class="post-date" datetime="" title="">
-                        2017年10月24日
-                    </time>
-                </div>
-            </div>
-            <p class="brief">
-                
-                     
-
-MVVM的模式中，多出了ViewModel这个角色，将逻辑处理、网络请求等繁杂操作中ViewController中抽离出来，ViewController得以瘦身。结合RxSwift架构，我们一般就会在ViewModel中定义一个input收集繁杂操作所需的信息，通过一个transform方法将input作为参数传入，进而得到一个output供controller使用。
-在使用RxSwift开发时会大量的使用到这种形式，其中就包括我们的网络请求。
-+…
-                
-            </p> 
-        </div>
-    </article>
- 
-
-
-    <nav class="pagination" role="navigation">
-        <div id="page-nav">
-            <span class="page-number current">1</span><a class="page-number" href="/tags/iOS/page/2/">2</a><a class="page-number" href="/tags/iOS/page/3/">3</a><a class="extend next" rel="next" href="/tags/iOS/page/2/"><i class='fa fa-angle-right'></i></a>
-        </div>
-    </nav>
-
+    </div>
 
 
 
