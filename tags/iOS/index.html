@@ -135,6 +135,33 @@
         <div class="post-content">
             <div class="post-head home-post-head">
                 <h1 class="post-title"> 
+                    <a href="/2018/10/27/Swift-掌控Moya的网络请求、数据解析与缓存/">Swift 掌控Moya的网络请求、数据解析与缓存</a>
+                </h1>
+                <div class="post-meta">  &bull;
+                    <time class="post-date" datetime="" title="">
+                        2018年10月27日
+                    </time>
+                </div>
+            </div>
+            <p class="brief">
+                
+                     
+
+
+Moya 在Swift开发中起着重要的网络交互作用，但是还有不如之处，比如网络不可用时，返回的 Response 为 nil，这时还得去解析相应的 Error
+Codable 可以帮助我们快速的解析数据，但是一旦声明的属性类型与json中的不一致，将无法正常解析; 而且对于模型中自定义属性名的处理也十分繁琐
+
++…
+                
+            </p> 
+        </div>
+    </article>
+ 
+    <article class="post">
+        
+        <div class="post-content">
+            <div class="post-head home-post-head">
+                <h1 class="post-title"> 
                     <a href="/2018/10/24/Swift-优雅的适配大小/">Swift 优雅的适配大小</a>
                 </h1>
                 <div class="post-meta">  &bull;
@@ -150,7 +177,7 @@
 
 在日常开发中常常会对设备进行一定的适配，为了方便在多个项目里统一管理和使用，所以封装并开源了SwiftyFitsize这个库，可用于适配视图及字体大小
 
-GitHub: [SwiftyFitsize](
+GitHub: SwiftyFitsize
 +…
                 
             </p> 
@@ -353,31 +380,6 @@ MoyaMapper是基于Moya和SwiftyJSON封装的工具，以Moya的plugin的方式�
         </div>
     </article>
  
-    <article class="post">
-        
-        <div class="post-content">
-            <div class="post-head home-post-head">
-                <h1 class="post-title"> 
-                    <a href="/2017/10/24/RxSwift-MJRefresh-打造自动处理刷新控件状态/">RxSwift + MJRefresh 打造自动处理刷新控件状态</a>
-                </h1>
-                <div class="post-meta">  &bull;
-                    <time class="post-date" datetime="" title="">
-                        2017年10月24日
-                    </time>
-                </div>
-            </div>
-            <p class="brief">
-                
-                     
-
-MVVM的模式中，多出了ViewModel这个角色，将逻辑处理、网络请求等繁杂操作中ViewController中抽离出来，ViewController得以瘦身。结合RxSwift架构，我们一般就会在ViewModel中定义一个input收集繁杂操作所需的信息，通过一个transform方法将input作为参数传入，进而得到一个output供controller使用。
-在使用RxSwift开发时会大量的使用到这种形式，其中就包括我们的网络请求。
-+…
-                
-            </p> 
-        </div>
-    </article>
- 
 
 
     <nav class="pagination" role="navigation">
@@ -468,7 +470,7 @@ MVVM的模式中，多出了ViewModel这个角色，将逻辑处理、网络请�
         
     <div class="widget">
         <h3 class="title">Categories</h3>
-        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/"><i class="fa" aria-hidden="true">Linux</i></a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/"><i class="fa" aria-hidden="true">Python</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/"><i class="fa" aria-hidden="true">iOS</i></a><span class="category-list-count">29</span></li></ul>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/"><i class="fa" aria-hidden="true">Linux</i></a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/"><i class="fa" aria-hidden="true">Python</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/"><i class="fa" aria-hidden="true">iOS</i></a><span class="category-list-count">30</span></li></ul>
     </div>
 
 
@@ -476,7 +478,7 @@ MVVM的模式中，多出了ViewModel这个角色，将逻辑处理、网络请�
         
     <div class="widget">
       <h3 class="title">Archives</h3>
-        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/"><i class="fa" aria-hidden="true">October 2018</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/"><i class="fa" aria-hidden="true">September 2018</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/"><i class="fa" aria-hidden="true">June 2018</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/"><i class="fa" aria-hidden="true">May 2018</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/"><i class="fa" aria-hidden="true">April 2018</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/"><i class="fa" aria-hidden="true">October 2017</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/"><i class="fa" aria-hidden="true">September 2017</i></a><span class="archive-list-count">19</span></li></ul>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/"><i class="fa" aria-hidden="true">October 2018</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/"><i class="fa" aria-hidden="true">September 2018</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/"><i class="fa" aria-hidden="true">June 2018</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/"><i class="fa" aria-hidden="true">May 2018</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/"><i class="fa" aria-hidden="true">April 2018</i></a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/"><i class="fa" aria-hidden="true">October 2017</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/"><i class="fa" aria-hidden="true">September 2017</i></a><span class="archive-list-count">19</span></li></ul>
     </div>
 
 
