@@ -177,14 +177,14 @@
         <excerpt in="" index="" |="" 首页摘要=""> 
 
 <blockquote>
-<p>在日常开发中常常会对设备进行一定的适配，为了方便在多个项目里统一管理和使用，所以封装并开源了<code>SwiftyFitsize</code>这个库，可用于适配视图及字体大小</p>
+<p>在日常开发中常常会对设备进行一定的适配，为了方便在多个项目里统一管理和使用，所以封装并开源了<code>SwiftyFitsize</code>这个库，可用于适配视图及字体大小，同时也支持 xib 和 storyboard</p>
 </blockquote>
 <p>GitHub: <a href="https://github.com/LinXunFeng/SwiftyFitsize" target="_blank" rel="noopener">SwiftyFitsize</a></p>
 <p>+<a id="more"></a></p>
 <the rest="" of="" contents="" |="" 余下全文="">
 
 <blockquote>
-<p>在日常开发中常常会对设备进行一定的适配，为了方便在多个项目里统一管理和使用，所以封装并开源了<code>SwiftyFitsize</code>这个库，可用于适配视图及字体大小</p>
+<p>在日常开发中常常会对设备进行一定的适配，为了方便在多个项目里统一管理和使用，所以封装并开源了<code>SwiftyFitsize</code>这个库，可用于适配视图及字体大小，同时也支持 xib 和 storyboard</p>
 </blockquote>
 <p>GitHub: <a href="https://github.com/LinXunFeng/SwiftyFitsize" target="_blank" rel="noopener">SwiftyFitsize</a></p>
 <p>最终的效果如下图所示</p>
@@ -235,8 +235,12 @@
 </tbody>
 </table>
 <p>使用也是非常方便的，只需要在<code>Number</code>、<code>UIFont</code>、<code>CGPoint</code>、<code>CGSize</code>、<code>UIEdgeInsetsMake</code>这些类型的值后面加上<code>~</code>即可<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">100</span>~</span><br><span class="line"><span class="type">UIFont</span>.systemFont(ofSize: <span class="number">14</span>)~</span><br><span class="line"><span class="type">CGPoint</span>(x: <span class="number">10</span>, y: <span class="number">10</span>)~</span><br><span class="line"><span class="type">CGSize</span>(width: <span class="number">100</span>, height: <span class="number">100</span>)~</span><br><span class="line"><span class="type">CGRect</span>(x: <span class="number">10</span>, y: <span class="number">10</span>, width: <span class="number">100</span>, height: <span class="number">100</span>)~</span><br><span class="line"><span class="type">UIEdgeInsetsMake</span>(<span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>)~</span><br></pre></td></tr></table></figure></p>
-<p>注：<code>~</code>请不要相互嵌套使用，如<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">CGPoint</span>(x: <span class="number">10</span>~, y: <span class="number">10</span>~)~</span><br></pre></td></tr></table></figure></p>
-</the></excerpt>
+<h5 id="xib-storyboard-字体适配"><a href="#xib-storyboard-字体适配" class="headerlink" title="xib / storyboard 字体适配"></a>xib / storyboard 字体适配</h5><p>支持控件 <code>UILabel</code> <code>UIButton</code> <code>UITextView</code> <code>UITextField</code></p>
+<p><img src="https://github.com/LinXunFeng/SwiftyFitsize/raw/master/Screenshots/xib-font.png" alt="xib-font"></p>
+<h5 id="xib-storyboard-约束适配"><a href="#xib-storyboard-约束适配" class="headerlink" title="xib / storyboard 约束适配"></a>xib / storyboard 约束适配</h5><p><img src="https://github.com/LinXunFeng/SwiftyFitsize/raw/master/Screenshots/xib-constraint.png" alt="xib-font"></p>
+<p>##### </p>
+<p>注：<code>~</code>请不要相互嵌套使用，如</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">CGPoint</span>(x: <span class="number">10</span>~, y: <span class="number">10</span>~)~</span><br></pre></td></tr></table></figure></the></excerpt>
     </div>
 
     <div class="post-footer">
