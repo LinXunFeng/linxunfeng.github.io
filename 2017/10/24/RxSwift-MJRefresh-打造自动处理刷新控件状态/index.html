@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="">
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
     <!--Setting-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -20,10 +20,10 @@
 
 
 
-<meta name="robots" content="all" />
-<meta name="google" content="all" />
-<meta name="googlebot" content="all" />
-<meta name="verify" content="all" />
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
     <!--Title-->
 
 
@@ -62,7 +62,7 @@
 
 </head>
 
-
+</html>
 <!--[if lte IE 8]>
 <style>
     html{ font-size: 1em }
@@ -73,9 +73,9 @@
 <![endif]-->
 
 <body>
-    <header class="main-header"  style="background-image:url(/./img/background/banner.jpeg)"  >
+    <header class="main-header" style="background-image:url(/./img/background/banner.jpeg)">
     <div class="main-header-box">
-        <a class="header-avatar" href="/" title='LinXunFeng'>
+        <a class="header-avatar" href="/" title="LinXunFeng">
             <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
         </a>
         <div class="branding">
@@ -150,16 +150,16 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/iOS" title='iOS'>
+                    <a href="/tags/iOS" title="iOS">
                         iOS
                     </a>
                 
-                    <a href="/tags/RxSwift" title='RxSwift'>
-                        RxSwift
+                    <a href="/tags/Swift" title="Swift">
+                        Swift
                     </a>
                 
-                    <a href="/tags/Swift" title='Swift'>
-                        Swift
+                    <a href="/tags/RxSwift" title="RxSwift">
+                        RxSwift
                     </a>
                 
             
@@ -223,10 +223,10 @@
 <p>二、controller 遵守协议 Refreshable，通过协议中的方法初始化刷新控件及对应的操作，并将刷新控件对象作为参数传入到自动处理状态方法中<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">LXFLiveViewController</span>: <span class="title">Refreshable</span></span></span><br></pre></td></tr></table></figure></p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> refreshHeader = initRefreshHeader(liveCollectionView) &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">self</span>?.vmOutput?.requestCommand.onNext(())</span><br><span class="line">&#125;</span><br><span class="line">vmOutput?.autoSetRefreshHeaderStatus(header: refreshHeader, footer: <span class="literal">nil</span>).disposed(by: rx.disposeBag)</span><br></pre></td></tr></table></figure>
 <p>三、viewModel中根据实际情况实时更新 refreshStatus 的刷新状态</p>
-<p><img src="/images/2017/10/RxSwift-MJExtension-打造自动处理刷新控件状态/1.png" alt="image.png"></p>
+<p><img src="http://linxunfeng.github.io/images/2017/10/RxSwift-MJExtension-打造自动处理刷新控件状态/1.png" alt="image.png"></p>
 <h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>协议：<a href="https://github.com/LinXunFeng/LXFBiliBili/blob/master/LXFBiliBili/LXFBiliBili/Classes/Common/Protocol/Lib/Refreshable.swift" target="_blank" rel="noopener">Refreshable.swift</a><br>ViewModel：<a href="https://github.com/LinXunFeng/LXFBiliBili/blob/master/LXFBiliBili/LXFBiliBili/Classes/Main/Home/Controller/Live/ViewModel/LXFLiveViewModel.swift" target="_blank" rel="noopener">LXFLiveViewModel</a><br>Controller：<a href="https://github.com/LinXunFeng/LXFBiliBili/blob/master/LXFBiliBili/LXFBiliBili/Classes/Main/Home/Controller/Live/LXFLiveViewController.swift" target="_blank" rel="noopener">LXFLiveViewController</a></p>
 <p><a href="https://github.com/LinXunFeng/LXFBiliBili" target="_blank" rel="noopener">LXFBiliBili</a></p>
-<p><img src="/images/2017/10/RxSwift-MJExtension-打造自动处理刷新控件状态/2.gif" alt="LXFBiliBili"></p>
+<p><img src="http://linxunfeng.github.io/images/2017/10/RxSwift-MJExtension-打造自动处理刷新控件状态/2.gif" alt="LXFBiliBili"></p>
 </the></excerpt>
     </div>
     
@@ -264,13 +264,13 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2018/04/02/Python-虚拟环境/" class="pre-post btn btn-default" title='Python - 虚拟环境'>
+        <a href="/2018/04/02/Python-虚拟环境/" class="pre-post btn btn-default" title="Python - 虚拟环境">
             <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
             <span class="hidden-xs">Python - 虚拟环境</span>
         </a>
     
     
-        <a href="/2017/10/16/iOS-视频采集详解/" class="next-post btn btn-default" title='iOS - 视频采集详解'>
+        <a href="/2017/10/16/iOS-视频采集详解/" class="next-post btn btn-default" title="iOS - 视频采集详解">
             <span class="hidden-lg">下一篇</span>
             <span class="hidden-xs">iOS - 视频采集详解</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
