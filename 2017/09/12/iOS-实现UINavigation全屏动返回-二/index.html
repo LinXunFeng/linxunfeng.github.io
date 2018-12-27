@@ -73,7 +73,7 @@
 <![endif]-->
 
 <body>
-    <header class="main-header"  style="background-image:url(http://linxunfeng.github.io/img/background/banner.jpeg)"  >
+    <header class="main-header"  style="background-image:url(/./img/background/banner.jpeg)"  >
     <div class="main-header-box">
         <a class="header-avatar" href="/" title='LinXunFeng'>
             <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
@@ -220,6 +220,26 @@
 <p>LXFNavigationController.swift<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">override func viewDidLoad() &#123;</span><br><span class="line">    super.viewDidLoad()</span><br><span class="line">    </span><br><span class="line">    guard let targets = interactivePopGestureRecognizer!.value(forKey: &quot;_targets&quot;) as? [NSObject] else &#123; return &#125;</span><br><span class="line">    let targetObjc = targets.first</span><br><span class="line">    let target = targetObjc?.value(forKey: &quot;target&quot;)</span><br><span class="line">    let action = Selector((&quot;handleNavigationTransition:&quot;))</span><br><span class="line">    </span><br><span class="line">    let panGes = UIPanGestureRecognizer(target: target, action: action)</span><br><span class="line">    view.addGestureRecognizer(panGes)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 </the></excerpt>
     </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="./img/pay/alipay.png"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="./img/pay/wechat.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
     
     <div class="post-footer">
         <div>
