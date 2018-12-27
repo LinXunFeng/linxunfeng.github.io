@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>iOS - Swift 面向协议编程（二） | LinXunFeng‘s Blog</title>
+<title>iOS-Swift面向协议编程（二） | LinXunFeng‘s Blog</title>
 
 
     <link rel="alternate" href="/atom.xml" title="LinXunFeng‘s Blog" type="application/atom+xml">
@@ -128,9 +128,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="iOS - Swift 面向协议编程（二）">
+        <h1 id="iOS-Swift面向协议编程（二）">
             
-	            iOS - Swift 面向协议编程（二）
+	            iOS-Swift面向协议编程（二）
             
         </h1>
         <div class="post-meta">
@@ -199,9 +199,9 @@
 </a>已经对Swift的面向协议编程做了介绍，接下来该篇文章将使用面向协议开发(POP)来做下实际的应用</p>
 </blockquote>
 <p>在实际开发中，自定义View基本上是必须的，相信这对我们来说都是比较简单，不过我们还是来回顾一下下~</p>
-<h1 id="面向对象开发"><a href="#面向对象开发" class="headerlink" title="面向对象开发"></a>面向对象开发</h1><p>1 新建一个UIView的FirstTypeView<br><img src="http://linxunfeng.github.io/images/2017/09/iOS - Swift 面向协议编程（二）/1.png" alt="FirstTypeView"></p>
-<p>2 创建一个View的xib文件<br><img src="http://linxunfeng.github.io/images/2017/09/iOS - Swift 面向协议编程（二）/2.png" alt="xib"><br>3 设置xib对应的class进行绑定</p>
-<p><img src="http://linxunfeng.github.io/images/2017/09/iOS - Swift 面向协议编程（二）/3.png" alt="xib class"></p>
+<h2 id="面向对象开发"><a href="#面向对象开发" class="headerlink" title="面向对象开发"></a>面向对象开发</h2><p>1 新建一个UIView的FirstTypeView<br><img src="http://linxunfeng.github.io/images/2017/09/iOS-Swift面向协议编程（二）/1.png" alt="FirstTypeView"></p>
+<p>2 创建一个View的xib文件<br><img src="http://linxunfeng.github.io/images/2017/09/iOS-Swift面向协议编程（二）/2.png" alt="xib"><br>3 设置xib对应的class进行绑定</p>
+<p><img src="http://linxunfeng.github.io/images/2017/09/iOS-Swift面向协议编程（二）/3.png" alt="xib class"></p>
 <p>4 在FirstTypeView.swift 中实现一个类方法，方便我们外部用xib来初始化FirstTypeView<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FirstTypeView</span>: <span class="title">UIView</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">FirstTypeView</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">loadFromNib</span>() -&gt; <span class="title">FirstTypeView</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Bundle</span>.main.loadNibNamed(<span class="string">"\(self)"</span>, owner: <span class="literal">nil</span>, options: <span class="literal">nil</span>)?.first <span class="keyword">as</span>! <span class="type">FirstTypeView</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>在外部只要调用FirstTypeView的loadFromNib方法就可以初始化一个View来使用了。好，现在又有一个类SecondTypeView，也是要求使用xib来初始化view。这时我们就会想，一样的加载xib的方法，那我们就把它抽取出来放到父类就可以了。这里的父类以BaseView.swift为例<br>父类的主要实现代码<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">BaseView</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">loadFromNib</span>() -&gt; <span class="title">BaseView</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Bundle</span>.main.loadNibNamed(<span class="string">"\(self)"</span>, owner: <span class="literal">nil</span>, options: <span class="literal">nil</span>)?.first <span class="keyword">as</span>! <span class="type">BaseView</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>那我们的FirstTypeView和SecondTypeView只需要直接继承于BaseView就可以了，在其它地方初始化view也很方便<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let firstView = FirstTypeView.loadFromNib()</span><br><span class="line">view.addSubview(firstView)</span><br><span class="line"></span><br><span class="line">let secondView = SecondTypeView.loadFromNib()</span><br><span class="line">view.addSubview(secondView)</span><br></pre></td></tr></table></figure></p>
@@ -211,12 +211,12 @@
 <h2 id="面向协议开发"><a href="#面向协议开发" class="headerlink" title="面向协议开发"></a>面向协议开发</h2><blockquote>
 <p>将BaseView删除，FirstTypeView和SecondTypeView改回继承于UIView</p>
 </blockquote>
-<p>1 新建一个Swift文件 Nibloadable.swift<br><img src="http://linxunfeng.github.io/images/2017/09/iOS - Swift 面向协议编程（二）/4.png" alt="Nibloadable"></p>
+<p>1 新建一个Swift文件 Nibloadable.swift<br><img src="http://linxunfeng.github.io/images/2017/09/iOS-Swift面向协议编程（二）/4.png" alt="Nibloadable"></p>
 <p>2 实现协议方法</p>
 <p><strong>协议中不允许定义类方法，需改为静态方法</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">protocol Nibloadable &#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">extension Nibloadable &#123;</span><br><span class="line">    static func loadFromNib() -&gt; Self &#123;</span><br><span class="line">        return Bundle.main.loadNibNamed(&quot;\(self)&quot;, owner: nil, options: nil)?.first as! Self</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>3 遵守协议<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class SecondTypeView: UIView, Nibloadable &#123;</span><br><span class="line">    var age: Int = 10</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这样就可以了，而且你在调用loadFromNib方法时可以发现，类型是对应上的</p>
-<p><img src="http://linxunfeng.github.io/images/2017/09/iOS - Swift 面向协议编程（二）/5.png" alt="loadFromNib协议方法"></p>
+<p><img src="http://linxunfeng.github.io/images/2017/09/iOS-Swift面向协议编程（二）/5.png" alt="loadFromNib协议方法"></p>
 <p>好了，面向协议开发的应用就记录到这里，希望能帮助到大家！</p>
 <p><a href="https://github.com/LinXunFeng/LXFPOP" target="_blank" rel="noopener">Demo</a></p>
 </the></excerpt>
@@ -227,12 +227,12 @@
         <div class="reward-box">
             
                 <span class="reward-type">
-                    <img class="alipay" src="linxunfeng.top/img/pay/alipay.png"><b>支付宝打赏</b>
+                    <img class="alipay" src="http://linxunfeng.github.io/img/pay/alipay.png"><b>支付宝打赏</b>
                 </span>
             
             
                 <span class="reward-type">
-                    <img class="wechat" src="linxunfeng.top/img/pay/wechat.png"><b>微信打赏</b>
+                    <img class="wechat" src="http://linxunfeng.github.io/img/pay/wechat.png"><b>微信打赏</b>
                 </span>
             
         </div>
@@ -307,7 +307,7 @@
     <div class="widget">
         <h3 class="title">Table of Contents</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#面向对象开发"><span class="toc-text">面向对象开发</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#面向协议开发"><span class="toc-text">面向协议开发</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#面向对象开发"><span class="toc-text">面向对象开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#面向协议开发"><span class="toc-text">面向协议开发</span></a></li></ol>
         
     </div>
 </aside>
