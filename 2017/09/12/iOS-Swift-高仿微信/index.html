@@ -181,7 +181,7 @@
             
             
             <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>471</strong>天之前发表，文中内容可能已经过时。
+                本文于<strong>473</strong>天之前发表，文中内容可能已经过时。
             </p>
         
     </div>
@@ -206,10 +206,10 @@
 <h2 id="模仿微信的导航栏"><a href="#模仿微信的导航栏" class="headerlink" title="模仿微信的导航栏"></a>模仿微信的导航栏</h2><p>在navigationBar底部添加一个添加了渐变层的view<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> blurBackView = <span class="type">UIView</span>()</span><br><span class="line">blurBackView.frame = <span class="type">CGRect</span>(x: <span class="number">0</span>, y: -<span class="number">20</span>, width: kScreenW, height: <span class="number">64</span>)</span><br><span class="line"><span class="keyword">let</span> gradintLayer = <span class="type">CAGradientLayer</span>()</span><br><span class="line">gradintLayer.frame = <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: kScreenW, height: <span class="number">64</span>)</span><br><span class="line">gradintLayer.colors = [</span><br><span class="line">    <span class="type">UIColor</span>.hexInt(<span class="number">0x040012</span>).withAlphaComponent(<span class="number">0.76</span>).cgColor,</span><br><span class="line">    <span class="type">UIColor</span>.hexInt(<span class="number">0x040012</span>).withAlphaComponent(<span class="number">0.28</span>).cgColor</span><br><span class="line">]</span><br><span class="line">gradintLayer.startPoint = <span class="type">CGPoint</span>(x: <span class="number">0</span>, y: <span class="number">0</span>)</span><br><span class="line">gradintLayer.endPoint = <span class="type">CGPoint</span>(x: <span class="number">0</span>, y: <span class="number">1.0</span>)</span><br><span class="line">blurBackView.layer.addSublayer(gradintLayer)</span><br><span class="line">blurBackView.isUserInteractionEnabled = <span class="literal">false</span></span><br><span class="line">blurBackView.alpha = <span class="number">0.5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置导航栏样式</span></span><br><span class="line">navigationBar.barStyle = .black</span><br><span class="line">navigationBar.insertSubview(blurBackView, at: <span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
 <h2 id="表情面板和更多面板"><a href="#表情面板和更多面板" class="headerlink" title="表情面板和更多面板"></a>表情面板和更多面板</h2><p>遇到的问题总结了一下，可以参考下以下总结的文章</p>
 <p><a href="http://www.jianshu.com/p/18d7d0f5e3e2" target="_blank" rel="noopener">《iOS - Swift UICollectionView横向分页滚动，cell左右排版》</a></p>
-<p><a href="http://www.jianshu.com/p/60da3b52d64c" target="_blank" rel="noopener">《iOS - Swift UICollectionView横向分页的问题》</a></p>
-<h2 id="聊天界面"><a href="#聊天界面" class="headerlink" title="聊天界面"></a>聊天界面</h2><p><a href="http://www.jianshu.com/p/4c570cd79bd3" target="_blank" rel="noopener">《iOS - Swift 仿微信聊天图片显示》</a></p>
-<p><a href="http://www.jianshu.com/p/aa139463eb4b" target="_blank" rel="noopener">《iOS - Swift UITableView的scrollToRow的”坑”》</a></p>
-<p><a href="http://www.jianshu.com/p/412a2e23b5b6" target="_blank" rel="noopener">《iOS - Swift UIButton中ImageView的animationImages动画执行完毕后，图标变暗》</a></p>
+<p><a href="http://www.jianshu.com/p/60da3b52d64c" target="_blank" rel="noopener">《iOS-Swift-UICollectionView横向分页的问题》</a></p>
+<h2 id="聊天界面"><a href="#聊天界面" class="headerlink" title="聊天界面"></a>聊天界面</h2><p><a href="http://www.jianshu.com/p/4c570cd79bd3" target="_blank" rel="noopener">《iOS-Swift 仿微信聊天图片显示》</a></p>
+<p><a href="http://www.jianshu.com/p/aa139463eb4b" target="_blank" rel="noopener">《iOS-Swift-UITableView的scrollToRow的”坑”》</a></p>
+<p><a href="http://www.jianshu.com/p/412a2e23b5b6" target="_blank" rel="noopener">《iOS-Swift-UIButton中ImageView的animationImages动画执行完毕后，图标变暗》</a></p>
 <h2 id="首页"><a href="#首页" class="headerlink" title="首页"></a>首页</h2><p><a href="http://www.jianshu.com/p/807cddad469a" target="_blank" rel="noopener">《iOS - Swift 仿微信小红点(无数字)》</a></p>
 <h2 id="目前完成的功能"><a href="#目前完成的功能" class="headerlink" title="目前完成的功能"></a>目前完成的功能</h2><h3 id="微信界面"><a href="#微信界面" class="headerlink" title="微信界面"></a>微信界面</h3><ol>
 <li>显示右上角的菜单</li>
@@ -241,7 +241,7 @@
 <li>小视频和图片发送出去后不能立即更新显示缩略图</li>
 <li>更换头像模拟器测试正常，真机无效。。</li>
 </ul>
-<h2 id="2017-07-24-更新"><a href="#2017-07-24-更新" class="headerlink" title="2017-07-24 更新"></a>2017-07-24 更新</h2><p>抽空出来添加了一个简单的直播功能（对方需要先进入到对应的聊天界面）<br>相关博文：<a href="http://www.jianshu.com/p/022b9044decc" target="_blank" rel="noopener">iOS - 给高仿微信添加直播聊天功能</a><br>需要用到<a href="https://github.com/LinXunFeng/IJKFramework" target="_blank" rel="noopener">编译好的B站开源库ijkplayer</a> ，由于打包好的文件太大，传不上来，所以需要各位去自己编译集成进去。</p>
+<h2 id="2017-07-24-更新"><a href="#2017-07-24-更新" class="headerlink" title="2017-07-24 更新"></a>2017-07-24 更新</h2><p>抽空出来添加了一个简单的直播功能（对方需要先进入到对应的聊天界面）<br>相关博文：<a href="http://www.jianshu.com/p/022b9044decc" target="_blank" rel="noopener">iOS-给高仿微信添加直播聊天功能</a><br>需要用到<a href="https://github.com/LinXunFeng/IJKFramework" target="_blank" rel="noopener">编译好的B站开源库ijkplayer</a> ，由于打包好的文件太大，传不上来，所以需要各位去自己编译集成进去。</p>
 <h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><h3 id="动态图"><a href="#动态图" class="headerlink" title="动态图"></a>动态图</h3><p><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/1.gif" alt=""><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/2.gif" alt=""><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/3.gif" alt=""><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/4.gif" alt=""><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/5.gif" alt=""><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/6.gif" alt=""><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/7.gif" alt=""></p>
 <h3 id="静态图"><a href="#静态图" class="headerlink" title="静态图"></a>静态图</h3><p><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170206_1.png" alt=""><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_1.png" alt=""><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_2.png" alt=""><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_3.png" alt=""><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_4.png" alt=""><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_5.png" alt=""><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_6.png" alt=""><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_7.png" alt=""><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_8.png" alt=""><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_9.png" alt=""></p>
 <div class="github-widget" data-repo="LinXunFeng/LXFWeChat"></div></the></excerpt>
@@ -287,9 +287,9 @@
         </a>
     
     
-        <a href="/2017/09/12/iOS-ARC与MRC的单例设计模式/" class="next-post btn btn-default" title="iOS - ARC与MRC的单例设计模式">
+        <a href="/2017/09/12/iOS-ARC与MRC的单例设计模式/" class="next-post btn btn-default" title="iOS-ARC与MRC的单例设计模式">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">iOS - ARC与MRC的单例设计模式</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">iOS-ARC与MRC的单例设计模式</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>

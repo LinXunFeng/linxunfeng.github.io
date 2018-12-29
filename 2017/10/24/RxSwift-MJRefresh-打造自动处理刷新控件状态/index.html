@@ -185,7 +185,7 @@
             
             
             <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>429</strong>天之前发表，文中内容可能已经过时。
+                本文于<strong>431</strong>天之前发表，文中内容可能已经过时。
             </p>
         
     </div>
@@ -199,10 +199,10 @@
 <the rest="" of="" contents="" |="" 余下全文="">
 
 <blockquote>
-<p>本文是基于 <a href="http://linxunfeng.top/2017/09/12/iOS-RxSwift-%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/">iOS - RxSwift 项目实战记录</a> 所述，如果你还未阅读过，建议你最好还先阅读一遍，并下载Demo熟悉一下 : )</p>
+<p>本文是基于 <a href="http://linxunfeng.top/2017/09/12/iOS-RxSwift-%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/">iOS-RxSwift项目实战记录</a> 所述，如果你还未阅读过，建议你最好还先阅读一遍，并下载Demo熟悉一下 : )</p>
 </blockquote>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>MVVM的模式中，多出了ViewModel这个角色，将逻辑处理、网络请求等繁杂操作中ViewController中抽离出来，ViewController得以瘦身。<br>结合RxSwift架构，我们一般就会在ViewModel中定义一个input收集繁杂操作所需的信息，通过一个transform方法将input作为参数传入，进而得到一个output供controller使用。</p>
-<p>在使用RxSwift开发时会大量的使用到这种形式，其中就包括我们的网络请求。<br>结合 <a href="http://linxunfeng.top/2017/09/12/iOS-RxSwift-%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/">iOS - RxSwift 项目实战记录</a> 中所述的“MJRefresh在RxSwift中的使用”，在output中定义了一个变量<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> refreshStatus = <span class="type">Variable</span>&lt;<span class="type">LXFRefreshStatus</span>&gt;(.<span class="keyword">none</span>)</span><br></pre></td></tr></table></figure></p>
+<p>在使用RxSwift开发时会大量的使用到这种形式，其中就包括我们的网络请求。<br>结合 <a href="http://linxunfeng.top/2017/09/12/iOS-RxSwift-%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/">iOS-RxSwift项目实战记录</a> 中所述的“MJRefresh在RxSwift中的使用”，在output中定义了一个变量<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> refreshStatus = <span class="type">Variable</span>&lt;<span class="type">LXFRefreshStatus</span>&gt;(.<span class="keyword">none</span>)</span><br></pre></td></tr></table></figure></p>
 <p>controller通过output将其进行监听，从而当值发生变化时，controller就能实时获取当前应所处的刷新状态<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">vmOutput.refreshStatus.asObservable().subscribe(onNext: &#123;[<span class="keyword">weak</span> <span class="keyword">self</span>] status <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">switch</span> status &#123;</span><br><span class="line">    <span class="keyword">case</span> .beingHeaderRefresh:</span><br><span class="line">        <span class="keyword">self</span>?.tableView.mj_header.beginRefreshing()</span><br><span class="line">    <span class="keyword">case</span> .endHeaderRefresh:</span><br><span class="line">        <span class="keyword">self</span>?.tableView.mj_header.endRefreshing()</span><br><span class="line">    <span class="keyword">case</span> .beingFooterRefresh:</span><br><span class="line">        <span class="keyword">self</span>?.tableView.mj_footer.beginRefreshing()</span><br><span class="line">    <span class="keyword">case</span> .endFooterRefresh:</span><br><span class="line">        <span class="keyword">self</span>?.tableView.mj_footer.endRefreshing()</span><br><span class="line">    <span class="keyword">case</span> .noMoreData:</span><br><span class="line">        <span class="keyword">self</span>?.tableView.mj_footer.endRefreshingWithNoMoreData()</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;).addDisposableTo(rx_disposeBag)</span><br></pre></td></tr></table></figure></p>
 <p>如果在一个项目多处使用到了这种方式，我们就可以看到弊端——重复代码，过于冗余。</p>
 <p>难道我们每次都要在controller中进行如此操作吗？</p>
@@ -264,9 +264,9 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2018/04/02/Python-虚拟环境/" class="pre-post btn btn-default" title="Python - 虚拟环境">
+        <a href="/2018/04/02/Python-虚拟环境/" class="pre-post btn btn-default" title="Python-虚拟环境">
             <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">Python - 虚拟环境</span>
+            <span class="hidden-xs">Python-虚拟环境</span>
         </a>
     
     
