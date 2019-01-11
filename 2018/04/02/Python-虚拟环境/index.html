@@ -239,30 +239,30 @@
 <p>平时在开发时我们都会先安装一些python需要的包，每次安装都会有一个版本，如果不同项目需要不同版本的包时就会出现不兼容的情况。应对这种情况我们就可以搭建多个虚拟环境来应对不同的环境需求，在虚拟环境中搭建一个Python项目运行所需要的那些包，将来根据运行的项目来切换不同环境即可</p>
 </blockquote>
 <p>我们可以在当前用户的家目录中找到【.virtualenvs】文件夹，查看当前所有的虚拟环境</p>
-<p><img src="http://linxunfeng.github.io/images/2018/04/Python-虚拟环境/virtualenvs.png" alt="virtualenvs"></p>
+<p><img src="https://linxunfeng.github.io/images/2018/04/Python-虚拟环境/virtualenvs.png" alt="virtualenvs"></p>
 <h2 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h2><ul>
 <li>创建：mkvirtualenv [虚拟环境名称]</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkvirtualenv lxfenv1</span><br></pre></td></tr></table></figure>
-<p><img src="http://linxunfeng.github.io/images/2018/04/Python-虚拟环境/mkvirtualenv.png" alt="安装成功"></p>
+<p><img src="https://linxunfeng.github.io/images/2018/04/Python-虚拟环境/mkvirtualenv.png" alt="安装成功"></p>
 <p>注：创建的过程需要联网</p>
-<p><img src="http://linxunfeng.github.io/images/2018/04/Python-虚拟环境/目录结构.png" alt="目录结构"></p>
+<p><img src="https://linxunfeng.github.io/images/2018/04/Python-虚拟环境/目录结构.png" alt="目录结构"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Installing setuptools, pkg_resources, pip, wheel...done.</span><br></pre></td></tr></table></figure>
 <p>刚刚安装时提示安装的这些东西就存放在你创建好的虚拟环境下的【lib/python2.7/site-packages/】目录中</p>
-<p><img src="http://linxunfeng.github.io/images/2018/04/Python-虚拟环境/lib目录.png" alt="lib目录"></p>
+<p><img src="https://linxunfeng.github.io/images/2018/04/Python-虚拟环境/lib目录.png" alt="lib目录"></p>
 <ul>
 <li>退出：deactivate<br>当我们安装好虚拟环境后默认就使用了该虚拟环境，如图标识处可以看出</li>
 </ul>
-<p><img src="http://linxunfeng.github.io/images/2018/04/Python-虚拟环境/当前环境.png" alt="当前环境"></p>
+<p><img src="https://linxunfeng.github.io/images/2018/04/Python-虚拟环境/当前环境.png" alt="当前环境"></p>
 <p>如果你想退出当前的虚拟环境，或以使用如下命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
-<p><img src="http://linxunfeng.github.io/images/2018/04/Python-虚拟环境/退出环境.png" alt="退出环境"></p>
+<p><img src="https://linxunfeng.github.io/images/2018/04/Python-虚拟环境/退出环境.png" alt="退出环境"></p>
 <ul>
 <li>进入：workon [虚拟环境名称]</li>
 </ul>
 <p>使用指定的虚拟环境则使用如下命令：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">workon lxfenv1</span><br></pre></td></tr></table></figure>
-<p><img src="http://linxunfeng.github.io/images/2018/04/Python-虚拟环境/workon.png" alt="workon"></p>
+<p><img src="https://linxunfeng.github.io/images/2018/04/Python-虚拟环境/workon.png" alt="workon"></p>
 <ul>
 <li>删除：rmvirtualenv [虚拟环境名称]</li>
 </ul>
@@ -271,7 +271,7 @@
 <li>查看当前安装好的包</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip list</span><br><span class="line">或者</span><br><span class="line">pip freeze</span><br></pre></td></tr></table></figure>
-<p><img src="http://linxunfeng.github.io/images/2018/04/Python-虚拟环境/查看当前安装好的包.png" alt="查看当前安装好的包"></p>
+<p><img src="https://linxunfeng.github.io/images/2018/04/Python-虚拟环境/查看当前安装好的包.png" alt="查看当前安装好的包"></p>
 <p>ps: 上图<code>pip list</code>中列出的四个包是安装虚拟环境必定会安装的包<br>如图，<code>pip list</code>会列出所有的包，而<code>pip freeze</code>只会列出扩展的包</p>
 <ul>
 <li>安装指定包<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install django==1.8.2</span><br><span class="line"># ==1.8.2 为指定版本号，不写则直接安装最新的包</span><br></pre></td></tr></table></figure>
@@ -279,7 +279,7 @@
 </ul>
 <p><strong>注： pip install xxx 会自动删除旧版本，再安装新版本</strong></p>
 <p>如果不知道包名可以到<a href="https://pypi.python.org" target="_blank" rel="noopener">pypi</a>上搜索</p>
-<p><img src="http://linxunfeng.github.io/images/2018/04/Python-虚拟环境/安装指定的包.png" alt="安装指定的包"></p>
+<p><img src="https://linxunfeng.github.io/images/2018/04/Python-虚拟环境/安装指定的包.png" alt="安装指定的包"></p>
 </the></excerpt>
     </div>
     
