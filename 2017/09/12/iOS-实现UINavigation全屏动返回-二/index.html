@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="">
+<html lang>
 <head><meta name="generator" content="Hexo 3.8.0">
     <!--Setting-->
     <meta charset="UTF-8">
@@ -230,17 +230,17 @@
             
             
             <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>493</strong>天之前发表，文中内容可能已经过时。
+                本文于<strong>576</strong>天之前发表，文中内容可能已经过时。
             </p>
         
     </div>
     
     <div class="post-body post-content">
-        <excerpt in="" index="" |="" 首页摘要=""> 
+        <excerpt in index | 首页摘要> 
 
 <p>在 <a href="/2017/09/11/iOS-实现UINavigation全屏动返回-一">iOS - 实现UINavigation全屏滑动返回(一)</a> 中我们实现了滑动返回的功能，但不是全屏滑动返回，得在左侧边缘轻扫才能滑动返回~UINavigationController自带的只能在边缘轻扫才能滑动返回，这用户体验是不好的，接下来实现全屏滑动返回!</p>
 <p>+<a id="more"></a></p>
-<the rest="" of="" contents="" |="" 余下全文="">
+<the rest of contents | 余下全文>
 
 <h2 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h2><p>在 <a href="/2017/09/11/iOS-实现UINavigation全屏动返回-一/">iOS - 实现UINavigation全屏滑动返回(一)</a> 中我们实现了滑动返回的功能，但不是全屏滑动返回，得在左侧边缘轻扫才能滑动返回~UINavigationController自带的只能在边缘轻扫才能滑动返回，这用户体验是不好的，接下来实现全屏滑动返回!</p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>既然自带的滑动返回只能是在边缘，那我们能不能修改使它触摸范围变大甚至全屏呢？先来看下系统手势有没有提供属性或方法供我们使用<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, <span class="keyword">self</span>.interactivePopGestureRecognizer);</span><br></pre></td></tr></table></figure></p>

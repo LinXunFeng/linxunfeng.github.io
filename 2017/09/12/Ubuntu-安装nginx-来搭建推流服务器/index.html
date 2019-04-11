@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="">
+<html lang>
 <head><meta name="generator" content="Hexo 3.8.0">
     <!--Setting-->
     <meta charset="UTF-8">
@@ -230,17 +230,17 @@
             
             
             <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>492</strong>天之前发表，文中内容可能已经过时。
+                本文于<strong>576</strong>天之前发表，文中内容可能已经过时。
             </p>
         
     </div>
     
     <div class="post-body post-content">
-        <excerpt in="" index="" |="" 首页摘要=""> 
+        <excerpt in index | 首页摘要> 
 
 <p>如果安装命令回车之后出现如下信息，请参考<a href="http://www.linuxidc.com/Linux/2009-07/20740.htm" target="_blank" rel="noopener">【Ubuntu “无法获得锁”解决方案】</a>解决，但是我亲测对我没用，直接重启搞定</p>
 <p>+<a id="more"></a></p>
-<the rest="" of="" contents="" |="" 余下全文="">
+<the rest of contents | 余下全文>
 
 <h2 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h2><p>安装两个依赖库<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install autoconf automake</span><br><span class="line">sudo apt-get install libpcre3 libpcre3-dev</span><br></pre></td></tr></table></figure></p>
 <p>安装zlib库<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install openssl</span><br><span class="line">sudo apt-get install libssl-dev</span><br></pre></td></tr></table></figure></p>
@@ -252,13 +252,13 @@
 <p>下载完成之后使用unzip命令进行解压<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">unzip master.zip </span><br><span class="line">unzip module.zip</span><br><span class="line">tar -zxvf pcre-8.39.tar.gz</span><br></pre></td></tr></table></figure></p>
 <p>配置编译文件，准备编译安装<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 先进入nginx-master目录</span><br><span class="line">cd nginx-master/</span><br></pre></td></tr></table></figure></p>
 <p>在nginx-master目录下有一个auto文件夹，里面有一个名为configure的配置文件，我们先来通过它进行一些配置<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// prefix:指定安装目录</span><br><span class="line">// add-module:指定模块文件夹</span><br><span class="line">auto/configure --prefix=/usr/local/nginx --with-pcre=../pcre-8.39 --with-http_ssl_module --with-http_v2_module --with-http_flv_module --with-http_mp4_module --add-module=../nginx-rtmp-module-master/</span><br></pre></td></tr></table></figure></p>
-<p>配置好之后会多出一个Makefile文件(一种配置文件，定义了一系列的规则来指定编译操作)与objs文件夹<br><img src="https://linxunfeng.github.io/images/2017/09/Ubuntu安装nginx来搭建推流服务器/1.png" alt=""></p>
+<p>配置好之后会多出一个Makefile文件(一种配置文件，定义了一系列的规则来指定编译操作)与objs文件夹<br><img src="https://linxunfeng.github.io/images/2017/09/Ubuntu安装nginx来搭建推流服务器/1.png" alt></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 编译</span><br><span class="line">make</span><br><span class="line">// 安装</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
 <p>当你make后，看到则代表编译成功<br><img src="https://linxunfeng.github.io/images/2017/09/Ubuntu安装nginx来搭建推流服务器/2.png" alt="make成功"><br>再执行【sudo make install】，看到这个则代表安装完成<br><img src="https://linxunfeng.github.io/images/2017/09/Ubuntu安装nginx来搭建推流服务器/3.png" alt="安装完成"></p>
 <p>现在我们去测试一下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> cd /usr/local/nginx/sbin/</span><br><span class="line">sudo ./nginx -t</span><br></pre></td></tr></table></figure></p>
 <p>看到successful说明配置文件正确！，如果是failed的话看看你是不是没加sudo<br><img src="https://linxunfeng.github.io/images/2017/09/Ubuntu安装nginx来搭建推流服务器/4.png" alt="配置文件正确"></p>
 <p>启动nginx服务器<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./nginx</span><br></pre></td></tr></table></figure></p>
-<p>默认端口是80，所以直接到浏览器中直接敲入本地地址 127.0.0.1，显示【Welcome to nginx!】就代表nginx已经成功安装<br><img src="https://linxunfeng.github.io/images/2017/09/Ubuntu安装nginx来搭建推流服务器/5.png" alt=""></p>
+<p>默认端口是80，所以直接到浏览器中直接敲入本地地址 127.0.0.1，显示【Welcome to nginx!】就代表nginx已经成功安装<br><img src="https://linxunfeng.github.io/images/2017/09/Ubuntu安装nginx来搭建推流服务器/5.png" alt></p>
 <h2 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置nginx</h2><p>创建推流存放文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 为里以 /usr/local/var/www/hls 为例</span><br><span class="line">cd /usr/local</span><br><span class="line">sudo mkdir -p var/www/hls</span><br></pre></td></tr></table></figure></p>
 <p>进入nginx的conf目录，使用vim编辑nginx.conf文件<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/nginx/conf</span><br><span class="line">sudo vim nginx.conf</span><br></pre></td></tr></table></figure></p>
 <p>配置Nginx，支持http协议拉流<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location /hls &#123;</span><br><span class="line">  types &#123;</span><br><span class="line">    application/vnd.apple.mpegurl    m3u8;</span><br><span class="line">    video/mp2t ts;</span><br><span class="line">  &#125;</span><br><span class="line">  root /usr/local/var/www;</span><br><span class="line">   add_header Cache-Control    no-cache;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
