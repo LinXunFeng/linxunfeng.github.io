@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html lang>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <!--Setting-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -118,9 +118,9 @@
 <![endif]-->
 
 <body>
-    <header class="main-header" style="background-image:url(/./img/background/banner.jpeg)">
+    <header class="main-header"  style="background-image:url(/./img/background/banner.jpeg)"  >
     <div class="main-header-box">
-        <a class="header-avatar" href="/" title="LinXunFeng">
+        <a class="header-avatar" href="/" title='LinXunFeng'>
             <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
         </a>
         <div class="branding">
@@ -199,16 +199,16 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/iOS" title="iOS">
+                    <a href="/tags/iOS" title='iOS'>
                         iOS
                     </a>
                 
-                    <a href="/tags/Swift" title="Swift">
-                        Swift
+                    <a href="/tags/RxSwift" title='RxSwift'>
+                        RxSwift
                     </a>
                 
-                    <a href="/tags/RxSwift" title="RxSwift">
-                        RxSwift
+                    <a href="/tags/Swift" title='Swift'>
+                        Swift
                     </a>
                 
             
@@ -234,7 +234,7 @@
             
             
             <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>324</strong>天之前发表，文中内容可能已经过时。
+                本文于<strong>658</strong>天之前发表，文中内容可能已经过时。
             </p>
         
     </div>
@@ -285,7 +285,7 @@
 </ol>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 各参数返回的内容请参考上面JSON数据对照图</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">NetParameter</span> : <span class="title">ModelableParameterType</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> successValue: <span class="type">String</span> &#123; <span class="keyword">return</span> <span class="string">"false"</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> statusCodeKey: <span class="type">String</span> &#123; <span class="keyword">return</span> <span class="string">"error"</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> tipStrKey: <span class="type">String</span> &#123; <span class="keyword">return</span> <span class="string">""</span> &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> modelKey: <span class="type">String</span> &#123; <span class="keyword">return</span> <span class="string">"results"</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>此外，这里还可以做简单的路径处理，以应付各种情况，以’&gt;’隔开</strong></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 假设返回的json数据关于请求状态的相关数据如下所示，</span><br><span class="line">error: &#123;</span><br><span class="line">    'errorStatus':false</span><br><span class="line">    'errMsg':'error Argument type'</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设返回的json数据关于请求状态的相关数据如下所示，</span></span><br><span class="line">error: &#123;</span><br><span class="line">    'errorStatus':false</span><br><span class="line">    'errMsg':'error Argument type'</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 我们指明解析路径：error对象下的errMsg字段，一层层表示下去即可</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">var</span> tipStrKey: <span class="type">String</span> &#123; <span class="keyword">return</span> <span class="string">"error&gt;errMsg"</span> &#125;</span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>以plugin的方式传递给MoyaProvider</li>
@@ -346,13 +346,13 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2018/06/07/AppRTC实战/" class="pre-post btn btn-default" title="AppRTC实战">
+        <a href="/2018/06/07/AppRTC实战/" class="pre-post btn btn-default" title='AppRTC实战'>
             <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
             <span class="hidden-xs">AppRTC实战</span>
         </a>
     
     
-        <a href="/2018/04/07/iOS-面向协议方式封装空白页功能/" class="next-post btn btn-default" title="iOS-面向协议方式封装空白页功能">
+        <a href="/2018/04/07/iOS-面向协议方式封装空白页功能/" class="next-post btn btn-default" title='iOS-面向协议方式封装空白页功能'>
             <span class="hidden-lg">下一篇</span>
             <span class="hidden-xs">iOS-面向协议方式封装空白页功能</span><i class="fa fa-angle-right fa-fw"></i>
         </a>

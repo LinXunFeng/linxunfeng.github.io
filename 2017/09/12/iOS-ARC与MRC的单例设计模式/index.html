@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html lang>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <!--Setting-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -118,9 +118,9 @@
 <![endif]-->
 
 <body>
-    <header class="main-header" style="background-image:url(/./img/background/banner.jpeg)">
+    <header class="main-header"  style="background-image:url(/./img/background/banner.jpeg)"  >
     <div class="main-header-box">
-        <a class="header-avatar" href="/" title="LinXunFeng">
+        <a class="header-avatar" href="/" title='LinXunFeng'>
             <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
         </a>
         <div class="branding">
@@ -199,11 +199,11 @@
         <span class="tags-meta">
             
                 
-                    <a href="/tags/iOS" title="iOS">
+                    <a href="/tags/iOS" title='iOS'>
                         iOS
                     </a>
                 
-                    <a href="/tags/Objective-C" title="Objective-C">
+                    <a href="/tags/Objective-C" title='Objective-C'>
                         Objective-C
                     </a>
                 
@@ -230,7 +230,7 @@
             
             
             <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>579</strong>天之前发表，文中内容可能已经过时。
+                本文于<strong>912</strong>天之前发表，文中内容可能已经过时。
             </p>
         
     </div>
@@ -288,15 +288,15 @@
 <blockquote>
 <p>简单来说，\用于取消换行，##用来连接，而我们就用##来实现自定义类方法名</p>
 </blockquote>
-<p>创建一个头文件Singleton.h用来存放宏定义<br>先来看看定义.h中 sharedXXX 是如何通过宏来定义的<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// .h文件的实现</span></span><br><span class="line"><span class="meta">#define SingletonH(methodName) + (instancetype)shared##methodName;</span></span><br></pre></td></tr></table></figure></p>
+<p>创建一个头文件Singleton.h用来存放宏定义<br>先来看看定义.h中 sharedXXX 是如何通过宏来定义的<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// .h文件的实现</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SingletonH(methodName) + (instancetype)shared##methodName;</span></span><br></pre></td></tr></table></figure></p>
 <p>现在回到LXFFileTool.h中，直接一行定义sharedFileTool这个类方法<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"Singleton.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">LXFFileTool</span> : <span class="title">NSObject</span></span></span><br><span class="line">SingletonH(FileTool)</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
 <p>我们只需要将方法名FileTool传入SingletonH()中就可以拼接为sharedFileTool</p>
-<p>那现在再来看看定义.m中创建单例的方式，以ARC为例<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#define SingletonM(methodName) \</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">id</span> _instance = <span class="literal">nil</span>; \</span><br><span class="line">+ (<span class="keyword">instancetype</span>)allocWithZone:(<span class="keyword">struct</span> _NSZone *)zAone &#123; \</span><br><span class="line">    <span class="keyword">if</span> (_instance == <span class="literal">nil</span>) &#123; \</span><br><span class="line">        <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken; \</span><br><span class="line">        <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123; \</span><br><span class="line">            _instance = [<span class="keyword">super</span> allocWithZone:zone]; \</span><br><span class="line">        &#125;); \</span><br><span class="line">    &#125; \</span><br><span class="line">    <span class="keyword">return</span> _instance; \</span><br><span class="line">&#125; \</span><br><span class="line">\</span><br><span class="line">- (<span class="keyword">instancetype</span>)init &#123; \</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken; \</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123; \</span><br><span class="line">        _instance = [<span class="keyword">super</span> init]; \</span><br><span class="line">    &#125;); \</span><br><span class="line">    <span class="keyword">return</span> _instance; \</span><br><span class="line">&#125; \</span><br><span class="line">\</span><br><span class="line">+ (<span class="keyword">instancetype</span>)shared<span class="meta">##methodName &#123; \</span></span><br><span class="line">    <span class="keyword">return</span> [[<span class="keyword">self</span> alloc] init]; \</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>那现在再来看看定义.m中创建单例的方式，以ARC为例<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SingletonM(methodName) \</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">id</span> _instance = <span class="literal">nil</span>; \</span><br><span class="line">+ (<span class="keyword">instancetype</span>)allocWithZone:(<span class="keyword">struct</span> _NSZone *)zAone &#123; \</span><br><span class="line">    <span class="keyword">if</span> (_instance == <span class="literal">nil</span>) &#123; \</span><br><span class="line">        <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken; \</span><br><span class="line">        <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123; \</span><br><span class="line">            _instance = [<span class="keyword">super</span> allocWithZone:zone]; \</span><br><span class="line">        &#125;); \</span><br><span class="line">    &#125; \</span><br><span class="line">    <span class="keyword">return</span> _instance; \</span><br><span class="line">&#125; \</span><br><span class="line">\</span><br><span class="line">- (<span class="keyword">instancetype</span>)init &#123; \</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken; \</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123; \</span><br><span class="line">        _instance = [<span class="keyword">super</span> init]; \</span><br><span class="line">    &#125;); \</span><br><span class="line">    <span class="keyword">return</span> _instance; \</span><br><span class="line">&#125; \</span><br><span class="line">\</span><br><span class="line">+ (<span class="keyword">instancetype</span>)shared##methodName &#123; \</span><br><span class="line">    <span class="keyword">return</span> [[<span class="keyword">self</span> alloc] init]; \</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>在每一个行后面加上(反斜杠)取消换行，使用##来拼接传入的方法名，但还有一点需要注意：最后一行不能加反斜杠</p>
 </blockquote>
 <p>回到LXFFileTool.m中，一行实现创建单例<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"LXFFileTool.h"</span></span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">LXFFileTool</span></span></span><br><span class="line">SingletonM(FileTool)</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
-<p>好，现在还有一个问题，就是如果我的项目中有个别文件是需要MRC环境的，那我该怎么办才能让创建单例也是如此简单呢？很简单，加个判断就好了，大致判断如下，详情看文章最后附上的Demo<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#if __has_feature(objc_arc) // ARC</span></span><br><span class="line"><span class="comment">// 写上ARC下的定义代码</span></span><br><span class="line"><span class="meta">#else   // 非ARC</span></span><br><span class="line"><span class="comment">// 写上MRC下的定义代码</span></span><br><span class="line"><span class="meta">#endif</span></span><br></pre></td></tr></table></figure></p>
+<p>好，现在还有一个问题，就是如果我的项目中有个别文件是需要MRC环境的，那我该怎么办才能让创建单例也是如此简单呢？很简单，加个判断就好了，大致判断如下，详情看文章最后附上的Demo<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> __has_feature(objc_arc) <span class="comment">// ARC</span></span></span><br><span class="line"><span class="comment">// 写上ARC下的定义代码</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span>   <span class="comment">// 非ARC</span></span></span><br><span class="line"><span class="comment">// 写上MRC下的定义代码</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>好了，现在用起来是不是方便多了？我们只要创建一个类，然后在.h文件中写SingletonH(XXX)，再在.m文件中写SingletonM(XXX)就可以实现单例了~</p>
 </blockquote>
@@ -341,13 +341,13 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2017/09/12/iOS-Swift-高仿微信/" class="pre-post btn btn-default" title="iOS - Swift 高仿微信">
+        <a href="/2017/09/12/iOS-Swift-高仿微信/" class="pre-post btn btn-default" title='iOS - Swift 高仿微信'>
             <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
             <span class="hidden-xs">iOS - Swift 高仿微信</span>
         </a>
     
     
-        <a href="/2017/09/12/iOS-Swift-UIButton中ImageView的animationImages动画执行完毕后，图标变暗/" class="next-post btn btn-default" title="iOS-Swift-UIButton中ImageView的animationImages动画执行完毕后，图标变暗">
+        <a href="/2017/09/12/iOS-Swift-UIButton中ImageView的animationImages动画执行完毕后，图标变暗/" class="next-post btn btn-default" title='iOS-Swift-UIButton中ImageView的animationImages动画执行完毕后，图标变暗'>
             <span class="hidden-lg">下一篇</span>
             <span class="hidden-xs">iOS-Swift-UIButton中ImageView的animationImages动画执行完毕后，图标变暗</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
