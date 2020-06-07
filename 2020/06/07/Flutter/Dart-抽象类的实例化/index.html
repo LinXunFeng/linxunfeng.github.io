@@ -1,0 +1,451 @@
+<!DOCTYPE HTML>
+<html lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="LinXunFeng‘s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://linxunfeng.top">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>Dart - 抽象类的实例化 | LinXunFeng‘s Blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="LinXunFeng‘s Blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1275838195 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1275838195%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?031981f555deecc203818690c85ef421";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-131541294-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=66150761" charset="UTF-8"></script>
+
+    
+    <meta name="baidu-site-verification" content="9LgZ2AlWYS">
+
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/./img/background/banner.jpeg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='LinXunFeng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://linxunfeng.top">LinXunFeng‘s Blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/iOS/"><i class="fa "></i>iOS</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Linux/"><i class="fa "></i>Linux</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Flutter/"><i class="fa "></i>Flutter</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Others/"><i class="fa "></i>其它</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Dart - 抽象类的实例化">
+            
+	            Dart - 抽象类的实例化
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/Flutter">
+            Flutter
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/Dart" title='Dart'>
+                        Dart
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2020/06/07</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <excerpt in index | 首页摘要> 
+
+<p>抽象类不能用于创建实例，但是有没有发现，<code>Dart</code> 提供的 <code>Map</code> 和 <code>List</code> 就是抽象类，却可以直接使用它们创建出一个实例对象</p>
+<p>+<a id="more"></a></p>
+<the rest of contents | 余下全文>
+
+<h2 id="一、抽象类的使用"><a href="#一、抽象类的使用" class="headerlink" title="一、抽象类的使用"></a>一、抽象类的使用</h2><p><code>Dart</code> 抽象类可以只声明方法，也可以有具体的方法实现，但是不能直接用抽象类来创建实例，只能被继承使用或者充当接口。</p>
+<p>定义一个抽象类 <code>Animal</code><br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 仅声明eat方法</span></span><br><span class="line">  <span class="keyword">void</span> eat();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 声明方法，且有具体实现</span></span><br><span class="line">  <span class="keyword">void</span> sleep() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"睡觉"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>继承使用</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="keyword">void</span> eat() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"喵喵吃"</span>);</span><br><span class="line">    sleep();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可以不实现 sleep 方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>充当接口<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">implements</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">  <span class="keyword">void</span> eat() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"吃"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 必须实现 sleep 方法</span></span><br><span class="line">  <span class="keyword">void</span> sleep() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'睡'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实例化<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> animal = Animal();</span><br><span class="line"><span class="comment">// 抽象类实例化会报错</span></span><br><span class="line"><span class="comment">// Error: The class 'Test' is abstract and can't be instantiated.</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<ul>
+<li>抽象类不能实例化。</li>
+<li>继承: 子类比较实现抽象方法，子类可以不重写抽象类中已实现的方法。</li>
+<li>接口: 必须实现抽象类中声明的所有方法</li>
+</ul>
+</blockquote>
+<h2 id="二、抽象类的实例化"><a href="#二、抽象类的实例化" class="headerlink" title="二、抽象类的实例化"></a>二、抽象类的实例化</h2><p>上面提到了抽象类不能用于创建实例，但是有没有发现，<code>Dart</code> 提供的 <code>Map</code> 和 <code>List</code> 就是抽象类，却可以直接使用它们创建出一个实例对象<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> list = <span class="built_in">List</span>();</span><br><span class="line"><span class="keyword">final</span> dict = <span class="built_in">Map</span>&lt;<span class="built_in">String</span>, <span class="built_in">dynamic</span>&gt;();</span><br></pre></td></tr></table></figure></p>
+<p>我们来看一下 <code>Map</code> 的源码：<br><img src="https://linxunfeng.github.io/images/2020/06/Dart-抽象类的实例化/Map源码.png" alt="Map源码"></p>
+<p><code>Map</code> 的确是抽象类，不过此时我们也注意到了，在 <code>Map</code> 这个抽象类中，定义了一个工厂构造方法，<strong>这就是使抽象类可实例化的关键所在，因为工厂方法可以返回一个实例对象，但这个对象的类型不一定就是当前类!</strong></p>
+<p>在这个地方，<code>Map</code> 的工厂方法并没有具体的实现，而只是在工厂构造方法前加了一个关键字 <code>external</code>。<br><code>external</code> 关键字可以让方法的声明与实现分离，即 可以由外部来帮我们完成具体的方法实现，那外部如何才能关联到该声明的方法呢？这里就需要用到注解 <code>@patch</code>，使外部的方法实现与该声明的方法绑定</p>
+<blockquote>
+<p><code>external</code> 可以分离方法的声明与实现<br><code>@patch</code> 关联某个类中用 <code>external</code> 修饰的方法的实现</p>
+</blockquote>
+<p>根据如下路径可以找到 <code>Map</code> 的具体实现源码<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// flutter/bin/cache/dart-sdk/lib/_internal/vm/lib/map_patch.dart</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@patch</span></span><br><span class="line"><span class="keyword">factory</span> <span class="built_in">Map</span>() =&gt; <span class="keyword">new</span> LinkedHashMap&lt;K, V&gt;();</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，这里使用了 <code>LinkedHashMap</code> 来实现 <code>Map</code> 。</p>
+<p>我们再去看一下 <code>LinkedHashMap</code> 的实现源码，路径如下：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// flutter/bin/cache/dart-sdk/lib/collection/linked_hash_map.dart</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">external</span> <span class="keyword">factory</span> LinkedHashMap(</span><br><span class="line">    &#123;<span class="built_in">bool</span> <span class="built_in">Function</span>(K, K)? equals,</span><br><span class="line">    <span class="built_in">int</span> <span class="built_in">Function</span>(K)? hashCode,</span><br><span class="line">    <span class="built_in">bool</span> <span class="built_in">Function</span>(<span class="built_in">dynamic</span>)? isValidKey&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这里我们又发现 <code>LinkedHashMap</code> 也仅仅只是声明，找到具体实现</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// flutter/bin/cache/dart-sdk/lib/_internal/vm/lib/collection_patch.dart</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@patch</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkedHashMap</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">  <span class="meta">@patch</span></span><br><span class="line">  <span class="keyword">factory</span> LinkedHashMap(</span><br><span class="line">      &#123;<span class="built_in">bool</span> equals(K key1, K key2)?,</span><br><span class="line">      <span class="built_in">int</span> hashCode(K key)?,</span><br><span class="line">      <span class="built_in">bool</span> isValidKey(potentialKey)?&#125;) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isValidKey == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (hashCode == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (equals == <span class="keyword">null</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">new</span> _InternalLinkedHashMap&lt;K, V&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        hashCode = _defaultHashCode;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (identical(identityHashCode, hashCode) &amp;&amp;</span><br><span class="line">            identical(identical, equals)) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">new</span> _CompactLinkedIdentityHashMap&lt;K, V&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        equals ??= _defaultEquals;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      hashCode ??= _defaultHashCode;</span><br><span class="line">      equals ??= _defaultEquals;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> _CompactLinkedCustomHashMap&lt;K, V&gt;(equals, hashCode, isValidKey);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，<code>LinkedHashMap</code>的工厂构造方法返回的实例类型是 <code>_InternalLinkedHashMap</code> 或 <code>_CompactLinkedCustomHashMap</code> ，这里我们再看一下这两个类的实现源码</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// flutter/bin/cache/dart-sdk/lib/_internal/vm/lib/compact_hash.dart</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@pragma</span>(<span class="string">"vm:entry-point"</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_InternalLinkedHashMap</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">_HashVMBase</span></span></span><br><span class="line"><span class="class">    <span class="title">with</span></span></span><br><span class="line"><span class="class">        <span class="title">MapMixin</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt;,</span></span><br><span class="line"><span class="class">        <span class="title">_LinkedHashMapMixin</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt;,</span></span><br><span class="line"><span class="class">        <span class="title">_HashBase</span>,</span></span><br><span class="line"><span class="class">        <span class="title">_OperatorEqualsAndHashCode</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">LinkedHashMap</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">  _InternalLinkedHashMap() &#123;</span><br><span class="line">    _index = <span class="keyword">new</span> Uint32List(_HashBase._INITIAL_INDEX_SIZE);</span><br><span class="line">    _hashMask = _HashBase._indexSizeToHashMask(_HashBase._INITIAL_INDEX_SIZE);</span><br><span class="line">    _data = <span class="keyword">new</span> <span class="built_in">List</span>.filled(_HashBase._INITIAL_INDEX_SIZE, <span class="keyword">null</span>);</span><br><span class="line">    _usedData = <span class="number">0</span>;</span><br><span class="line">    _deletedKeys = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_CompactLinkedIdentityHashMap</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">_HashFieldBase</span></span></span><br><span class="line"><span class="class">    <span class="title">with</span></span></span><br><span class="line"><span class="class">        <span class="title">MapMixin</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt;,</span></span><br><span class="line"><span class="class">        <span class="title">_LinkedHashMapMixin</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt;,</span></span><br><span class="line"><span class="class">        <span class="title">_HashBase</span>,</span></span><br><span class="line"><span class="class">        <span class="title">_IdenticalAndIdentityHashCode</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">LinkedHashMap</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">  _CompactLinkedIdentityHashMap() : <span class="keyword">super</span>(_HashBase._INITIAL_INDEX_SIZE);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_CompactLinkedCustomHashMap</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">_HashFieldBase</span></span></span><br><span class="line"><span class="class">    <span class="title">with</span> <span class="title">MapMixin</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt;, <span class="title">_LinkedHashMapMixin</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt;, <span class="title">_HashBase</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">LinkedHashMap</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> _equality;</span><br><span class="line">  <span class="keyword">final</span> _hasher;</span><br><span class="line">  <span class="keyword">final</span> _validKey;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// TODO(koda): Ask gbracha why I cannot have fields _equals/_hashCode.</span></span><br><span class="line">  <span class="built_in">int</span> _hashCode(e) =&gt; _hasher(e);</span><br><span class="line">  <span class="built_in">bool</span> _equals(e1, e2) =&gt; _equality(e1, e2);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">bool</span> containsKey(<span class="built_in">Object</span>? o) =&gt; _validKey(o) ? <span class="keyword">super</span>.containsKey(o) : <span class="keyword">false</span>;</span><br><span class="line">  V? <span class="keyword">operator</span> [](<span class="built_in">Object</span>? o) =&gt; _validKey(o) ? <span class="keyword">super</span>[o] : <span class="keyword">null</span>;</span><br><span class="line">  V? remove(<span class="built_in">Object</span>? o) =&gt; _validKey(o) ? <span class="keyword">super</span>.remove(o) : <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">  _CompactLinkedCustomHashMap(<span class="keyword">this</span>._equality, <span class="keyword">this</span>._hasher, validKey)</span><br><span class="line">      : _validKey = (validKey != <span class="keyword">null</span>) ? validKey : <span class="keyword">new</span> _TypeTest&lt;K&gt;().test,</span><br><span class="line">        <span class="keyword">super</span>(_HashBase._INITIAL_INDEX_SIZE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它们都是一个普通的类，没有工厂构造方法，也就是说 <code>Map</code> 中的 <code>external factory Map();</code> 最终返回的最终实例类型为 <code>_InternalLinkedHashMap</code> 或 <code>_CompactLinkedCustomHashMap</code></p>
+<p>我们可以做一个简单的验证<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> map = <span class="built_in">Map</span>();</span><br><span class="line"><span class="built_in">print</span>(map.runtimeType);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印结果</span></span><br><span class="line"><span class="comment">// _InternalLinkedHashMap&lt;dynamic, dynamic&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>我们来试着来实例化一个抽象类吧<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">  <span class="keyword">void</span> eat();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> sleep() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"睡觉"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">factory</span> Animal() &#123;</span><br><span class="line">    <span class="keyword">return</span> Cat();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">implements</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">  <span class="keyword">void</span> eat() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"吃"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> sleep() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'睡'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> animal = Animal();</span><br><span class="line"><span class="built_in">print</span>(animal.runtimeType); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印结果: Cat</span></span><br></pre></td></tr></table></figure>
+<p>可能会有同学要问了，这里用的是接口的方式，可以用继承的方式吗？<br><strong>很遗憾不行，因为在抽象类中定义了工厂构造方法后，在子类中不能定义除工厂构造方法外的其它构造方法了，会报错~</strong></p>
+<p>总结一下：</p>
+<blockquote>
+<p>抽象类无法直接创建实例，但是可以通过实现工厂构造方法来间接实现抽象类的实例化！</p>
+</blockquote>
+<h2 id="三、补充"><a href="#三、补充" class="headerlink" title="三、补充"></a>三、补充</h2><p>那饶了这么一大圈，为什么不直接在声明的时候就给它实现了呢？🤔<br>这样做的好处就是：</p>
+<blockquote>
+<ul>
+<li>复用同一套API的声明</li>
+<li>可以针对不同的平台做不同的实现</li>
+</ul>
+</blockquote>
+<p>而 <code>针对不同的平台做不同的实现</code> 这一点在下方给出的源码中可以看出</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// flutter/bin/cache/dart-sdk/lib/io/file_system_entity.dart</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">_FileSystemWatcher</span> </span>&#123;</span><br><span class="line">  <span class="keyword">external</span> <span class="keyword">static</span> Stream&lt;FileSystemEvent&gt; _watch(</span><br><span class="line">      <span class="built_in">String</span> path, <span class="built_in">int</span> events, <span class="built_in">bool</span> recursive);</span><br><span class="line">  <span class="keyword">external</span> <span class="keyword">static</span> <span class="built_in">bool</span> <span class="keyword">get</span> isSupported;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// flutter/bin/cache/dart-sdk/lib/_internal/vm/bin/file_patch.dart</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@patch</span></span><br><span class="line"><span class="keyword">static</span> Stream&lt;FileSystemEvent&gt; _watch(</span><br><span class="line">    <span class="built_in">String</span> path, <span class="built_in">int</span> events, <span class="built_in">bool</span> recursive) &#123;</span><br><span class="line">  <span class="keyword">if</span> (Platform.isLinux) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> _InotifyFileSystemWatcher(path, events, recursive)._stream;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (Platform.isWindows) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> _Win32FileSystemWatcher(path, events, recursive)._stream;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (Platform.isMacOS) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> _FSEventStreamFileSystemWatcher(path, events, recursive)</span><br><span class="line">        ._stream;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> FileSystemException(</span><br><span class="line">      <span class="string">"File system watching is not supported on this platform"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</the></excerpt>
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="http://linxunfeng.github.io/img/pay/alipay.png"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="http://linxunfeng.github.io/img/pay/wechat.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="http://linxunfeng.top/" target="_blank">LinXunFeng</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2020/03/14/解决SecurityEnvSDK与SGMain的冲突问题/" class="next-post btn btn-default" title='解决SecurityEnvSDK与SGMain的冲突问题'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">解决SecurityEnvSDK与SGMain的冲突问题</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: '0rTljoibiQOAeo1tQ9qXExq9-gzGzoHsz',
+            appKey: '2N2gdmSHN6mIGpbmX8duHv6X',
+            placeholder: '说点什么吧',
+            notify: true,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">Table of Contents</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、抽象类的使用"><span class="toc-text">一、抽象类的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、抽象类的实例化"><span class="toc-text">二、抽象类的实例化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、补充"><span class="toc-text">三、补充</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        Total:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        Visitors:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <!-- <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | -->
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

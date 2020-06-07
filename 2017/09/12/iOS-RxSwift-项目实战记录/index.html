@@ -1,0 +1,473 @@
+<!DOCTYPE HTML>
+<html lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="LinXunFeng‘s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://linxunfeng.top">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>iOS-RxSwift项目实战记录 | LinXunFeng‘s Blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="LinXunFeng‘s Blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1275838195 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1275838195%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?031981f555deecc203818690c85ef421";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-131541294-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=66150761" charset="UTF-8"></script>
+
+    
+    <meta name="baidu-site-verification" content="9LgZ2AlWYS">
+
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/./img/background/banner.jpeg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='LinXunFeng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://linxunfeng.top">LinXunFeng‘s Blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/iOS/"><i class="fa "></i>iOS</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Linux/"><i class="fa "></i>Linux</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Flutter/"><i class="fa "></i>Flutter</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Others/"><i class="fa "></i>其它</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="iOS-RxSwift项目实战记录">
+            
+	            iOS-RxSwift项目实战记录
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/iOS">
+            iOS
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/iOS" title='iOS'>
+                        iOS
+                    </a>
+                
+                    <a href="/tags/Swift" title='Swift'>
+                        Swift
+                    </a>
+                
+                    <a href="/tags/RxSwift" title='RxSwift'>
+                        RxSwift
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2017/09/12</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+
+            
+            
+            <p class="fa fa-exclamation-triangle warning">
+                本文于<strong>998</strong>天之前发表，文中内容可能已经过时。
+            </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <excerpt in index | 首页摘要> 
+
+<p>最近刚刚把接手的OC项目搞定，经过深思熟虑后，本人决定下个项目起就使用Swift(学了这么久的Swift还没真正用到实际项目里。。。)，而恰巧RxSwift已经出来有一些时间了，语法也基本上稳定，遂只身前来试探试探这RxSwift，接着就做了个小Demo，有兴趣的同学可以瞧一瞧~</p>
+<p>+<a id="more"></a></p>
+<the rest of contents | 余下全文>
+
+<p><img src="https://linxunfeng.github.io/images/2017/09/iOS-RxSwift项目实战记录/1.png" alt="ReactiveX"></p>
+<blockquote>
+<p>最近刚刚把接手的OC项目搞定，经过深思熟虑后，本人决定下个项目起就使用Swift(学了这么久的Swift还没真正用到实际项目里。。。)，而恰巧RxSwift已经出来有一些时间了，语法也基本上稳定，遂只身前来试探试探这RxSwift，接着就做了个小Demo，有兴趣的同学可以瞧一瞧~</p>
+</blockquote>
+<p><img src="https://linxunfeng.github.io/images/2017/09/iOS-RxSwift项目实战记录/2.gif" alt="Exhibition"></p>
+<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── Controller</span><br><span class="line">│   └── LXFViewController.swift		// 主视图控制器</span><br><span class="line">├── Extension</span><br><span class="line">│   └── Response+ObjectMapper.swift	// Response分类，Moya请求完进行Json转模型或模型数组</span><br><span class="line">├── Model</span><br><span class="line">│   └── LXFModel.swift				// 模型</span><br><span class="line">├── Protocol</span><br><span class="line">│   └── LXFViewModelType.swift		// 定义了模型协议</span><br><span class="line">├── Tool</span><br><span class="line">│   ├── LXFNetworkTool.swift		// 封装Moya请求</span><br><span class="line">│   └── LXFProgressHUD.swift		// 封装的HUD</span><br><span class="line">├── View</span><br><span class="line">│   ├── LXFViewCell.swift			// 自定义cell</span><br><span class="line">│   └── LXFViewCell.xib				// cell的xib文件</span><br><span class="line">└── ViewModel</span><br><span class="line">    └── LXFViewModel.swift			// 视图模型</span><br></pre></td></tr></table></figure>
+<h2 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">RxSwift			// 想玩RxSwift的必备库</span><br><span class="line">RxCocoa 		// 对 UIKit Foundation 进行 Rx 化</span><br><span class="line">NSObject+Rx		// 为我们提供 rx_disposeBag </span><br><span class="line">Moya/RxSwift 	// 为RxSwift专用提供，对Alamofire进行封装的一个网络请求库</span><br><span class="line">ObjectMapper 	// Json转模型之必备良品</span><br><span class="line">RxDataSources	// 帮助我们优雅的使用tableView的数据源方法</span><br><span class="line">Then 			// 提供快速初始化的语法糖</span><br><span class="line">Kingfisher		// 图片加载库</span><br><span class="line">SnapKit			// 视图约束库</span><br><span class="line">Reusable 		// 帮助我们优雅的使用自定义cell和view,不再出现Optional</span><br><span class="line">MJRefresh 		// 上拉加载、下拉刷新的库</span><br><span class="line">SVProgressHUD 	// 简单易用的HUD</span><br></pre></td></tr></table></figure>
+<h2 id="敲黑板"><a href="#敲黑板" class="headerlink" title="敲黑板"></a>敲黑板</h2><h3 id="Moya的使用"><a href="#Moya的使用" class="headerlink" title="Moya的使用"></a>Moya的使用</h3><p>Moya是基于Alamofire的网络请求库，这里我使用了Moya/Swift，它在Moya的基础上添加了对RxSwift的接口支持。接下来我们来说下Moya的使用</p>
+<p>一、创建一个枚举，用来存放请求类型，这里我顺便设置相应的路径，等下统一取出来直接赋值即可<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">LXFNetworkTool</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">LXFNetworkCategory</span>: <span class="title">String</span> </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> all     = <span class="string">"all"</span></span><br><span class="line">        <span class="keyword">case</span> android = <span class="string">"Android"</span></span><br><span class="line">        <span class="keyword">case</span> ios     = <span class="string">"iOS"</span></span><br><span class="line">        <span class="keyword">case</span> welfare = <span class="string">"福利"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">case</span> data(type: <span class="type">LXFNetworkCategory</span>, size:<span class="type">Int</span>, index:<span class="type">Int</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>二、为这个枚举写一个扩展，并遵循塄 TargetType，这个协议的Moya这个库规定的协议，可以按住Commond键+单击左键进入相应的文件进行查看<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">LXFNetworkTool</span>: <span class="title">TargetType</span> </span>&#123;</span><br><span class="line">    <span class="comment">/// baseURL 统一基本的URL</span></span><br><span class="line">    <span class="keyword">var</span> baseURL: <span class="type">URL</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">URL</span>(string: <span class="string">"http://gank.io/api/data/"</span>)!</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/// path字段会追加至baseURL后面</span></span><br><span class="line">    <span class="keyword">var</span> path: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> .data(<span class="keyword">let</span> type, <span class="keyword">let</span> size, <span class="keyword">let</span> index):</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"\(type.rawValue)/\(size)/\(index)"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/// HTTP的请求方式</span></span><br><span class="line">    <span class="keyword">var</span> method: <span class="type">Moya</span>.<span class="type">Method</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> .<span class="keyword">get</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/// 请求参数(会在请求时进行编码)</span></span><br><span class="line">    <span class="keyword">var</span> parameters: [<span class="type">String</span>: <span class="type">Any</span>]? &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/// 参数编码方式(这里使用URL的默认方式)</span></span><br><span class="line">    <span class="keyword">var</span> parameterEncoding: <span class="type">ParameterEncoding</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">URLEncoding</span>.<span class="keyword">default</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/// 这里用于单元测试，不需要的就像我一样随便写写</span></span><br><span class="line">    <span class="keyword">var</span> sampleData: <span class="type">Data</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"LinXunFeng"</span>.data(using: .utf8)!</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/// 将要被执行的任务(请求：request 下载：upload 上传：download)</span></span><br><span class="line">    <span class="keyword">var</span> task: <span class="type">Task</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> .request</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/// 是否执行Alamofire验证，默认值为false</span></span><br><span class="line">    <span class="keyword">var</span> validate: <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>三、定义一个全局变量用于整个项目的网络请求<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> lxfNetTool = <span class="type">RxMoyaProvider</span>&lt;<span class="type">LXFNetworkTool</span>&gt;()</span><br></pre></td></tr></table></figure></p>
+<p>至此，我们就可以使用这个全局变量来请求数据了</p>
+<h3 id="RxDataSources"><a href="#RxDataSources" class="headerlink" title="RxDataSources"></a>RxDataSources</h3><p>如果你想用传统的方式也行，不过这就失去了使用RxSwift的意义。好吧，我们接下来说说如何优雅的来实现tableView的数据源。其实<a href="https://github.com/RxSwiftCommunity/RxDataSources" target="_blank" rel="noopener">RxDataSources</a>官网上已经有很明确的使用说明，不过我还是总结一下整个过程吧。</p>
+<p>概念点<br>RxDataSources是以section来做为数据结构来传输，这点很重要，可能很多同学会比较疑惑这句话吧，我在此举个例子，在传统的数据源实现的方法中有一个numberOfSection，我们在很多情况下只需要一个section，所以这个方法可实现，也可以不实现，默认返回的就是1，这给我们带来的一个迷惑点：【tableView是由row来组成的】，不知道在坐的各位中有没有是这么想的呢？？有的话那从今天开始就要认清楚这一点，【tableView其实是由section组成的】，所以在使用RxDataSources的过程中，即使你的setion只有一个，那你也得返回一个section的数组出去！！！</p>
+<p>一、自定义Section<br>在我们自定义的Model中创建一个Section的结构体，并且创建一个扩展，遵循SectionModelType协议，实现相应的协议方法。约定俗成的写法呢请参考如下方式<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LXFModel</span>.swift</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">LXFSection</span> </span>&#123;</span><br><span class="line">    <span class="comment">// items就是rows</span></span><br><span class="line">    <span class="keyword">var</span> items: [<span class="type">Item</span>]</span><br><span class="line">  	<span class="comment">// 你也可以这里加你需要的东西，比如 headerView 的 title</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">LXFSection</span>: <span class="title">SectionModelType</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">  	<span class="comment">// 重定义 Item 的类型为 LXFModel</span></span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">Item</span> = <span class="type">LXFModel</span></span><br><span class="line">  </span><br><span class="line">    <span class="comment">// 实现协议中的方式</span></span><br><span class="line">    <span class="keyword">init</span>(original: <span class="type">LXFSection</span>, items: [<span class="type">LXFSection</span>.<span class="type">Item</span>]) &#123;</span><br><span class="line">        <span class="keyword">self</span> = original</span><br><span class="line">        <span class="keyword">self</span>.items = items</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>二、在控制器下创建一个数据源属性</p>
+<p>以下代码均在 LXFViewController.swift 文件中<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个数据源属性，类型为自定义的Section类型</span></span><br><span class="line"><span class="keyword">let</span> dataSource = <span class="type">RxTableViewSectionedReloadDataSource</span>&lt;<span class="type">LXFSection</span>&gt;()</span><br></pre></td></tr></table></figure></p>
+<p>使用数据源属性绑定我们的cell<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 绑定cell</span></span><br><span class="line">dataSource.configureCell = &#123; ds, tv, ip, item <span class="keyword">in</span></span><br><span class="line">    <span class="comment">// 这个地方使用了Reusable这个库，在LXFViewCell中遵守了相应的协议</span></span><br><span class="line">	<span class="comment">// 使其方便转换cell为非可选型的相应的cell类型</span></span><br><span class="line">    <span class="keyword">let</span> cell = tv.dequeueReusableCell(<span class="keyword">for</span>: ip) <span class="keyword">as</span> <span class="type">LXFViewCell</span></span><br><span class="line">    cell.picView.kf.setImage(with: <span class="type">URL</span>(string: item.url))</span><br><span class="line">    cell.descLabel.text = <span class="string">"描述: \(item.desc)"</span></span><br><span class="line">    cell.sourceLabel.text = <span class="string">"来源: \(item.source)"</span></span><br><span class="line">    <span class="keyword">return</span> cell</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>三、将sections序列绑定给我们的rows<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">output.sections.asDriver().drive(tableView.rx.items(dataSource:dataSource)).addDisposableTo(rx_disposeBag)</span><br></pre></td></tr></table></figure></p>
+<p>大功告成，接下来说说section序列的产生</p>
+<h3 id="ViewModel的规范"><a href="#ViewModel的规范" class="headerlink" title="ViewModel的规范"></a>ViewModel的规范</h3><p>我们知道MVVM思想就是将原本在ViewController的视图显示逻辑、验证逻辑、网络请求等代码存放于ViewModel中，让我们手中的ViewController瘦身。这些逻辑由ViewModel负责，外界不需要关心，外界只需要结果，ViewModel也只需要将结果给到外界，基于此，我们定义了一个协议LXFViewModelType</p>
+<p>一、创建一个LXFViewModelType.swift<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LXFViewModelType</span>.swift</span><br><span class="line"></span><br><span class="line"><span class="comment">// associatedtype 关键字 用来声明一个类型的占位符作为协议定义的一部分</span></span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">LXFViewModelType</span> </span>&#123;</span><br><span class="line">    <span class="keyword">associatedtype</span> <span class="type">Input</span></span><br><span class="line">    <span class="keyword">associatedtype</span> <span class="type">Output</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">transform</span><span class="params">(input: Input)</span></span> -&gt; <span class="type">Output</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>二、viewModel遵守LXFViewModelType协议</p>
+<ol>
+<li>我们可以为XFViewModelType的Input和Output定义别名，以示区分，如：你这个viewModel的用于请求首页模块相关联的，则可以命名为：HomeInput 和 HomeOutput</li>
+<li>我们可以丰富我们的 Input 和 Output 。可以看到我为Output添加了一个序列，类型为我们自定义的LXFSection数组，在Input里面添加了一个请求类型(即要请求什么数据，比如首页的数据)</li>
+<li>我们通过 transform 方法将input携带的数据进行处理，生成了一个Output</li>
+</ol>
+<p><strong>注意： 以下代码为了方便阅读，进行了部分删减</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LXFViewModel</span>.swift</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">LXFViewModel</span>: <span class="title">LXFViewModelType</span> </span>&#123;</span><br><span class="line">   <span class="comment">// 存放着解析完成的模型数组</span></span><br><span class="line">   <span class="keyword">let</span> models = <span class="type">Variable</span>&lt;[<span class="type">LXFModel</span>]&gt;([])</span><br><span class="line">  </span><br><span class="line">    <span class="comment">// 为LXFViewModelType的Input和Output定义别名</span></span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">Input</span> = <span class="type">LXFInput</span></span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">Output</span> = <span class="type">LXFOutput</span></span><br><span class="line"></span><br><span class="line">  	<span class="comment">// 丰富我们的Input和Output</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">LXFInput</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 网络请求类型</span></span><br><span class="line">        <span class="keyword">let</span> category: <span class="type">LXFNetworkTool</span>.<span class="type">LXFNetworkCategory</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">init</span>(category: <span class="type">LXFNetworkTool</span>.<span class="type">LXFNetworkCategory</span>) &#123;</span><br><span class="line">            <span class="keyword">self</span>.category = category</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">LXFOutput</span> </span>&#123;</span><br><span class="line">        <span class="comment">// tableView的sections数据</span></span><br><span class="line">        <span class="keyword">let</span> sections: <span class="type">Driver</span>&lt;[<span class="type">LXFSection</span>]&gt;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">init</span>(sections: <span class="type">Driver</span>&lt;[<span class="type">LXFSection</span>]&gt;) &#123;</span><br><span class="line">            <span class="keyword">self</span>.sections = sections</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">transform</span><span class="params">(input: LXFViewModel.LXFInput)</span></span> -&gt; <span class="type">LXFViewModel</span>.<span class="type">LXFOutput</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> sections = models.asObservable().<span class="built_in">map</span> &#123; (models) -&gt; [<span class="type">LXFSection</span>] <span class="keyword">in</span></span><br><span class="line">            <span class="comment">// 当models的值被改变时会调用，这是Variable的特性</span></span><br><span class="line">            <span class="keyword">return</span> [<span class="type">LXFSection</span>(items: models)] <span class="comment">// 返回section数组</span></span><br><span class="line">        &#125;.asDriver(onErrorJustReturn: [])</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> output = <span class="type">LXFOutput</span>(sections: sections)</span><br><span class="line">        </span><br><span class="line">      	<span class="comment">// 接下来的代码是网络请求，请结合项目查看，不然会不方便阅读和理解</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着我们在ViewController中初始化我们的input，通过transform得到output，然后将我们output中的sections序列绑定tableView的items<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">LXFViewController</span>.swift</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化input</span></span><br><span class="line"><span class="keyword">let</span> vmInput = <span class="type">LXFViewModel</span>.<span class="type">LXFInput</span>(category: .welfare)</span><br><span class="line"><span class="comment">// 通过transform得到output</span></span><br><span class="line"><span class="keyword">let</span> vmOutput = viewModel.transform(input: vmInput)</span><br><span class="line"></span><br><span class="line">vmOutput.sections.asDriver().drive(tableView.rx.items(dataSource: dataSource)).addDisposableTo(rx_disposeBag)</span><br></pre></td></tr></table></figure></p>
+<h3 id="RxSwift中使用MJRefresh"><a href="#RxSwift中使用MJRefresh" class="headerlink" title="RxSwift中使用MJRefresh"></a>RxSwift中使用MJRefresh</h3><p>一、定义一个枚举LXFRefreshStatus，用于标志当前刷新状态<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">LXFRefreshStatus</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">none</span></span><br><span class="line">    <span class="keyword">case</span> beingHeaderRefresh</span><br><span class="line">    <span class="keyword">case</span> endHeaderRefresh</span><br><span class="line">    <span class="keyword">case</span> beingFooterRefresh</span><br><span class="line">    <span class="keyword">case</span> endFooterRefresh</span><br><span class="line">    <span class="keyword">case</span> noMoreData</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>二、在LXFOutput添加一个refreshStatus序列，类型为LXFRefreshStatus<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 给外界订阅，告诉外界的tableView当前的刷新状态</span></span><br><span class="line"><span class="keyword">let</span> refreshStatus = <span class="type">Variable</span>&lt;<span class="type">LXFRefreshStatus</span>&gt;(.<span class="keyword">none</span>)</span><br></pre></td></tr></table></figure></p>
+<p>我们在进行网络请求并得到结果之后，修改refreshStatus的value为相应的LXFRefreshStatus项</p>
+<p>三、外界订阅output的refreshStatus</p>
+<p>外界订阅output的refreshStatus，并且根据接收到的值进行相应的操作<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">vmOutput.refreshStatus.asObservable().subscribe(onNext: &#123;[<span class="keyword">weak</span> <span class="keyword">self</span>] status <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">switch</span> status &#123;</span><br><span class="line">    <span class="keyword">case</span> .beingHeaderRefresh:</span><br><span class="line">        <span class="keyword">self</span>?.tableView.mj_header.beginRefreshing()</span><br><span class="line">    <span class="keyword">case</span> .endHeaderRefresh:</span><br><span class="line">        <span class="keyword">self</span>?.tableView.mj_header.endRefreshing()</span><br><span class="line">    <span class="keyword">case</span> .beingFooterRefresh:</span><br><span class="line">        <span class="keyword">self</span>?.tableView.mj_footer.beginRefreshing()</span><br><span class="line">    <span class="keyword">case</span> .endFooterRefresh:</span><br><span class="line">        <span class="keyword">self</span>?.tableView.mj_footer.endRefreshing()</span><br><span class="line">    <span class="keyword">case</span> .noMoreData:</span><br><span class="line">        <span class="keyword">self</span>?.tableView.mj_footer.endRefreshingWithNoMoreData()</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;).addDisposableTo(rx_disposeBag)</span><br></pre></td></tr></table></figure></p>
+<p>四、output提供一个requestCommond用于请求数据</p>
+<p>PublishSubject 的特点：即可以作为Observable，也可以作为Observer，说白了就是可以发送信号，也可以订阅信号<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 外界通过该属性告诉viewModel加载数据（传入的值是为了标志是否重新加载）</span></span><br><span class="line"><span class="keyword">let</span> requestCommond = <span class="type">PublishSubject</span>&lt;<span class="type">Bool</span>&gt;()</span><br></pre></td></tr></table></figure></p>
+<p>在transform中，我们对生成的output的requestCommond进行订阅<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">output.requestCommond.subscribe(onNext: &#123;[<span class="keyword">unowned</span> <span class="keyword">self</span>] isReloadData <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">self</span>.index = isReloadData ? <span class="number">1</span> : <span class="keyword">self</span>.index+<span class="number">1</span></span><br><span class="line">    lxfNetTool.request(.data(type: input.category, size: <span class="number">10</span>, index: <span class="keyword">self</span>.index)).mapArray(<span class="type">LXFModel</span>.<span class="keyword">self</span>).subscribe(&#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] (event) <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">switch</span> event &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="keyword">let</span> .next(modelArr):</span><br><span class="line">            <span class="keyword">self</span>?.models.value = isReloadData ? modelArr : (<span class="keyword">self</span>?.models.value ?? []) + modelArr</span><br><span class="line">            <span class="type">LXFProgressHUD</span>.showSuccess(<span class="string">"加载成功"</span>)</span><br><span class="line">        <span class="keyword">case</span> <span class="keyword">let</span> .error(error):</span><br><span class="line">            <span class="type">LXFProgressHUD</span>.showError(error.localizedDescription)</span><br><span class="line">        <span class="keyword">case</span> .completed:</span><br><span class="line">            output.refreshStatus.value = isReloadData ? .endHeaderRefresh : .endFooterRefresh</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).addDisposableTo(<span class="keyword">self</span>.rx_disposeBag)</span><br><span class="line">&#125;).addDisposableTo(rx_disposeBag)</span><br></pre></td></tr></table></figure></p>
+<p>五、在ViewController中初始化刷新控件</p>
+<p>为tableView设置刷新控件，并且在创建刷新控件的回调中使用output的requestCommond发射信号<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tableView.mj_header = <span class="type">MJRefreshNormalHeader</span>(refreshingBlock: &#123; </span><br><span class="line">    vmOutput.requestCommond.onNext(<span class="literal">true</span>)</span><br><span class="line">&#125;)</span><br><span class="line">tableView.mj_footer = <span class="type">MJRefreshAutoNormalFooter</span>(refreshingBlock: &#123; </span><br><span class="line">    vmOutput.requestCommond.onNext(<span class="literal">false</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>总结流程：</p>
+<ol>
+<li><p>ViewController已经拿到output，当下拉加载数据的时候，使用output的requestCommond发射信息，告诉viewModel我们要加载数据</p>
+</li>
+<li><p>viewModel请求数据，在处理完json转模型或模型数组后修改models，当models的值被修改的时候会发信号给sections，sections在ViewController已经绑定到tableView的items了，所以此时tableView的数据会被更新。接着我们根据请求结果，修改output的refreshStatus属性的值</p>
+</li>
+<li><p>当output的refreshStatus属性的值改变后，会发射信号，由于外界之前已经订阅了output的refreshStatus，此时就会根据refreshStatus的新值来处理刷新控件的状态</p>
+</li>
+</ol>
+<p>好了，附上<a href="https://github.com/LinXunFeng/RxSwiftDemo" target="_blank" rel="noopener">RxSwiftDemo</a>。完结撒花</p>
+<div class="github-widget" data-repo="LinXunFeng/RxSwiftDemo"></div></the></excerpt>
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="http://linxunfeng.github.io/img/pay/alipay.png"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="http://linxunfeng.github.io/img/pay/wechat.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="http://linxunfeng.top/" target="_blank">LinXunFeng</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2017/09/25/iOS-LXFDrawBoard-多功能小画板/" class="pre-post btn btn-default" title='iOS - LXFDrawBoard 多功能小画板'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">iOS - LXFDrawBoard 多功能小画板</span>
+        </a>
+    
+    
+        <a href="/2017/09/12/Ubuntu-安装nginx-来搭建推流服务器/" class="next-post btn btn-default" title='Ubuntu安装nginx来搭建推流服务器'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Ubuntu安装nginx来搭建推流服务器</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: '0rTljoibiQOAeo1tQ9qXExq9-gzGzoHsz',
+            appKey: '2N2gdmSHN6mIGpbmX8duHv6X',
+            placeholder: '说点什么吧',
+            notify: true,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">Table of Contents</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#结构"><span class="toc-text">结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三方库"><span class="toc-text">第三方库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#敲黑板"><span class="toc-text">敲黑板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Moya的使用"><span class="toc-text">Moya的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RxDataSources"><span class="toc-text">RxDataSources</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ViewModel的规范"><span class="toc-text">ViewModel的规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RxSwift中使用MJRefresh"><span class="toc-text">RxSwift中使用MJRefresh</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        Total:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        Visitors:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <!-- <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | -->
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
