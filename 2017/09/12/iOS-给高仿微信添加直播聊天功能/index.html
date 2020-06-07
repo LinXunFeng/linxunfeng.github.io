@@ -1,0 +1,456 @@
+<!DOCTYPE HTML>
+<html lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="LinXunFeng‘s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://linxunfeng.top">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>iOS-给高仿微信添加直播聊天功能 | LinXunFeng‘s Blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="LinXunFeng‘s Blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1275838195 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1275838195%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?031981f555deecc203818690c85ef421";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-131541294-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=66150761" charset="UTF-8"></script>
+
+    
+    <meta name="baidu-site-verification" content="9LgZ2AlWYS">
+
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/./img/background/banner.jpeg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='LinXunFeng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://linxunfeng.top">LinXunFeng‘s Blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/iOS/"><i class="fa "></i>iOS</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Linux/"><i class="fa "></i>Linux</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Flutter/"><i class="fa "></i>Flutter</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Others/"><i class="fa "></i>其它</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="iOS-给高仿微信添加直播聊天功能">
+            
+	            iOS-给高仿微信添加直播聊天功能
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/iOS">
+            iOS
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/iOS" title='iOS'>
+                        iOS
+                    </a>
+                
+                    <a href="/tags/Swift" title='Swift'>
+                        Swift
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2017/09/12</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+
+            
+            
+            <p class="fa fa-exclamation-triangle warning">
+                本文于<strong>998</strong>天之前发表，文中内容可能已经过时。
+            </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <excerpt in index | 首页摘要> 
+
+<p>抽空给之前做的开源项目<a href="https://github.com/LinXunFeng/LXFWeChat" target="_blank" rel="noopener">【高仿微信】</a>添加直播功能，由于时间有限，做得不是很完美，有空再去完善吧，能用就好~~</p>
+<p>+<a id="more"></a></p>
+<the rest of contents | 余下全文>
+
+<blockquote>
+<p>抽空给之前做的开源项目<a href="https://github.com/LinXunFeng/LXFWeChat" target="_blank" rel="noopener">【高仿微信】</a>添加直播功能，由于时间有限，做得不是很完美，有空再去完善吧，能用就好~~</p>
+</blockquote>
+<p>在此提供存放于百度云的完整项目<a href="https://pan.baidu.com/s/1bpB55Bx" target="_blank" rel="noopener">【高仿微信】- 百度云</a><br>希望各位能在我的GitHub上献出一个宝贵的Star <a href="https://github.com/LinXunFeng/LXFWeChat" target="_blank" rel="noopener">【高仿微信】- GitHub</a><br>谢谢</p>
+<p>注意：直播功能的使用（对方需要先进入到对应的聊天界面）</p>
+<blockquote>
+<p>两个测试账号： lxf lqr  密码都是123456</p>
+</blockquote>
+<p><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/8.gif" alt="直播聊天"></p>
+<h2 id="推流"><a href="#推流" class="headerlink" title="推流"></a>推流</h2><p>首先第一件事当然就是搭建一个推流服务器，这里请跳转参考我之前写好的文章吧<a href="/2017/09/12/Ubuntu-安装nginx-来搭建推流服务器/">【Ubuntu安装nginx来搭建推流服务器】</a>，这里我的服务器的ip地址是：192.168.123.191</p>
+<p>APP上推流我使用的是第三方的库 <a href="https://github.com/LaiFengiOS/LFLiveKit" target="_blank" rel="noopener">LFLiveKit</a>，这个第三方库已经帮我们处理了很多事情，而且还包括美颜~~。当然，有时间我们还是要去了解一下底层的东西，这里就先不赘述，过几天抽空再做总结。</p>
+<p>关键代码如下</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化配置</span></span><br><span class="line"><span class="keyword">let</span> audioConfiguration = <span class="type">LFLiveAudioConfiguration</span>.<span class="keyword">default</span>()</span><br><span class="line"><span class="keyword">let</span> videoConfiguration = <span class="type">LFLiveVideoConfiguration</span>.defaultConfiguration(<span class="keyword">for</span>: .low2, outputImageOrientation: .portrait)</span><br><span class="line"><span class="comment">// 初始化session</span></span><br><span class="line"><span class="keyword">let</span> session = <span class="type">LFLiveSession</span>(audioConfiguration: audioConfiguration, videoConfiguration: videoConfiguration)</span><br><span class="line"><span class="comment">// 设置代理</span></span><br><span class="line"><span class="comment">// session?.delegate = self</span></span><br><span class="line"><span class="comment">// 设置展示的View</span></span><br><span class="line">session?.preView = <span class="keyword">self</span>.view</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> stream = <span class="type">LFLiveStreamInfo</span>()</span><br><span class="line">stream.url = <span class="string">"rtmp://192.168.123.191:1935/rtmplive/lxf"</span>; <span class="comment">// 服务器地址</span></span><br><span class="line">session.startLive(stream)</span><br><span class="line"><span class="comment">// 开始推流</span></span><br><span class="line">session.running = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h2 id="拉流"><a href="#拉流" class="headerlink" title="拉流"></a>拉流</h2><p>这里我使用的是B站的开源库 <a href="https://github.com/Bilibili/ijkplayer" target="_blank" rel="noopener">ijkplayer</a> </p>
+<p>为了方便可以用这个 <a href="https://github.com/LinXunFeng/IJKFramework" target="_blank" rel="noopener">编译好的B站开源库</a></p>
+<p>需要注意的是：IJKPlayer默认使用的是软解码(FFMpeng)，如果需要使用硬解码需要我们进行相应的设置<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置"videotoolbox"的值为0为软解码(默认)，设置为1则是硬解码</span></span><br><span class="line"><span class="keyword">let</span> options = <span class="type">IJKFFOptions</span>.byDefault()</span><br><span class="line">options?.setOptionIntValue(<span class="number">1</span>, forKey: <span class="string">"videotoolbox"</span>, of: kIJKFFOptionCategoryPlayer)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> ijkPlayer = <span class="type">IJKFFMoviePlayerController</span>(contentURLString: <span class="string">"rtmp://192.168.123.191:1935/rtmplive/lxf"</span>, with: options)</span><br><span class="line"><span class="comment">// 需保存起来</span></span><br><span class="line"><span class="keyword">self</span>.ijkPlayer = ijkPlayer</span><br><span class="line">ijkPlayer?.view.frame = view.bounds</span><br><span class="line">view.addSubview(ijkPlayer!.view)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 准备播放，当视频准备好的时候会自动进行播放</span></span><br><span class="line">ijkPlayer?.prepareToPlay()</span><br></pre></td></tr></table></figure></p>
+<h2 id="将IJKPlayer打包"><a href="#将IJKPlayer打包" class="headerlink" title="将IJKPlayer打包"></a>将IJKPlayer打包</h2><p>从B站的gitHub上下载的 <a href="https://github.com/Bilibili/ijkplayer" target="_blank" rel="noopener">ijkplayer</a> 需要手动编译出来，跟着说明走就可以了，这里就不赘述咯，接下来我们将它打包，方便使用</p>
+<p>如果你不跟着说明走的话会提示找不到 avformat.h 这个头文件<br><img src="http://https://linxunfeng.github.io/images/2017/09/iOS-给高仿微信添加直播聊天功能/1.png" alt="avformat.h"></p>
+<p>这时你需要在终端cd到ijkplayer这个目录，然后执行 init-ios.sh文件，如图</p>
+<p><img src="https://linxunfeng.github.io/images/2017/09/iOS-给高仿微信添加直播聊天功能/2.png" alt="目录"></p>
+<p><img src="https://linxunfeng.github.io/images/2017/09/iOS-给高仿微信添加直播聊天功能/3.png" alt="init-ios.sh"></p>
+<p>然后经过一段漫长的时间之后，在ios目录下就多出了这些ffmpeg相关的目录</p>
+<p><img src="https://linxunfeng.github.io/images/2017/09/iOS-给高仿微信添加直播聊天功能/4.png" alt="ffmpeg相关目录"></p>
+<p>这个操作是在下载ffmpeg源码，然缺失的avformat.h就在里面</p>
+<p><img src="https://linxunfeng.github.io/images/2017/09/iOS-给高仿微信添加直播聊天功能/5.png" alt="avformat.h"></p>
+<p>打开项目 IJKMediaPlayer<br><img src="https://linxunfeng.github.io/images/2017/09/iOS-给高仿微信添加直播聊天功能/6.png" alt="打开项目"></p>
+<p>设置为 release，这样打出来的包会小些<br><img src="https://linxunfeng.github.io/images/2017/09/iOS-给高仿微信添加直播聊天功能/7.png" alt="Edit Scheme"></p>
+<p><img src="https://linxunfeng.github.io/images/2017/09/iOS-给高仿微信添加直播聊天功能/8.png" alt="release"></p>
+<p>选择真机和模拟器，各Command+B编译一次<br><img src="https://linxunfeng.github.io/images/2017/09/iOS-给高仿微信添加直播聊天功能/9.png" alt="真机"><br><img src="https://linxunfeng.github.io/images/2017/09/iOS-给高仿微信添加直播聊天功能/10.png" alt="模拟器"></p>
+<p>右击，Show in Finder<br><img src="https://linxunfeng.github.io/images/2017/09/iOS-给高仿微信添加直播聊天功能/11.png" alt></p>
+<p>如图，就有两个文件夹，里面存放着的就是我们编译出来的库<br><img src="https://linxunfeng.github.io/images/2017/09/iOS-给高仿微信添加直播聊天功能/12.png" alt="Paste_Image.png"></p>
+<p>可以使用如下命令查看信息<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lipo -info IJKMediaFramework</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://linxunfeng.github.io/images/2017/09/iOS-给高仿微信添加直播聊天功能/13.png" alt="查看所支持的处理器"><br>默认模拟器编译出来的包是不支持i386，如果希望支持的话<br>进入项目的 Build Settings，将 Build Active Architecture Only 设置为NO<br><img src="https://linxunfeng.github.io/images/2017/09/iOS-给高仿微信添加直播聊天功能/14.png" alt="Build Active Architecture Only"></p>
+<p>好，现在对编译出来的包进行合并，这样就即支持真机，也支持模拟器<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 格式</span><br><span class="line">// lipo -create  path1  path2  -output  frameName</span><br><span class="line"></span><br><span class="line">lipo -create Release-iphoneos/IJKMediaFramework.framework/IJKMediaFramework Release-iphonesimulator/IJKMediaFramework.framework/IJKMediaFramework -output IJKMediaFramework</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://linxunfeng.github.io/images/2017/09/iOS-给高仿微信添加直播聊天功能/15.png" alt="合并"></p>
+<p>将合并出来的IJKMediaFramework替换 IJKMediaFramework.framework中的IJKMediaFramework，最后将替换好的 IJKMediaFramework.framework 拖入到项目中使用即可。<br><img src="https://linxunfeng.github.io/images/2017/09/iOS-给高仿微信添加直播聊天功能/16.png" alt="替换"></p>
+<p>最后，附上编译好的IJKMediaFramework<br>链接:<a href="https://pan.baidu.com/s/1eRYlJ7W" target="_blank" rel="noopener">https://pan.baidu.com/s/1eRYlJ7W</a> 密码:9iaw</p>
+<div class="github-widget" data-repo="LinXunFeng/LXFWeChat"></div></the></excerpt>
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="http://linxunfeng.github.io/img/pay/alipay.png"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="http://linxunfeng.github.io/img/pay/wechat.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="http://linxunfeng.top/" target="_blank">LinXunFeng</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2017/09/12/Ubuntu-安装nginx-来搭建推流服务器/" class="pre-post btn btn-default" title='Ubuntu安装nginx来搭建推流服务器'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">Ubuntu安装nginx来搭建推流服务器</span>
+        </a>
+    
+    
+        <a href="/2017/09/12/iOS-揭露Block的内部实现原理/" class="next-post btn btn-default" title='iOS-揭露Block的内部实现原理'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">iOS-揭露Block的内部实现原理</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: '0rTljoibiQOAeo1tQ9qXExq9-gzGzoHsz',
+            appKey: '2N2gdmSHN6mIGpbmX8duHv6X',
+            placeholder: '说点什么吧',
+            notify: true,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">Table of Contents</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#推流"><span class="toc-text">推流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拉流"><span class="toc-text">拉流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将IJKPlayer打包"><span class="toc-text">将IJKPlayer打包</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        Total:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        Visitors:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <!-- <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | -->
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

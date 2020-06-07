@@ -1,0 +1,452 @@
+<!DOCTYPE HTML>
+<html lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="LinXunFeng‘s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://linxunfeng.top">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>RxSwift + MJRefresh 打造自动处理刷新控件状态 | LinXunFeng‘s Blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="LinXunFeng‘s Blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1275838195 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1275838195%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?031981f555deecc203818690c85ef421";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-131541294-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=66150761" charset="UTF-8"></script>
+
+    
+    <meta name="baidu-site-verification" content="9LgZ2AlWYS">
+
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/./img/background/banner.jpeg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='LinXunFeng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://linxunfeng.top">LinXunFeng‘s Blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/iOS/"><i class="fa "></i>iOS</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Linux/"><i class="fa "></i>Linux</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Flutter/"><i class="fa "></i>Flutter</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Others/"><i class="fa "></i>其它</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="RxSwift + MJRefresh 打造自动处理刷新控件状态">
+            
+	            RxSwift + MJRefresh 打造自动处理刷新控件状态
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/iOS">
+            iOS
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/iOS" title='iOS'>
+                        iOS
+                    </a>
+                
+                    <a href="/tags/Swift" title='Swift'>
+                        Swift
+                    </a>
+                
+                    <a href="/tags/RxSwift" title='RxSwift'>
+                        RxSwift
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2017/10/24</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+
+            
+            
+            <p class="fa fa-exclamation-triangle warning">
+                本文于<strong>956</strong>天之前发表，文中内容可能已经过时。
+            </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <excerpt in index | 首页摘要> 
+
+<p>MVVM的模式中，多出了ViewModel这个角色，将逻辑处理、网络请求等繁杂操作中ViewController中抽离出来，ViewController得以瘦身。<br>结合RxSwift架构，我们一般就会在ViewModel中定义一个input收集繁杂操作所需的信息，通过一个transform方法将input作为参数传入，进而得到一个output供controller使用。</p>
+<p>在使用RxSwift开发时会大量的使用到这种形式，其中就包括我们的网络请求。</p>
+<p>+<a id="more"></a></p>
+<the rest of contents | 余下全文>
+
+<blockquote>
+<p>本文是基于 <a href="http://linxunfeng.top/2017/09/12/iOS-RxSwift-%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/">iOS-RxSwift项目实战记录</a> 所述，如果你还未阅读过，建议你最好还先阅读一遍，并下载Demo熟悉一下 : )</p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>MVVM的模式中，多出了ViewModel这个角色，将逻辑处理、网络请求等繁杂操作中ViewController中抽离出来，ViewController得以瘦身。<br>结合RxSwift架构，我们一般就会在ViewModel中定义一个input收集繁杂操作所需的信息，通过一个transform方法将input作为参数传入，进而得到一个output供controller使用。</p>
+<p>在使用RxSwift开发时会大量的使用到这种形式，其中就包括我们的网络请求。<br>结合 <a href="http://linxunfeng.top/2017/09/12/iOS-RxSwift-%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/">iOS-RxSwift项目实战记录</a> 中所述的“MJRefresh在RxSwift中的使用”，在output中定义了一个变量<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> refreshStatus = <span class="type">Variable</span>&lt;<span class="type">LXFRefreshStatus</span>&gt;(.<span class="keyword">none</span>)</span><br></pre></td></tr></table></figure></p>
+<p>controller通过output将其进行监听，从而当值发生变化时，controller就能实时获取当前应所处的刷新状态<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">vmOutput.refreshStatus.asObservable().subscribe(onNext: &#123;[<span class="keyword">weak</span> <span class="keyword">self</span>] status <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">switch</span> status &#123;</span><br><span class="line">    <span class="keyword">case</span> .beingHeaderRefresh:</span><br><span class="line">        <span class="keyword">self</span>?.tableView.mj_header.beginRefreshing()</span><br><span class="line">    <span class="keyword">case</span> .endHeaderRefresh:</span><br><span class="line">        <span class="keyword">self</span>?.tableView.mj_header.endRefreshing()</span><br><span class="line">    <span class="keyword">case</span> .beingFooterRefresh:</span><br><span class="line">        <span class="keyword">self</span>?.tableView.mj_footer.beginRefreshing()</span><br><span class="line">    <span class="keyword">case</span> .endFooterRefresh:</span><br><span class="line">        <span class="keyword">self</span>?.tableView.mj_footer.endRefreshing()</span><br><span class="line">    <span class="keyword">case</span> .noMoreData:</span><br><span class="line">        <span class="keyword">self</span>?.tableView.mj_footer.endRefreshingWithNoMoreData()</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;).addDisposableTo(rx_disposeBag)</span><br></pre></td></tr></table></figure></p>
+<p>如果在一个项目多处使用到了这种方式，我们就可以看到弊端——重复代码，过于冗余。</p>
+<p>难道我们每次都要在controller中进行如此操作吗？</p>
+<h2 id="面向协议"><a href="#面向协议" class="headerlink" title="面向协议"></a>面向协议</h2><p>关于协议的内容可以看下我之前的这两篇文章<br><a href="http://linxunfeng.top/2017/09/12/iOS-Swift-%E9%9D%A2%E5%90%91%E5%8D%8F%E8%AE%AE%E7%BC%96%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89/">iOS - Swift 面向协议编程（一）</a></p>
+<p> <a href="http://linxunfeng.top/2017/09/12/iOS-Swift-%E9%9D%A2%E5%90%91%E5%8D%8F%E8%AE%AE%E7%BC%96%E7%A8%8B%EF%BC%88%E4%BA%8C%EF%BC%89/">iOS - Swift 面向协议编程（二）</a></p>
+<p>总结协议的两大作用：1、规范  2、定制能力</p>
+<p>定义协议 Refreshable </p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ============================ Refreshable ================================ */</span></span><br><span class="line"><span class="comment">// 需要使用 MJExtension 的控制器使用</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Refreshable</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Refreshable</span> <span class="title">where</span> <span class="title">Self</span> : <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">initRefreshHeader</span><span class="params">(<span class="number">_</span> scrollView: UIScrollView, <span class="number">_</span> action: @escaping <span class="params">()</span></span></span> -&gt; <span class="type">Void</span>) -&gt; <span class="type">MJRefreshHeader</span> &#123;</span><br><span class="line">        scrollView.mj_header = <span class="type">MJRefreshNormalHeader</span>(refreshingBlock: &#123; action() &#125;)</span><br><span class="line">        <span class="keyword">return</span> scrollView.mj_header</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">initRefreshFooter</span><span class="params">(<span class="number">_</span> scrollView: UIScrollView, <span class="number">_</span> action: @escaping <span class="params">()</span></span></span> -&gt; <span class="type">Void</span>) -&gt; <span class="type">MJRefreshFooter</span> &#123;</span><br><span class="line">        scrollView.mj_footer = <span class="type">MJRefreshAutoNormalFooter</span>(refreshingBlock: &#123; action() &#125;)</span><br><span class="line">        <span class="keyword">return</span> scrollView.mj_footer</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在controller中遵循 Refreshable 协议，通过initRefreshHeader方法或者initRefreshFooter方法给tableView或者collectionView赋予头部或尾部刷新的能力，并且书写下拉刷新时需要执行的代码<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以下拉刷新为例</span></span><br><span class="line"><span class="keyword">let</span> refreshHeader = initRefreshHeader(liveCollectionView) &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] <span class="keyword">in</span></span><br><span class="line">    <span class="comment">// 下拉后需要执行的操作 </span></span><br><span class="line">    <span class="keyword">self</span>?.vmOutput?.requestCommand.onNext(())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接下来再讲讲output，只要有网络请求的地方，就会需要需要监听请求状态，既然这样，那么可以为output定义一个协议OutputRefreshProtocol，专门用来规范必需声明的属性<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ============================ OutputRefreshProtocol ================================ */</span></span><br><span class="line"><span class="comment">// viewModel 中 output使用</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">OutputRefreshProtocol</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 告诉外界的tableView当前的刷新状态</span></span><br><span class="line">    <span class="keyword">var</span> refreshStatus : <span class="type">Variable</span>&lt;<span class="type">LXFRefreshStatus</span>&gt; &#123;<span class="keyword">get</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接着让output去遵循该协议，并进行初始化刷新状态的值为.none<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">struct LXFLiveOutput: OutputRefreshProtocol &#123;</span><br><span class="line">    var refreshStatus: Variable&lt;LXFRefreshStatus&gt;</span><br><span class="line">    </span><br><span class="line">    let sections: Driver&lt;[LXFLiveSection]&gt;</span><br><span class="line">    init(sections: Driver&lt;[LXFLiveSection]&gt;) &#123;</span><br><span class="line">        self.sections = sections</span><br><span class="line">        refreshStatus = Variable&lt;LXFRefreshStatus&gt;(.none)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>到此为止，其实跟之前没啥两样，只是使controller更方便初始化刷新控件而已。接下来才是本文的重点。</p>
+<h2 id="重点"><a href="#重点" class="headerlink" title="重点"></a>重点</h2><p>刷新的状态无非也就那么几种，下拉重载数据，上拉加载更多，请求完成时结束下拉或上拉等等。。。那我们何必要在每个controller中再去管理这等琐事？？<br>而至此，刷新控件的状态是由变量 refreshStatus 来决定，此时 refreshStatus 又声明在 OutputRefreshProtocol 协议中，我们何不再定义一个方法，将刷新控件的状态交给refreshStatus自己来帮我们处理呢～</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">OutputRefreshProtocol</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">autoSetRefreshHeaderStatus</span><span class="params">(header: MJRefreshHeader?, footer: MJRefreshFooter?)</span></span> -&gt; <span class="type">Disposable</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> refreshStatus.asObservable().subscribe(onNext: &#123; (status) <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">switch</span> status &#123;</span><br><span class="line">            <span class="keyword">case</span> .beingHeaderRefresh:</span><br><span class="line">                header?.beginRefreshing()</span><br><span class="line">            <span class="keyword">case</span> .endHeaderRefresh:</span><br><span class="line">                header?.endRefreshing()</span><br><span class="line">            <span class="keyword">case</span> .beingFooterRefresh:</span><br><span class="line">                footer?.beginRefreshing()</span><br><span class="line">            <span class="keyword">case</span> .endFooterRefresh:</span><br><span class="line">                footer?.endRefreshing()</span><br><span class="line">            <span class="keyword">case</span> .noMoreData:</span><br><span class="line">                footer?.endRefreshingWithNoMoreData()</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这时需要我们将刷新控件的对象 header / footer 传入到方法中，实现自动控制刷新控件状态。</p>
+<h2 id="总结使用"><a href="#总结使用" class="headerlink" title="总结使用"></a>总结使用</h2><p>一、output中遵守协议 OutputRefreshProtocol， 并初始化 refreshStatus 的值为 none</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">LXFLiveOutput</span>: <span class="title">OutputRefreshProtocol</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> refreshStatus: <span class="type">Variable</span>&lt;<span class="type">LXFRefreshStatus</span>&gt;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> sections: <span class="type">Driver</span>&lt;[<span class="type">LXFLiveSection</span>]&gt;</span><br><span class="line">    <span class="keyword">init</span>(sections: <span class="type">Driver</span>&lt;[<span class="type">LXFLiveSection</span>]&gt;) &#123;</span><br><span class="line">        <span class="keyword">self</span>.sections = sections</span><br><span class="line">        refreshStatus = <span class="type">Variable</span>&lt;<span class="type">LXFRefreshStatus</span>&gt;(.<span class="keyword">none</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>二、controller 遵守协议 Refreshable，通过协议中的方法初始化刷新控件及对应的操作，并将刷新控件对象作为参数传入到自动处理状态方法中<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">LXFLiveViewController</span>: <span class="title">Refreshable</span></span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> refreshHeader = initRefreshHeader(liveCollectionView) &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">self</span>?.vmOutput?.requestCommand.onNext(())</span><br><span class="line">&#125;</span><br><span class="line">vmOutput?.autoSetRefreshHeaderStatus(header: refreshHeader, footer: <span class="literal">nil</span>).disposed(by: rx.disposeBag)</span><br></pre></td></tr></table></figure>
+<p>三、viewModel中根据实际情况实时更新 refreshStatus 的刷新状态</p>
+<p><img src="https://linxunfeng.github.io/images/2017/10/RxSwift-MJExtension-打造自动处理刷新控件状态/1.png" alt="image.png"></p>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>协议：<a href="https://github.com/LinXunFeng/LXFBiliBili/blob/master/LXFBiliBili/LXFBiliBili/Classes/Common/Protocol/Lib/Refreshable.swift" target="_blank" rel="noopener">Refreshable.swift</a><br>ViewModel：<a href="https://github.com/LinXunFeng/LXFBiliBili/blob/master/LXFBiliBili/LXFBiliBili/Classes/Main/Home/Controller/Live/ViewModel/LXFLiveViewModel.swift" target="_blank" rel="noopener">LXFLiveViewModel</a><br>Controller：<a href="https://github.com/LinXunFeng/LXFBiliBili/blob/master/LXFBiliBili/LXFBiliBili/Classes/Main/Home/Controller/Live/LXFLiveViewController.swift" target="_blank" rel="noopener">LXFLiveViewController</a></p>
+<p><a href="https://github.com/LinXunFeng/LXFBiliBili" target="_blank" rel="noopener">LXFBiliBili</a></p>
+<p><img src="https://linxunfeng.github.io/images/2017/10/RxSwift-MJExtension-打造自动处理刷新控件状态/2.gif" alt="LXFBiliBili"></p>
+</the></excerpt>
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="http://linxunfeng.github.io/img/pay/alipay.png"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="http://linxunfeng.github.io/img/pay/wechat.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="http://linxunfeng.top/" target="_blank">LinXunFeng</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2018/04/02/Python-虚拟环境/" class="pre-post btn btn-default" title='Python-虚拟环境'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">Python-虚拟环境</span>
+        </a>
+    
+    
+        <a href="/2017/10/16/iOS-视频采集详解/" class="next-post btn btn-default" title='iOS - 视频采集详解'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">iOS - 视频采集详解</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: '0rTljoibiQOAeo1tQ9qXExq9-gzGzoHsz',
+            appKey: '2N2gdmSHN6mIGpbmX8duHv6X',
+            placeholder: '说点什么吧',
+            notify: true,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">Table of Contents</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#面向协议"><span class="toc-text">面向协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重点"><span class="toc-text">重点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结使用"><span class="toc-text">总结使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#案例"><span class="toc-text">案例</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        Total:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        Visitors:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <!-- <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | -->
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

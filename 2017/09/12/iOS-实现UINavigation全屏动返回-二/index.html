@@ -1,0 +1,443 @@
+<!DOCTYPE HTML>
+<html lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="LinXunFeng‘s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://linxunfeng.top">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>iOS - 实现UINavigation全屏动返回(二) | LinXunFeng‘s Blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="LinXunFeng‘s Blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1275838195 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1275838195%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?031981f555deecc203818690c85ef421";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-131541294-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=66150761" charset="UTF-8"></script>
+
+    
+    <meta name="baidu-site-verification" content="9LgZ2AlWYS">
+
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/./img/background/banner.jpeg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='LinXunFeng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://linxunfeng.top">LinXunFeng‘s Blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/iOS/"><i class="fa "></i>iOS</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Linux/"><i class="fa "></i>Linux</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Flutter/"><i class="fa "></i>Flutter</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Others/"><i class="fa "></i>其它</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="iOS - 实现UINavigation全屏动返回(二)">
+            
+	            iOS - 实现UINavigation全屏动返回(二)
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/iOS">
+            iOS
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/Swift" title='Swift'>
+                        Swift
+                    </a>
+                
+                    <a href="/tags/Objective-C" title='Objective-C'>
+                        Objective-C
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2017/09/12</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+
+            
+            
+            <p class="fa fa-exclamation-triangle warning">
+                本文于<strong>999</strong>天之前发表，文中内容可能已经过时。
+            </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <excerpt in index | 首页摘要> 
+
+<p>在 <a href="/2017/09/11/iOS-实现UINavigation全屏动返回-一">iOS - 实现UINavigation全屏滑动返回(一)</a> 中我们实现了滑动返回的功能，但不是全屏滑动返回，得在左侧边缘轻扫才能滑动返回~UINavigationController自带的只能在边缘轻扫才能滑动返回，这用户体验是不好的，接下来实现全屏滑动返回!</p>
+<p>+<a id="more"></a></p>
+<the rest of contents | 余下全文>
+
+<h2 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h2><p>在 <a href="/2017/09/11/iOS-实现UINavigation全屏动返回-一/">iOS - 实现UINavigation全屏滑动返回(一)</a> 中我们实现了滑动返回的功能，但不是全屏滑动返回，得在左侧边缘轻扫才能滑动返回~UINavigationController自带的只能在边缘轻扫才能滑动返回，这用户体验是不好的，接下来实现全屏滑动返回!</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>既然自带的滑动返回只能是在边缘，那我们能不能修改使它触摸范围变大甚至全屏呢？先来看下系统手势有没有提供属性或方法供我们使用<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, <span class="keyword">self</span>.interactivePopGestureRecognizer);</span><br></pre></td></tr></table></figure></p>
+<p>打印信息：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">&lt;UIScreenEdgePanGestureRecognizer: 0x7fd542611e20; state = Possible;</span></span><br><span class="line"><span class="comment"> delaysTouchesBegan = YES; view = &lt;UILayoutContainerView 0x7fd542706300&gt;; target= </span></span><br><span class="line"><span class="comment">&lt;(action=handleNavigationTransition:, target=&lt;_UINavigationInteractiveTransition </span></span><br><span class="line"><span class="comment">0x7fd542611ce0&gt;)&gt;&gt;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
+<p>原来系统手势的类型为 UIScreenEdgePanGestureRecognizer ，转到定义，发现有一个属性<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIRectEdge</span> edges</span><br></pre></td></tr></table></figure></p>
+<p>是个结构体<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_OPTIONS</span>(<span class="built_in">NSUInteger</span>, <span class="built_in">UIRectEdge</span>) &#123; </span><br><span class="line">   <span class="built_in">UIRectEdgeNone</span> = <span class="number">0</span>,</span><br><span class="line">   <span class="built_in">UIRectEdgeTop</span> = <span class="number">1</span> &lt;&lt; <span class="number">0</span>,</span><br><span class="line">   <span class="built_in">UIRectEdgeLeft</span> = <span class="number">1</span> &lt;&lt; <span class="number">1</span>,</span><br><span class="line">   <span class="built_in">UIRectEdgeBottom</span> = <span class="number">1</span> &lt;&lt; <span class="number">2</span>,</span><br><span class="line">   <span class="built_in">UIRectEdgeRight</span> = <span class="number">1</span> &lt;&lt; <span class="number">3</span>,</span><br><span class="line">   <span class="built_in">UIRectEdgeAll</span> = <span class="built_in">UIRectEdgeTop</span> | <span class="built_in">UIRectEdgeLeft</span> | <span class="built_in">UIRectEdgeBottom</span> | <span class="built_in">UIRectEdgeRight</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>只提供了这几样，都是边缘的，这样就只好另寻他路了。<br>既然没有提供方式给我们现实要求，那我们就自己添加一个拖动手势 UIPanGestureRecognizer来替它执行滑动返回功能。<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIPanGestureRecognizer</span> *pan = [[<span class="built_in">UIPanGestureRecognizer</span> alloc] initWithTarget:target action:<span class="keyword">@selector</span>(handleNavigationTransition:)];</span><br><span class="line">[<span class="keyword">self</span>.view addGestureRecognizer:pan];</span><br></pre></td></tr></table></figure></p>
+<p>添加一个拖动手势，让他执行系统手势的操作，调用handleNavigationTransition:方法（刚才打印的信息中可以得知），现在的问题就是target是谁？<br>我们可以看看UIScreenEdgePanGestureRecognizer中是否有线索呢？<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIScreenEdgePanGestureRecognizer</span> *gest = <span class="keyword">self</span>.interactivePopGestureRecognizer;</span><br></pre></td></tr></table></figure></p>
+<p>找了半天没找着，但是UIScreenEdgePanGestureRecognizer继承于UIPanGestureRecognizer，而UIPanGestureRecognizer又继承于UIGestureRecognizer，在UIGestureRecognizer提供的方法中我们可以推断出一定有target，而且还是强引用的私有属性！那我们就可以用OC强大的杀手锏KVC来得到这个属性，但是前提是我们得知道target所指属性是什么名字<br>参照我的另一篇文章：<a href="/2017/09/12/iOS-通过runtime获取某个类中所有的变量和方法">iOS - 通过runtime获取某个类中所有的变量和方法</a><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// OC runtime 机制</span></span><br><span class="line"><span class="comment">// 只能动态获取当前类的成员属性，不能获取其子类，或者父类的属性</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> count = <span class="number">0</span>;<span class="comment">// 拷贝出所胡的成员变量列表</span></span><br><span class="line">Ivar *ivars = class_copyIvarList([<span class="built_in">UIGestureRecognizer</span> <span class="keyword">class</span>], &amp;count);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;count; i++) &#123;</span><br><span class="line">   <span class="comment">// 取出成员变量</span></span><br><span class="line">   Ivar ivar = *(ivars + i); </span><br><span class="line"></span><br><span class="line">   <span class="comment">// 打印成员变量名字</span></span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>, ivar_getName(ivar)); </span><br><span class="line"></span><br><span class="line">   <span class="comment">// 打印成员变量的数据类型</span></span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>, ivar_getTypeEncoding(ivar));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 释放</span></span><br><span class="line"> free(ivars);</span><br></pre></td></tr></table></figure></p>
+<p>在打印中我们找到了UIGestureRecognizer的私有属性 _targets，是个数组，而且只有一个元素，元素的类型如图所示<br><img src="https://linxunfeng.github.io/images/2017/09/iOS-实现UINavigation全屏动返回-二/1.png" alt="target"><br>那就好办了，这样我们就可以得到target了<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *targets = [gest valueForKeyPath:<span class="string">@"_targets"</span>]; <span class="comment">// 打印可以发现里面就一个元素</span></span><br><span class="line"><span class="keyword">id</span> target = [targets[<span class="number">0</span>] valueForKeyPath:<span class="string">@"_target"</span>];</span><br></pre></td></tr></table></figure></p>
+<p>这样我们就差不多实现全屏滑动返回的功能，但是有个bug<br><img src="https://linxunfeng.github.io/images/2017/09/iOS-实现UINavigation全屏动返回-二/2.gif" alt="向右滑动，接着点击Button"><br>如图所示，在最后里回到根控制器界面后我再一次向右滑动，接着点击Button，它没有将FirstVC弹出，这就是传说中的bug，那我们现在在做的，就是在根控制器不让滑动返回生效，即禁用手势。<br>监听手势，遵守协议UIGestureRecognizerDelegate，实现代理方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 当当前控制器是是根控制器时不让移除当前控制器(换句话说就是禁止手势)</span></span><br><span class="line">pan.delegate = <span class="keyword">self</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> mark - UIGestureRecognizerDelegate<span class="comment">// 当开始滑动时调用</span></span></span><br><span class="line">- (<span class="built_in">BOOL</span>)gestureRecognizerShouldBegin:(<span class="built_in">UIGestureRecognizer</span> *)gestureRecognizer &#123;</span><br><span class="line">   <span class="comment">// 当为根控制器是不让移除当前控制器，非根控制器时允许移除</span></span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@"%ld"</span>, <span class="keyword">self</span>.viewControllers.count);</span><br><span class="line">   <span class="built_in">BOOL</span> open = <span class="keyword">self</span>.viewControllers.count &gt; <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">return</span> open;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="最后说两句"><a href="#最后说两句" class="headerlink" title="最后说两句"></a>最后说两句</h2><p>这样就可以全屏滑动了，不过让我们来看看我们添加手势的习惯<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIPanGestureRecognizer</span> *myPan = [[<span class="built_in">UIPanGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(pan)];</span><br><span class="line">[<span class="keyword">self</span>.view addGestureRecognizer:myPan];</span><br><span class="line">myPan.delegate = <span class="keyword">self</span>;</span><br></pre></td></tr></table></figure></p>
+<p>我们在添加手势时设置了target为self，而delegate也为self<br>那是不是可以推断出系统手势的delegate就是我们刚刚想要的target呢，答案是是的<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">id</span> target = <span class="keyword">self</span>.interactivePopGestureRecognizer.delegate;</span><br></pre></td></tr></table></figure></p>
+<p>所以我们的target就可以通过这种方式获得，不用KVC的方式<br>哦，最后别忘了禁用系统手势<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 禁止系统的手势</span></span><br><span class="line"><span class="keyword">self</span>.interactivePopGestureRecognizer.enabled = <span class="literal">NO</span>;</span><br></pre></td></tr></table></figure></p>
+<p>这样，我们就实现了全屏滑动返回的功能了~</p>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><blockquote>
+<p>Objective-C</p>
+</blockquote>
+<p>记得遵守协议： UIGestureRecognizerDelegate<br>LXFNavigationController.m<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">   [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">   <span class="comment">// 系统的手势</span></span><br><span class="line">   <span class="built_in">UIScreenEdgePanGestureRecognizer</span> *gest = <span class="keyword">self</span>.interactivePopGestureRecognizer;</span><br><span class="line">   <span class="comment">// target</span></span><br><span class="line">   <span class="keyword">id</span> target = <span class="keyword">self</span>.interactivePopGestureRecognizer.delegate;</span><br><span class="line">   <span class="comment">// 禁止系统的手势 </span></span><br><span class="line">   <span class="keyword">self</span>.interactivePopGestureRecognizer.enabled = <span class="literal">NO</span>;</span><br><span class="line">   <span class="built_in">UIPanGestureRecognizer</span> *pan = [[<span class="built_in">UIPanGestureRecognizer</span> alloc] initWithTarget:target action:<span class="keyword">@selector</span>(handleNavigationTransition:)];</span><br><span class="line">   [<span class="keyword">self</span>.view addGestureRecognizer:pan]; </span><br><span class="line">   <span class="comment">// 监听代理</span></span><br><span class="line">   pan.delegate = <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> mark - UIGestureRecognizerDelegate</span></span><br><span class="line"><span class="comment">// 当开始滑动时调用</span></span><br><span class="line">- (<span class="built_in">BOOL</span>)gestureRecognizerShouldBegin:(<span class="built_in">UIGestureRecognizer</span> *)gestureRecognizer &#123;</span><br><span class="line">   <span class="comment">// 当为根控制器是不让移除当前控制器，非根控制器时允许移除</span></span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@"%ld"</span>, <span class="keyword">self</span>.viewControllers.count);</span><br><span class="line">   <span class="built_in">BOOL</span> open = <span class="keyword">self</span>.viewControllers.count &gt; <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">return</span> open;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Swift</p>
+</blockquote>
+<p>LXFNavigationController.swift<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">override func viewDidLoad() &#123;</span><br><span class="line">    super.viewDidLoad()</span><br><span class="line">    </span><br><span class="line">    guard let targets = interactivePopGestureRecognizer!.value(forKey: &quot;_targets&quot;) as? [NSObject] else &#123; return &#125;</span><br><span class="line">    let targetObjc = targets.first</span><br><span class="line">    let target = targetObjc?.value(forKey: &quot;target&quot;)</span><br><span class="line">    let action = Selector((&quot;handleNavigationTransition:&quot;))</span><br><span class="line">    </span><br><span class="line">    let panGes = UIPanGestureRecognizer(target: target, action: action)</span><br><span class="line">    view.addGestureRecognizer(panGes)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</the></excerpt>
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="http://linxunfeng.github.io/img/pay/alipay.png"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="http://linxunfeng.github.io/img/pay/wechat.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="http://linxunfeng.top/" target="_blank">LinXunFeng</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2017/09/12/iOS-通过runtime获取某个类中所有的变量和方法/" class="pre-post btn btn-default" title='iOS - 通过runtime获取某个类中所有的变量和方法'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">iOS - 通过runtime获取某个类中所有的变量和方法</span>
+        </a>
+    
+    
+        <a href="/2017/09/11/iOS-实现UINavigation全屏动返回-一/" class="next-post btn btn-default" title='iOS - 实现UINavigation全屏动返回(一)'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">iOS - 实现UINavigation全屏动返回(一)</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: '0rTljoibiQOAeo1tQ9qXExq9-gzGzoHsz',
+            appKey: '2N2gdmSHN6mIGpbmX8duHv6X',
+            placeholder: '说点什么吧',
+            notify: true,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">Table of Contents</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#回顾"><span class="toc-text">回顾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后说两句"><span class="toc-text">最后说两句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#源码"><span class="toc-text">源码</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        Total:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        Visitors:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <!-- <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | -->
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
