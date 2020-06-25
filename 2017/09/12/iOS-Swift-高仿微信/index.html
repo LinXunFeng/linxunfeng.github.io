@@ -1,0 +1,469 @@
+<!DOCTYPE HTML>
+<html lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="LinXunFeng‘s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://linxunfeng.top">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>iOS - Swift 高仿微信 | LinXunFeng‘s Blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="LinXunFeng‘s Blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1275838195 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1275838195%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?031981f555deecc203818690c85ef421";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-131541294-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=66150761" charset="UTF-8"></script>
+
+    
+    <meta name="baidu-site-verification" content="9LgZ2AlWYS">
+
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/./img/background/banner.jpeg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='LinXunFeng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://linxunfeng.top">LinXunFeng‘s Blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/iOS/"><i class="fa "></i>iOS</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Linux/"><i class="fa "></i>Linux</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Flutter/"><i class="fa "></i>Flutter</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Others/"><i class="fa "></i>其它</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="iOS - Swift 高仿微信">
+            
+	            iOS - Swift 高仿微信
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/iOS">
+            iOS
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/Swift" title='Swift'>
+                        Swift
+                    </a>
+                
+                    <a href="/tags/iOS项目" title='iOS项目'>
+                        iOS项目
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2017/09/12</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+
+            
+            
+            <p class="fa fa-exclamation-triangle warning">
+                本文于<strong>1017</strong>天之前发表，文中内容可能已经过时。
+            </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <excerpt in index | 首页摘要> 
+
+<p>从2016年12月份开始做到 2017年2月16，虽说这个项目看起来不大，但是锻炼人的地方还真是很多的，微信通讯录联系人的按拼音排序，自定义表情键盘中遇到的分页滚动，微信聊天界面的图片显示、语音信息的动画等。挑战着各种各样的需求，本人也将遇到的问题的解决方案做了记录并整理了一下，希望能给iOS程序员同胞们带来帮助。目前基本的聊天已完成，实现了一部分个人信息的修改，功能我会尽快完善的！</p>
+<p>+<a id="more"></a></p>
+<the rest of contents | 余下全文>
+
+<h1 id="LXFWeChat"><a href="#LXFWeChat" class="headerlink" title="LXFWeChat"></a>LXFWeChat</h1><p>Swift 3.0 高仿微信</p>
+<blockquote>
+<p>两个测试账号： lxf lqr  密码都是123456 </p>
+</blockquote>
+<h2 id="源码地址"><a href="#源码地址" class="headerlink" title="源码地址"></a>源码地址</h2><p>码云<br><a href="http://git.oschina.net/LinXunFeng/LXFWeChat" target="_blank" rel="noopener">http://git.oschina.net/LinXunFeng/LXFWeChat</a></p>
+<p>GitHub<br><a href="https://github.com/LinXunFeng/LXFWeChat" target="_blank" rel="noopener">https://github.com/LinXunFeng/LXFWeChat</a></p>
+<p>在此提供存放于百度云的完整项目<a href="https://pan.baidu.com/s/1bpB55Bx" target="_blank" rel="noopener">【高仿微信】- 百度云</a><br>希望各位能在我的项目上献出一个宝贵的Star<br>谢谢</p>
+<blockquote>
+<p>从2016年12月份开始做到现在，虽说这个项目看起来不大，但是锻炼人的地方还真是很多的，微信通讯录联系人的按拼音排序，自定义表情键盘中遇到的分页滚动，微信聊天界面的图片显示、语音信息的动画等。挑战着各种各样的需求，本人也将遇到的问题的解决方案做了记录并整理了一下，希望能给iOS程序员同胞们带来帮助。目前基本的聊天已完成，实现了一部分个人信息的修改，功能我会尽快完善的！</p>
+</blockquote>
+<h2 id="模仿微信的导航栏"><a href="#模仿微信的导航栏" class="headerlink" title="模仿微信的导航栏"></a>模仿微信的导航栏</h2><p>在navigationBar底部添加一个添加了渐变层的view<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> blurBackView = <span class="type">UIView</span>()</span><br><span class="line">blurBackView.frame = <span class="type">CGRect</span>(x: <span class="number">0</span>, y: -<span class="number">20</span>, width: kScreenW, height: <span class="number">64</span>)</span><br><span class="line"><span class="keyword">let</span> gradintLayer = <span class="type">CAGradientLayer</span>()</span><br><span class="line">gradintLayer.frame = <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: kScreenW, height: <span class="number">64</span>)</span><br><span class="line">gradintLayer.colors = [</span><br><span class="line">    <span class="type">UIColor</span>.hexInt(<span class="number">0x040012</span>).withAlphaComponent(<span class="number">0.76</span>).cgColor,</span><br><span class="line">    <span class="type">UIColor</span>.hexInt(<span class="number">0x040012</span>).withAlphaComponent(<span class="number">0.28</span>).cgColor</span><br><span class="line">]</span><br><span class="line">gradintLayer.startPoint = <span class="type">CGPoint</span>(x: <span class="number">0</span>, y: <span class="number">0</span>)</span><br><span class="line">gradintLayer.endPoint = <span class="type">CGPoint</span>(x: <span class="number">0</span>, y: <span class="number">1.0</span>)</span><br><span class="line">blurBackView.layer.addSublayer(gradintLayer)</span><br><span class="line">blurBackView.isUserInteractionEnabled = <span class="literal">false</span></span><br><span class="line">blurBackView.alpha = <span class="number">0.5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置导航栏样式</span></span><br><span class="line">navigationBar.barStyle = .black</span><br><span class="line">navigationBar.insertSubview(blurBackView, at: <span class="number">0</span>)</span><br></pre></td></tr></table></figure></p>
+<h2 id="表情面板和更多面板"><a href="#表情面板和更多面板" class="headerlink" title="表情面板和更多面板"></a>表情面板和更多面板</h2><p>遇到的问题总结了一下，可以参考下以下总结的文章</p>
+<p><a href="http://www.jianshu.com/p/18d7d0f5e3e2" target="_blank" rel="noopener">《iOS - Swift UICollectionView横向分页滚动，cell左右排版》</a></p>
+<p><a href="http://www.jianshu.com/p/60da3b52d64c" target="_blank" rel="noopener">《iOS-Swift-UICollectionView横向分页的问题》</a></p>
+<h2 id="聊天界面"><a href="#聊天界面" class="headerlink" title="聊天界面"></a>聊天界面</h2><p><a href="http://www.jianshu.com/p/4c570cd79bd3" target="_blank" rel="noopener">《iOS-Swift 仿微信聊天图片显示》</a></p>
+<p><a href="http://www.jianshu.com/p/aa139463eb4b" target="_blank" rel="noopener">《iOS-Swift-UITableView的scrollToRow的”坑”》</a></p>
+<p><a href="http://www.jianshu.com/p/412a2e23b5b6" target="_blank" rel="noopener">《iOS-Swift-UIButton中ImageView的animationImages动画执行完毕后，图标变暗》</a></p>
+<h2 id="首页"><a href="#首页" class="headerlink" title="首页"></a>首页</h2><p><a href="http://www.jianshu.com/p/807cddad469a" target="_blank" rel="noopener">《iOS - Swift 仿微信小红点(无数字)》</a></p>
+<h2 id="目前完成的功能"><a href="#目前完成的功能" class="headerlink" title="目前完成的功能"></a>目前完成的功能</h2><h3 id="微信界面"><a href="#微信界面" class="headerlink" title="微信界面"></a>微信界面</h3><ol>
+<li>显示右上角的菜单</li>
+<li>显示最近联系人</li>
+<li>最近联系人信息未读数的显示</li>
+</ol>
+<h3 id="通讯录界面"><a href="#通讯录界面" class="headerlink" title="通讯录界面"></a>通讯录界面</h3><ol>
+<li>联系人的排序</li>
+<li>联系人总数显示</li>
+</ol>
+<h3 id="发现界面"><a href="#发现界面" class="headerlink" title="发现界面"></a>发现界面</h3><ol>
+<li>动态小红点的显示</li>
+<li>购物选项的链接跳转</li>
+</ol>
+<h3 id="我界面"><a href="#我界面" class="headerlink" title="我界面"></a>我界面</h3><ol>
+<li>个人头像的上传与设置，及头像的保存</li>
+<li>我的二维码界面的显示及二维码的保存</li>
+</ol>
+<h3 id="聊天界面-1"><a href="#聊天界面-1" class="headerlink" title="聊天界面"></a>聊天界面</h3><ol>
+<li>小视频的录制与发送</li>
+<li>小视频的播放</li>
+<li>聊天时间</li>
+<li>图片的发送与显示</li>
+<li>未发送成功的重发功能</li>
+<li>语音的录制与发送</li>
+<li>语音的播放动态效果</li>
+</ol>
+<h2 id="已知BUG"><a href="#已知BUG" class="headerlink" title="已知BUG"></a>已知BUG</h2><ul>
+<li>小视频和图片发送出去后不能立即更新显示缩略图</li>
+<li>更换头像模拟器测试正常，真机无效。。</li>
+</ul>
+<h2 id="2017-07-24-更新"><a href="#2017-07-24-更新" class="headerlink" title="2017-07-24 更新"></a>2017-07-24 更新</h2><p>抽空出来添加了一个简单的直播功能（对方需要先进入到对应的聊天界面）<br>相关博文：<a href="http://www.jianshu.com/p/022b9044decc" target="_blank" rel="noopener">iOS-给高仿微信添加直播聊天功能</a><br>需要用到<a href="https://github.com/LinXunFeng/IJKFramework" target="_blank" rel="noopener">编译好的B站开源库ijkplayer</a> ，由于打包好的文件太大，传不上来，所以需要各位去自己编译集成进去。</p>
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><h3 id="动态图"><a href="#动态图" class="headerlink" title="动态图"></a>动态图</h3><p><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/1.gif" alt><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/2.gif" alt><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/3.gif" alt><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/4.gif" alt><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/5.gif" alt><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/6.gif" alt><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/7.gif" alt></p>
+<h3 id="静态图"><a href="#静态图" class="headerlink" title="静态图"></a>静态图</h3><p><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170206_1.png" alt><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_1.png" alt><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_2.png" alt><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_3.png" alt><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_4.png" alt><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_5.png" alt><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_6.png" alt><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_7.png" alt><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_8.png" alt><br><img src="https://github.com/LinXunFeng/LXFWeChat/raw/master/Screenshots/Snip20170214_9.png" alt></p>
+<div class="github-widget" data-repo="LinXunFeng/LXFWeChat"></div></the></excerpt>
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="http://linxunfeng.github.io/img/pay/alipay.png"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="http://linxunfeng.github.io/img/pay/wechat.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="http://linxunfeng.top/" target="_blank">LinXunFeng</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2017/09/12/iOS-Swift-面向协议编程（一）/" class="pre-post btn btn-default" title='iOS - Swift 面向协议编程（一）'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">iOS - Swift 面向协议编程（一）</span>
+        </a>
+    
+    
+        <a href="/2017/09/12/iOS-ARC与MRC的单例设计模式/" class="next-post btn btn-default" title='iOS-ARC与MRC的单例设计模式'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">iOS-ARC与MRC的单例设计模式</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: '0rTljoibiQOAeo1tQ9qXExq9-gzGzoHsz',
+            appKey: '2N2gdmSHN6mIGpbmX8duHv6X',
+            placeholder: '说点什么吧',
+            notify: true,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">Table of Contents</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LXFWeChat"><span class="toc-text">LXFWeChat</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#源码地址"><span class="toc-text">源码地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模仿微信的导航栏"><span class="toc-text">模仿微信的导航栏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表情面板和更多面板"><span class="toc-text">表情面板和更多面板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#聊天界面"><span class="toc-text">聊天界面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#首页"><span class="toc-text">首页</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目前完成的功能"><span class="toc-text">目前完成的功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#微信界面"><span class="toc-text">微信界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通讯录界面"><span class="toc-text">通讯录界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发现界面"><span class="toc-text">发现界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#我界面"><span class="toc-text">我界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聊天界面-1"><span class="toc-text">聊天界面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#已知BUG"><span class="toc-text">已知BUG</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2017-07-24-更新"><span class="toc-text">2017-07-24 更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#效果图"><span class="toc-text">效果图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#动态图"><span class="toc-text">动态图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#静态图"><span class="toc-text">静态图</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        Total:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        Visitors:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <!-- <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | -->
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
