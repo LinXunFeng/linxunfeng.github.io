@@ -1,0 +1,658 @@
+<!DOCTYPE HTML>
+<html lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="LinXunFeng‘s Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://linxunfeng.top">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>Swift 掌控Moya的网络请求、数据解析与缓存 | LinXunFeng‘s Blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="LinXunFeng‘s Blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1275838195 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1275838195%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?031981f555deecc203818690c85ef421";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-131541294-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=66150761" charset="UTF-8"></script>
+
+    
+    <meta name="baidu-site-verification" content="9LgZ2AlWYS">
+
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/./img/background/banner.jpeg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='LinXunFeng'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://linxunfeng.top">LinXunFeng‘s Blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/iOS/"><i class="fa "></i>iOS</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Linux/"><i class="fa "></i>Linux</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Flutter/"><i class="fa "></i>Flutter</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Others/"><i class="fa "></i>其它</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Swift 掌控Moya的网络请求、数据解析与缓存">
+            
+	            Swift 掌控Moya的网络请求、数据解析与缓存
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/iOS">
+            iOS
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/iOS" title='iOS'>
+                        iOS
+                    </a>
+                
+                    <a href="/tags/Swift" title='Swift'>
+                        Swift
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/10/27</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+
+            
+            
+            <p class="fa fa-exclamation-triangle warning">
+                本文于<strong>623</strong>天之前发表，文中内容可能已经过时。
+            </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <excerpt in index | 首页摘要> 
+
+<ul>
+<li><code>Moya</code> 在Swift开发中起着重要的网络交互作用，但是还有不如之处，比如网络不可用时，返回的 <code>Response</code> 为 <code>nil</code>，这时还得去解析相应的 <code>Error</code></li>
+<li><code>Codable</code> 可以帮助我们快速的解析数据，但是一旦声明的属性类型与json中的不一致，将无法正常解析; 而且对于模型中自定义属性名的处理也十分繁琐</li>
+</ul>
+<p>+<a id="more"></a></p>
+<the rest of contents | 余下全文>
+
+
+
+<ul>
+<li><code>Moya</code> 在Swift开发中起着重要的网络交互作用，但是还有不如之处，比如网络不可用时，返回的 <code>Response</code> 为 <code>nil</code>，这时还得去解析相应的 <code>Error</code></li>
+<li><code>Codable</code> 可以帮助我们快速的解析数据，但是一旦声明的属性类型与json中的不一致，将无法正常解析; 而且对于模型中自定义属性名的处理也十分繁琐</li>
+</ul>
+<p>解决的方案有很多，不过我比较习惯使用 <code>MoyaMapper</code> ，不仅可以解决上述问题，还提供了多种<code>模型转换</code>、<code>数据互转</code>、<code>多种数据类型任意存储</code>的便捷方法。掌控Moya的网络请求、数据解析与缓存简直易如反掌。</p>
+<blockquote>
+<p><code>MoyaMapper</code>是基于Moya和SwiftyJSON封装的工具，以Moya的plugin的方式来实现间接解析，支持RxSwift</p>
+<p> GitHub: <a href="https://github.com/MoyaMapper/MoyaMapper" target="_blank" rel="noopener">MoyaMapper</a></p>
+<p>📖 详细的使用请查看手册 <a href="https://moyamapper.github.io/" target="_blank" rel="noopener">https://MoyaMapper.github.io</a></p>
+</blockquote>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
+<li>支持<code>json</code> 转 <code>Model</code> 自动映射 与 自定义映射</li>
+<li>无视 <code>json</code> 中值的类型，<code>Model</code> 中属性声明的是什么类型，它就是什么类型</li>
+<li>支持 <code>Data</code> <code>字典</code> <code>JSON</code> <code>json字符串</code> <code>Model</code> 互转</li>
+<li>插件方式，全方位保障<code>Moya.Response</code>，拒绝各种网络问题导致 <code>Response</code> 为 <code>nil</code>，将各式各样的原因导致的数据加载失败进行统一处理，开发者只需要关注 <code>Response</code></li>
+<li>可选 - 支持数据随意缓存( <code>JSON</code> 、 <code>Number</code> 、<code>String</code>、 <code>Bool</code>、 <code>Moya.Response</code> )</li>
+<li>可选 - 支持网络请求缓存</li>
+</ul>
+<h2 id="数据解析"><a href="#数据解析" class="headerlink" title="数据解析"></a>数据解析</h2><h5 id="一、插件注入"><a href="#一、插件注入" class="headerlink" title="一、插件注入"></a>一、插件注入</h5><p>附：<a href="https://moyamapper.github.io/plugin/" target="_blank" rel="noopener">插件 MoyaMapperPlugin 的详细使用</a></p>
+<p><img src="https://linxunfeng.github.io/images/2018/10/Swift-掌控Moya的网络请求、数据解析与缓存/success-obj.png" alt></p>
+<p>1、定义适用于项目接口的 <code>ModelableParameterType</code></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// statusCodeKey、tipStrKey、 modelKey 可以任意指定级别的路径，如： "error&gt;used"</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">NetParameter</span> : <span class="title">ModelableParameterType</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> successValue = <span class="string">"000"</span></span><br><span class="line">    <span class="keyword">var</span> statusCodeKey = <span class="string">"retStatus"</span></span><br><span class="line">    <span class="keyword">var</span> tipStrKey = <span class="string">"retMsg"</span></span><br><span class="line">    <span class="keyword">var</span> modelKey = <span class="string">"retBody"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2、在 <code>MoyaProvider</code> 中使用 <code>MoyaMapperPlugin</code> 插件，并指定 <code>ModelableParameterType</code></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> lxfNetTool = <span class="type">MoyaProvider</span>&lt;<span class="type">LXFNetworkTool</span>&gt;(plugins: [<span class="type">MoyaMapperPlugin</span>(<span class="type">NetParameter</span>())])</span><br></pre></td></tr></table></figure>
+<p>❗ 使用 <code>MoyaMapperPlugin</code> 插件是整个 <code>MoyaMapper</code>  的核心所在！</p>
+<h5 id="二、Model声明"><a href="#二、Model声明" class="headerlink" title="二、Model声明"></a>二、Model声明</h5><blockquote>
+<p><code>Model</code> 需遵守 <code>Modelable</code> 协议</p>
+<ul>
+<li><code>MoyaMapper</code> 支持模型自动映射 和 自定义映射</li>
+<li>不需要考虑源json数据的真实类型，这里统一按 <code>Model</code> 中属性声明的类型进行转换</li>
+</ul>
+</blockquote>
+<p>1、一般情况下如下写法即可</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">CompanyModel</span>: <span class="title">Modelable</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> name : <span class="type">String</span> = <span class="string">""</span></span><br><span class="line">    <span class="keyword">var</span> catchPhrase : <span class="type">String</span> = <span class="string">""</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">init</span>() &#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2、如果自定义映射，则可以实现方法 <code>mutating func mapping(_ json: JSON)</code></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">CompanyModel</span>: <span class="title">Modelable</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> name : <span class="type">String</span> = <span class="string">""</span></span><br><span class="line">    <span class="keyword">var</span> catchPhrase : <span class="type">String</span> = <span class="string">""</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">init</span>() &#123; &#125;</span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">mapping</span><span class="params">(<span class="number">_</span> json: JSON)</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.name = json[<span class="string">"nickname"</span>].stringValue</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、支持模型嵌套</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">UserModel</span>: <span class="title">Modelable</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> id : <span class="type">String</span> = <span class="string">""</span></span><br><span class="line">    <span class="keyword">var</span> name : <span class="type">String</span> = <span class="string">""</span></span><br><span class="line">    <span class="keyword">var</span> company : <span class="type">CompanyModel</span> = <span class="type">CompanyModel</span>()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">init</span>() &#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="三、Response-解析"><a href="#三、Response-解析" class="headerlink" title="三、Response 解析"></a>三、Response 解析</h5><blockquote>
+<p>1、以下示例皆使用了 <code>MoyaMapperPlugin</code> ，所以不需要指定 <code>解析路径</code></p>
+<p>2、如果没有使用 <code>MoyaMapperPlugin</code> 则需要指定 <code>解析路径</code>，否则无法正常解析</p>
+<p>ps:  <code>解析路径</code> 可以使用 <code>a&gt;b</code> 这种形式来解决多级路径的问题</p>
+</blockquote>
+<p>解析方法如下列表所示</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方法</th>
+<th style="text-align:left">描述 (支持RxSwift)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">toJSON</td>
+<td style="text-align:left">Response 转 JSON ( <a href="https://moyamapper.github.io/core/toJSON/" target="_blank" rel="noopener">toJSON</a>   <a href="https://moyamapper.github.io/rx/toJSON/" target="_blank" rel="noopener">rx.toJSON</a>)</td>
+</tr>
+<tr>
+<td style="text-align:center">fetchString</td>
+<td style="text-align:left">获取指定路径的字符串( <a href="https://moyamapper.github.io/core/fetchString/" target="_blank" rel="noopener">fetchString</a>   <a href="https://moyamapper.github.io/rx/fetchString/" target="_blank" rel="noopener">rx.fetchString</a>)</td>
+</tr>
+<tr>
+<td style="text-align:center">fetchJSONString</td>
+<td style="text-align:left">获取指定路径的原始json字符串 ( <a href="https://moyamapper.github.io/core/fetchJSONString/" target="_blank" rel="noopener">fetchJSONString</a>   <a href="https://moyamapper.github.io/rx/fetchJSONString/" target="_blank" rel="noopener">rx.fetchJSONString</a> )</td>
+</tr>
+<tr>
+<td style="text-align:center">mapResult</td>
+<td style="text-align:left">Response -&gt; MoyaMapperResult   <code>(Bool, String)</code> ( <a href="https://moyamapper.github.io/core/mapResult/" target="_blank" rel="noopener">mapResult</a>   <a href="https://moyamapper.github.io/rx/mapResult/" target="_blank" rel="noopener">rx.mapResult</a> )</td>
+</tr>
+<tr>
+<td style="text-align:center">mapObject</td>
+<td style="text-align:left">Response -&gt; Model ( <a href="https://moyamapper.github.io/core/mapObject/" target="_blank" rel="noopener">mapObject</a>   <a href="https://moyamapper.github.io/rx/mapObject/" target="_blank" rel="noopener">rx.mapObject</a>)</td>
+</tr>
+<tr>
+<td style="text-align:center">mapObjResult</td>
+<td style="text-align:left">Response -&gt; (MoyaMapperResult, Model) ( <a href="https://moyamapper.github.io/core/mapObjResult/" target="_blank" rel="noopener">mapObjResult</a>   <a href="https://moyamapper.github.io/rx/mapObjResult/" target="_blank" rel="noopener">rx.mapObjResult</a>)</td>
+</tr>
+<tr>
+<td style="text-align:center">mapArray</td>
+<td style="text-align:left">Response -&gt; [Model] ( <a href="https://moyamapper.github.io/core/mapArray/" target="_blank" rel="noopener">mapArray</a>  <a href="https://moyamapper.github.io/rx/mapArray/" target="_blank" rel="noopener">rx.mapArray</a>)</td>
+</tr>
+<tr>
+<td style="text-align:center">mapArrayResult</td>
+<td style="text-align:left">Response -&gt; (MoyaMapperResult, [Model]) ( <a href="https://moyamapper.github.io/core/mapArrayResult/" target="_blank" rel="noopener">mapArrayResult</a>   <a href="https://moyamapper.github.io/rx/mapArrayResult/" target="_blank" rel="noopener">rx.mapArrayResult</a>)</td>
+</tr>
+</tbody>
+</table>
+<p>❗除了 <code>fetchJSONString</code> 的默认解析路径是<code>根路径</code>之外，其它方法的默认解析路径为插件对象中的 <code>modelKey</code></p>
+<p>如果接口请求后 <code>json</code> 的数据结构与下图类似，则使用 <code>MoyaMapper</code> 是最合适不过了</p>
+<p><img src="https://linxunfeng.github.io/images/2018/10/Swift-掌控Moya的网络请求、数据解析与缓存/success-obj.png" alt></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Normal</span></span><br><span class="line"><span class="keyword">let</span> model = response.mapObject(<span class="type">MMModel</span>.<span class="keyword">self</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"name -- \(model.name)"</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"github -- \(model.github)"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印json</span></span><br><span class="line"><span class="built_in">print</span>(response.fetchJSONString())</span><br><span class="line"></span><br><span class="line"><span class="comment">// Rx</span></span><br><span class="line">rxRequest.mapObject(<span class="type">MMModel</span>.<span class="keyword">self</span>)</span><br><span class="line">    .subscribe(onSuccess: &#123; (model) <span class="keyword">in</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"name -- \(model.name)"</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"github -- \(model.github)"</span>)</span><br><span class="line">    &#125;).disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+<p>附： <a href="https://moyamapper.github.io/core/fetchJSONString/" target="_blank" rel="noopener">fetchJSONString的详细使用</a></p>
+<p><img src="https://linxunfeng.github.io/images/2018/10/Swift-掌控Moya的网络请求、数据解析与缓存/success-array.png" alt></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Normal</span></span><br><span class="line"><span class="keyword">let</span> models = response.mapArray(<span class="type">MMModel</span>.<span class="keyword">self</span>)</span><br><span class="line"><span class="keyword">let</span> name = models[<span class="number">0</span>].name</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"count -- \(models.count)"</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"name -- \(name)"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印 json 模型数组中第一个的name</span></span><br><span class="line"><span class="built_in">print</span>(response.fetchString(keys: [<span class="number">0</span>, <span class="string">"name"</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment">// Rx</span></span><br><span class="line">rxRequest.mapArray(<span class="type">MMModel</span>.<span class="keyword">self</span>)</span><br><span class="line">    .subscribe(onSuccess: &#123; models <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">let</span> name = models[<span class="number">0</span>].name</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"count -- \(models.count)"</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"name -- \(name)"</span>)</span><br><span class="line">    &#125;).disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+<p>附：<a href="https://moyamapper.github.io/core/mapArray/" target="_blank" rel="noopener">mapArray的详细使用说明</a></p>
+<p><img src="https://linxunfeng.github.io/images/2018/10/Swift-掌控Moya的网络请求、数据解析与缓存/fail.png" alt></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Normal</span></span><br><span class="line"><span class="keyword">let</span> (isSuccess, tipStr) = response.mapResult()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"isSuccess -- \(isSuccess)"</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"tipStr -- \(tipStr)"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Rx</span></span><br><span class="line">rxRequest.mapResult()</span><br><span class="line">    .subscribe(onSuccess: &#123; (isSuccess, tipStr) <span class="keyword">in</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"isSuccess -- \(isSuccess)"</span>) <span class="comment">// 是否为 "000"</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"retMsg -- \(retMsg)"</span>) <span class="comment">// "缺少必要参数"</span></span><br><span class="line">    &#125;).disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+<p>附：<a href="https://moyamapper.github.io/core/mapResult/" target="_blank" rel="noopener">mapResult的详细使用说明</a></p>
+<h2 id="统一处理网络请求结果"><a href="#统一处理网络请求结果" class="headerlink" title="统一处理网络请求结果"></a>统一处理网络请求结果</h2><blockquote>
+<p>在APP的实际使用过程中，会遇到各种各样的网络请求结果，如:服务器挂了、手机无网络，此时 <code>Moya</code> 返回的 <code>Response</code> 为 nil，这样我们就不得不去判断 <code>Error</code>。但是使用 <code>MoyaMapperPlugin</code> 就可以让我们只关注 <code>Response</code></p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MoyaMapperPlugin 的初始化方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">init</span>&lt;<span class="type">T</span>: <span class="type">ModelableParameterType</span>&gt;(</span><br><span class="line">    <span class="number">_</span> type: <span class="type">T</span>,</span><br><span class="line">    transformError: <span class="type">Bool</span> = <span class="literal">true</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type : <span class="type">ModelableParameterType</span>  用于定义字段路径，做为全局解析数据的依据</span><br><span class="line">transformError : <span class="type">Bool</span>  是否当网络请求失败时，自动转换请求结果，默认为 <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>当请求失败的时候，此时的 <code>result.response</code> 为 <code>nil</code>，根据<code>transformError</code>是否为<code>true</code> 判断是否创建一个自定义的 <code>response</code> 并返回出去。</li>
+</ul>
+<p>➡ 本来可以请求到的数据内容</p>
+<p><img src="https://linxunfeng.github.io/images/2018/10/Swift-掌控Moya的网络请求、数据解析与缓存/success-obj.png" alt></p>
+<p>➡ 现在关闭网络，再请求数据</p>
+<ul>
+<li><p>正常情况下，即不做任何不处理的时候， <code>Response</code> 为 <code>nil</code> </p>
+</li>
+<li><p>经过 <code>MoyaMapperPlugin</code> 处理的后可得到转换后的 <code>Response</code> ，如图</p>
+</li>
+</ul>
+<p><img src="https://linxunfeng.github.io/images/2018/10/Swift-掌控Moya的网络请求、数据解析与缓存/plugin.png" alt></p>
+<p>这里将请求失败进行了统一处理，无论是服务器还是自身网络的问题，<code>retStatus</code> 都为 MMStatusCode.loadFail，但是 errorDescription 会保持原来的样子并赋值给 <code>retMsg</code>。</p>
+<blockquote>
+<ul>
+<li><code>retStatus</code> 值会从枚举 <code>MMStatusCode</code> 中取  <code>loadFail.rawValue</code> ，即 <code>700</code> </li>
+<li>取 类型为 <code>ModelableParameterType</code>  的 <code>type</code> 中 <code>statusCodeKey</code> 所指定的值 为键名，<code>retMsg</code>也同理</li>
+</ul>
+</blockquote>
+<p>ps: 这个时候可以通过判断 <code>retStatus</code> 或 <code>response.statusCode</code> 是否与 <code>MMStatusCode.loadFail.rawValue</code> 相同来判断是否显示加载失败的空白页占位图</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">MMStatusCode</span>: <span class="title">Int</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> cache = <span class="number">230</span></span><br><span class="line">    <span class="keyword">case</span> loadFail = <span class="number">700</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>枚举 <code>MMStatusCode</code> 中除了 <code>loadFail</code> ，还有 <code>cache</code>，我们已经知道 <code>loadFail</code> 在数据加载失败的时候会出现，那 <code>cache</code> 是在什么时候出来呢？不急，看下一节就知道了。</p>
+<h2 id="数据缓存"><a href="#数据缓存" class="headerlink" title="数据缓存"></a>数据缓存</h2><h5 id="一、基本使用"><a href="#一、基本使用" class="headerlink" title="一、基本使用"></a>一、基本使用</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 缓存</span><br><span class="line">@discardableResult</span><br><span class="line">MMCache.shared.cache`XXX`(value : XXX, key: String, cacheContainer: MMCache.CacheContainer = .RAM)  -&gt; Bool</span><br><span class="line">// 取舍</span><br><span class="line">MMCache.shared.fetch`XXX`Cache(key: String, cacheContainer: MMCache.CacheContainer = .RAM)</span><br></pre></td></tr></table></figure>
+<p>缓存成功会返回一个 <code>Bool</code> 值，这里可不接收</p>
+<table>
+<thead>
+<tr>
+<th>XXX 所支持类型</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bool</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Float</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Double</td>
+<td>-</td>
+</tr>
+<tr>
+<td>String</td>
+<td>-</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Modelable</td>
+<td>[Modelable]</td>
+</tr>
+<tr>
+<td>Moya.Response</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Int</td>
+<td>UInt</td>
+</tr>
+<tr>
+<td>Int8</td>
+<td>UInt8</td>
+</tr>
+<tr>
+<td>Int16</td>
+<td>UInt16</td>
+</tr>
+<tr>
+<td>Int32</td>
+<td>UInt32</td>
+</tr>
+<tr>
+<td>Int64</td>
+<td>UInt64</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>其中，除了 <code>Moya.Response</code> 之外，其它类型皆是通过 <code>JSON</code> 来实现缓存</p>
+</blockquote>
+<p>所以，如果你想清除这些类型的缓存，只需要调用如下方法即可</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@discardableResult</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">removeJSONCache</span><span class="params">(<span class="number">_</span> key: String, cacheContainer: MMCache.CacheContainer = .RAM)</span></span> -&gt; <span class="type">Bool</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@discardableResult</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">removeAllJSONCache</span><span class="params">(cacheContainer: MMCache.CacheContainer = .RAM)</span></span> -&gt; <span class="type">Bool</span></span><br></pre></td></tr></table></figure>
+<p>清除 <code>Moya.Response</code> 则使用如下两个方法</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@discardableResult</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">removeResponseCache</span><span class="params">(<span class="number">_</span> key: String)</span></span> -&gt; <span class="type">Bool</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@discardableResult</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">removeAllResponseCache</span><span class="params">()</span></span> -&gt; <span class="type">Bool</span></span><br></pre></td></tr></table></figure>
+<p>再来看看MMCache.CacheContainer</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">CacheContainer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">RAM</span> 	<span class="comment">// 只缓存于内存的容器</span></span><br><span class="line">    <span class="keyword">case</span> hybrid <span class="comment">// 缓存于内存与磁盘的容器</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这两种容器互不相通，即 即使key相同，使用 <code>hybrid</code> 来缓存后，再通过 <code>RAM</code> 取值是取不到的。</p>
+</blockquote>
+<ul>
+<li>RAM : 仅缓存于内存之中，缓存的数据在APP使用期间一直存在</li>
+<li>hybrid ：缓存于内存与磁盘中，APP重启后也可以获取到数据</li>
+</ul>
+<h5 id="二、缓存网络请求"><a href="#二、缓存网络请求" class="headerlink" title="二、缓存网络请求"></a>二、缓存网络请求</h5><p>内部缓存过程：</p>
+<ol>
+<li>APP首次启动并进行网络请求，网络数据将缓存起来</li>
+<li>APP再次启动并进行网络请求时，会先返回缓存的数据，等请求成功后再返回网络数据</li>
+<li>其它情况只会加载网络数据</li>
+<li>每次成功请求到数据后，都会对缓存的数据进行更新</li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Normal</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">cacheRequest</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="number">_</span> target: Target, </span></span></span><br><span class="line"><span class="function"><span class="params">    cacheType: MMCache.CacheKeyType = .<span class="keyword">default</span>, </span></span></span><br><span class="line"><span class="function"><span class="params">    callbackQueue: DispatchQueue? = <span class="literal">nil</span>, </span></span></span><br><span class="line"><span class="function"><span class="params">    progress: Moya.ProgressBlock? = <span class="literal">nil</span>, </span></span></span><br><span class="line"><span class="function"><span class="params">    completion: @escaping Moya.Completion</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span> -&gt; <span class="type">Cancellable</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Rx</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">cacheRequest</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="number">_</span> target: Base.Target, </span></span></span><br><span class="line"><span class="function"><span class="params">    callbackQueue: DispatchQueue? = <span class="literal">nil</span>, </span></span></span><br><span class="line"><span class="function"><span class="params">    cacheType: MMCache.CacheKeyType = .<span class="keyword">default</span></span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span> -&gt; <span class="type">Observable</span>&lt;<span class="type">Response</span>&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>实际上是对 <code>Moya</code> 请求后的 <code>Response</code> 进行缓存。 其实与 <code>Moya</code> 自带的方法相比较只多了一个参数 <code>cacheType: MMCache.CacheKeyType</code> ，定义着缓存中的 <code>key</code> ，默认为 <code>default</code> </p>
+</blockquote>
+<p>下面是 <code>MMCache.CacheKeyType</code> 的定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> let cacheKey = [method]baseURL/path</span><br><span class="line"> </span><br><span class="line"> - default : cacheKey + &quot;?&quot; + parameters</span><br><span class="line"> - base : cacheKey</span><br><span class="line"> - custom : cacheKey + &quot;?&quot; + customKey</span><br><span class="line"> */</span><br><span class="line">public enum CacheKeyType &#123;</span><br><span class="line">    case `default`</span><br><span class="line">    case base</span><br><span class="line">    case custom(String)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果你想缓存<code>多页</code>列表数据的<code>最新一页</code>数据，此时使用 <code>default</code> 是不合适的，因为 <code>default</code> 使用的 <code>key</code> 包含了 <code>pageIndex</code>，这样就达不到只缓存 <code>最新一页数据</code> 的目的， 所以这里应该使用 <code>base</code> 或者 <code>custom(String)</code> </p>
+</blockquote>
+<p>我们可以来试一下带缓存的请求</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * APP第一次启动并进行网络请求，网络数据将缓存起来</span></span><br><span class="line"><span class="comment"> * APP再次启动并进行网络请求时，会先加载缓存，再加载网络数据</span></span><br><span class="line"><span class="comment"> * 其它情况只会加载网络数据</span></span><br><span class="line"><span class="comment"> * 每次成功请求到数据都会进行数据更新</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">lxfNetTool.rx.cacheRequest(.data(type: .all, size: <span class="number">10</span>, index: <span class="number">1</span>))</span><br><span class="line">    .subscribe(onNext: &#123; response <span class="keyword">in</span></span><br><span class="line">        log.debug(<span class="string">"statusCode -- \(response.statusCode)"</span>)</span><br><span class="line">    &#125;).disposed(by: disposeBag)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 传统方式</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">let _ = lxfNetTool.cacheRequest(.data(type: .all, size: 10, index: 1)) &#123; result in</span></span><br><span class="line"><span class="comment">    guard let resp = result.value else &#123; return &#125;</span></span><br><span class="line"><span class="comment">    log.debug("statusCode -- \(resp.statusCode)")</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>打印结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 首次使用APP</span><br><span class="line">statusCode -- 200</span><br><span class="line"></span><br><span class="line">// 关闭并重新打开APP，再请求一下</span><br><span class="line">statusCode -- 230</span><br><span class="line">statusCode -- 200</span><br><span class="line"></span><br><span class="line">// 然后再请求一下</span><br><span class="line">statusCode -- 200</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>230</code> 就是 <code>MMStatusCode.cache.rawValue</code></p>
+<h2 id="CocoaPods"><a href="#CocoaPods" class="headerlink" title="CocoaPods"></a>CocoaPods</h2><ul>
+<li>默认安装</li>
+</ul>
+<p>MoyaMapper默认只安装Core下的文件<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod <span class="string">'MoyaMapper'</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>RxSwift拓展</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod <span class="string">'MoyaMapper/Rx'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>缓存拓展</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod <span class="string">'MoyaMapper/MMCache'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Rx缓存</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod <span class="string">'MoyaMapper/RxCache'</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</the></excerpt>
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="http://linxunfeng.github.io/img/pay/alipay.png"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="http://linxunfeng.github.io/img/pay/wechat.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="http://linxunfeng.top/" target="_blank">LinXunFeng</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/01/01/Others/FQ-Terminal下的代理工具ProxyChains-NG/" class="pre-post btn btn-default" title='FQ-Terminal下的代理工具ProxyChains-NG'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">FQ-Terminal下的代理工具ProxyChains-NG</span>
+        </a>
+    
+    
+        <a href="/2018/10/24/Swift-优雅的适配大小/" class="next-post btn btn-default" title='Swift 优雅的适配大小'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Swift 优雅的适配大小</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: '0rTljoibiQOAeo1tQ9qXExq9-gzGzoHsz',
+            appKey: '2N2gdmSHN6mIGpbmX8duHv6X',
+            placeholder: '说点什么吧',
+            notify: true,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">Table of Contents</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#特点"><span class="toc-text">特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据解析"><span class="toc-text">数据解析</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#一、插件注入"><span class="toc-text">一、插件注入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二、Model声明"><span class="toc-text">二、Model声明</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#三、Response-解析"><span class="toc-text">三、Response 解析</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#统一处理网络请求结果"><span class="toc-text">统一处理网络请求结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据缓存"><span class="toc-text">数据缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#一、基本使用"><span class="toc-text">一、基本使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二、缓存网络请求"><span class="toc-text">二、缓存网络请求</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CocoaPods"><span class="toc-text">CocoaPods</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        Total:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        Visitors:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <!-- <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | -->
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
