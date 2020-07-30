@@ -1,0 +1,315 @@
+<!DOCTYPE html><html data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LinXunFeng‘s Blog</title><meta name="description"><meta name="author" content="LinXunFeng"><meta name="copyright" content="LinXunFeng"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://avatars3.githubusercontent.com/u/19367531?s=460&u=50f180a9aead4aaf6b0eeba3ec83ea336416bf14&v=4"><link rel="canonical" href="http://linxunfeng.top/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin="crossorigin"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//ta.qq.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="9LgZ2AlWYS"/><meta property="og:type" content="website"><meta property="og:title" content="LinXunFeng‘s Blog"><meta property="og:url" content="http://linxunfeng.top/"><meta property="og:site_name" content="LinXunFeng‘s Blog"><meta property="og:description"><meta property="og:image" content="https://avatars3.githubusercontent.com/u/19367531?s=460&amp;u=50f180a9aead4aaf6b0eeba3ec83ea336416bf14&amp;v=4"><meta property="article:published_time" content="2020-07-30T14:43:39.413Z"><meta property="article:modified_time" content="2020-07-30T14:43:39.413Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?031981f555deecc203818690c85ef421";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-131541294-1', 'auto');
+ga('send', 'pageview');
+</script><script src="https://tajs.qq.com/stats?sId=66150761" charset="UTF-8"></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  bookmark: {
+    message_prev: 'Press',
+    message_next: 'to bookmark this page'
+  },
+  runtime_unit: 'days',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isSidebar: false
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 5.0.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://avatars3.githubusercontent.com/u/19367531?s=460&amp;u=50f180a9aead4aaf6b0eeba3ec83ea336416bf14&amp;v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">Articles</div><div class="length_num">39</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">Tags</div><div class="length_num">17</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">Categories</div><div class="length_num">5</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(/images/others/banner/banner_2.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">LinXunFeng‘s Blog</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="site-info"><h1 id="site_title">LinXunFeng‘s Blog</h1><div id="site_subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/LinXunFeng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:linxunfeng@yeah.net" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://twitter.com/xunfenghellolo" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a><a class="social-icon" href="https://juejin.im/user/58f8065e61ff4b006646c72d" target="_blank" title="Juejin"><i class="fab fa-blogger"></i></a></div></div><div id="scroll_down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout_page" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/07/12/Flutter/Flutter%20-%20%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91/" title="Flutter - 混合开发">     <img class="post_bg" data-src="/images/others/cover/cover_6.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flutter - 混合开发"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/07/12/Flutter/Flutter%20-%20%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91/" title="Flutter - 混合开发">Flutter - 混合开发</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2020-07-12 00:00:00"><i class="far fa-calendar-alt"></i>2020-07-12</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Flutter/">Flutter</a></span></div><div class="content"> 
+
+目前大多数公司都有自己开发多年的项目，不可能直接用 Flutter 从头开发一套，那样不实现，除非是小项目，因此只能是在原有的基础上用 Flutter 来开发新业务或重构旧业务，而这里就需要用到 Flutter 的 混合开发
++
+
+
+
+目前大多数公司都有自己开发多年的项目，不可能直接用 Flutter 从头开发一套，那样不实现，除非是小项目，因此只能是在原有的基础上用 Flutter 来开发新业务或重构旧业务，而这里就需要用到 Flutter 的 混合开发
+
+一、创建Flutter模块使用混合开发就不能像之前一样直接上来就创建一个 Flutter 项目，而是要使用 Flutter模板
+12345# flutter_module_lxf 可以随便你命名flutter create --template module flutter_module_lxf# --template 可以替换为 -t# flutter create -t module flutter_module_lxf
+创建出来的 Flutter 模块依然是可以像之前创建的Flutter项目 一样打开和运行的。 
+目录 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/06/26/Flutter/Flutter%20-%20%E6%89%93%E5%8D%B0%E5%A5%BD%E7%94%A8%E7%9A%84Debug%E6%97%A5%E5%BF%97/" title="Flutter - 打印好用的Debug日志">     <img class="post_bg" data-src="/images/others/cover/cover_8.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flutter - 打印好用的Debug日志"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/06/26/Flutter/Flutter%20-%20%E6%89%93%E5%8D%B0%E5%A5%BD%E7%94%A8%E7%9A%84Debug%E6%97%A5%E5%BF%97/" title="Flutter - 打印好用的Debug日志">Flutter - 打印好用的Debug日志</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2020-06-26 00:35:00"><i class="far fa-calendar-alt"></i>2020-06-26</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Flutter/">Flutter</a></span></div><div class="content"> 
+
+做 iOS 开发时这个功能很常用， 在 OC 和 Swift 中都可以很轻松实现，因为系统本来就提供了用于日志输出的预处理宏，只要我们拿来拼接就可以了，但是在 Dart 中并不提供这些，那有什么办法实现它呢？
++
+
+
+一、思考做 iOS 开发时这个功能很常用， 在 OC 和 Swift 中都可以很轻松实现，因为系统本来就提供了用于日志输出的预处理宏，只要我们拿来拼接就可以了，但是在 Dart 中并不提供这些，那有什么办法实现它呢？
+我们回想在开发过程中，是不是发现只要一不小心抛异常，就可以看到类似如下的打印内容，而且还能清楚的知道异常是在哪个文件和哪一行的代码造成的。
+
+
+所以如果我们可以在调用函数时拿到当前调用堆栈，就可以取到一系列想要的数据。
+
+二、实践在 dart:core 中提供了 堆栈跟踪(StackTrace)，可以通过 StackTrace.current 取到当前的堆栈信息，打印如下图所示，会发现这不好拿到我们想要的信息。
+
+这里我用到了官方开发的一个包 stack_trace，它可以将堆栈信息变得更多人性化，并方便我们查看堆栈信息和获取想要的数据。
+ps: st ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/06/07/Flutter/Dart-%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96/" title="Dart - 抽象类的实例化">     <img class="post_bg" data-src="/images/others/cover/cover_1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Dart - 抽象类的实例化"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/06/07/Flutter/Dart-%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96/" title="Dart - 抽象类的实例化">Dart - 抽象类的实例化</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2020-06-07 11:27:00"><i class="far fa-calendar-alt"></i>2020-06-07</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Flutter/">Flutter</a></span></div><div class="content"> 
+
+抽象类不能用于创建实例，但是有没有发现，Dart 提供的 Map 和 List 就是抽象类，却可以直接使用它们创建出一个实例对象
++
+
+
+一、抽象类的使用Dart 抽象类可以只声明方法，也可以有具体的方法实现，但是不能直接用抽象类来创建实例，只能被继承使用或者充当接口。
+定义一个抽象类 Animal123456789abstract class Animal &#123;  // 仅声明eat方法  void eat();  // 声明方法，且有具体实现  void sleep() &#123;    print(&quot;睡觉&quot;);  &#125;&#125;
+继承使用
+123456789class Cat extends Animal &#123;  @override  void eat() &#123;    print(&quot;喵喵吃&quot;);    sleep();  &#125;// 可以不实现 sleep 方法&#125;
+充当接口1234567891011class Cat implements Animal &#123;  void ea ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2020/03/14/%E8%A7%A3%E5%86%B3SecurityEnvSDK%E4%B8%8ESGMain%E7%9A%84%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/" title="解决SecurityEnvSDK与SGMain的冲突问题">     <img class="post_bg" data-src="/images/others/cover/cover_7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="解决SecurityEnvSDK与SGMain的冲突问题"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/03/14/%E8%A7%A3%E5%86%B3SecurityEnvSDK%E4%B8%8ESGMain%E7%9A%84%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/" title="解决SecurityEnvSDK与SGMain的冲突问题">解决SecurityEnvSDK与SGMain的冲突问题</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2020-03-14 13:21:00"><i class="far fa-calendar-alt"></i>2020-03-14</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content"> 
+
+报错是说有重复类，解决的办法比较简单粗暴，就是把在Xcode里全文搜索-framework &quot;SecurityEnvSDK&quot;，接着全文替换为空字符串就可以了。
++
+
+
+问题在集成友盟统计和阿里百川之后项目报如下错误
+123456789101112duplicate symbol &#x27;_OBJC_CLASS_$_tdvSFHFKeychainUtils&#x27; in:    /Users/.../Pods/UMCSecurityPlugins/thirdparties/SecurityEnvSDK.framework/SecurityEnvSDK(SecurityEnvSDK99999999.o)    /Users/.../阿里百川/WXFrameworks/SGMain.framework/SGMain(SGMain99999999.o)duplicate symbol &#x27;_OBJC_METACLASS_$_tdvSFHFKeychainUtils&#x27; in:    /Users/.../Pods/UMCSecurityPlug ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2020/03/12/%E8%A7%A3%E5%86%B3Transporter%E4%B8%80%E7%9B%B4%E5%8D%A1%E6%AD%A3%E5%9C%A8%E9%AA%8C%E8%AF%81%E7%9A%84%E9%97%AE%E9%A2%98/" title="解决Transporter一直卡正在验证的问题">     <img class="post_bg" data-src="/images/others/cover/cover_7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="解决Transporter一直卡正在验证的问题"></a></div><div class="recent-post-info"><a class="article-title" href="/2020/03/12/%E8%A7%A3%E5%86%B3Transporter%E4%B8%80%E7%9B%B4%E5%8D%A1%E6%AD%A3%E5%9C%A8%E9%AA%8C%E8%AF%81%E7%9A%84%E9%97%AE%E9%A2%98/" title="解决Transporter一直卡正在验证的问题">解决Transporter一直卡正在验证的问题</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2020-03-12 22:16:00"><i class="far fa-calendar-alt"></i>2020-03-12</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content"> 
+
+苹果的上传应用工具 Transporter 虽然挺好用，但是估计也不少人跟我一样遇到过这样的问题，就是一直卡在 正在验证，不采取点措施估计能一直卡下去~
++
+
+
+
+苹果的上传应用工具 Transporter 虽然挺好用，但是估计也不少人跟我一样遇到过这样的问题，就是一直卡在 正在验证，不采取点措施估计能一直卡下去~
+
+
+其实原因很简单，就是 /User/当前登录用户/Library/Caches/com.apple.amp.itmstransporter 这个目录里的文件不全，一直处于下载更新的状态。
+解决方案方案一科学上网前提下，在终端下执行  Transporter 包内的 iTMSTransporter，1/Applications/Transporter.app/Contents/itms/bin/iTMSTransporter因为国外服务器（contentdelivery.itunes.apple.com:443）对我们来说会很慢，所以这个过程最好弄下科学环境。
+直到出现这个命令说明界面就可以了
+方案二适用人群
+
+没有科学环境
+速度要求高的
+比较懒的
+
+可以使用 tra ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2019/01/01/Others/FQ-Terminal%E4%B8%8B%E7%9A%84%E4%BB%A3%E7%90%86%E5%B7%A5%E5%85%B7ProxyChains-NG/" title="FQ-Terminal下的代理工具ProxyChains-NG">     <img class="post_bg" data-src="/images/others/cover/cover_2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="FQ-Terminal下的代理工具ProxyChains-NG"></a></div><div class="recent-post-info"><a class="article-title" href="/2019/01/01/Others/FQ-Terminal%E4%B8%8B%E7%9A%84%E4%BB%A3%E7%90%86%E5%B7%A5%E5%85%B7ProxyChains-NG/" title="FQ-Terminal下的代理工具ProxyChains-NG">FQ-Terminal下的代理工具ProxyChains-NG</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2019-01-01 17:11:51"><i class="far fa-calendar-alt"></i>2019-01-01</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Others/">Others</a></span></div><div class="content"> 
+
+是不是你也遇到过，在 Shadowsocks 使用 全局 模式下，终端依旧无法 ping 通谷歌？这是因为 Shadowsocks 仅针对代理应用软件，但是一些终端下执行的命令是无法代理的。所以本篇就来介绍一下如何使你的终端也走代理进行访问。  
+
+
+
+
+
+
+是不是你也遇到过，在 Shadowsocks 使用 全局 模式下，终端依旧无法 ping 通谷歌？这是因为 Shadowsocks 仅针对代理应用软件，但是一些终端下执行的命令是无法代理的。所以本篇就来介绍一下如何使你的终端也走代理进行访问。
+
+方案一：终端下的all_proxy
+这里以 zshrc + Shadowsocks 为例
+
+打开 Shadowsocks，模式选为 PAC自动模式 或 全局模式 
+
+如果不是使用 .zshrc 就 编辑 ~/.bashrc，下面的同理
+
+
+
+1、打开 .zshrc1vim ~/.zshrc
+2、添加命令12alias proxy=&#x27;export all_proxy=socks5://127.0.0.1:1086&#x27;alias unproxy=&#x27;unset  ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2018/10/27/Swift-%E6%8E%8C%E6%8E%A7Moya%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E3%80%81%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E4%B8%8E%E7%BC%93%E5%AD%98/" title="Swift 掌控Moya的网络请求、数据解析与缓存">     <img class="post_bg" data-src="/images/others/cover/cover_4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Swift 掌控Moya的网络请求、数据解析与缓存"></a></div><div class="recent-post-info"><a class="article-title" href="/2018/10/27/Swift-%E6%8E%8C%E6%8E%A7Moya%E7%9A%84%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E3%80%81%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E4%B8%8E%E7%BC%93%E5%AD%98/" title="Swift 掌控Moya的网络请求、数据解析与缓存">Swift 掌控Moya的网络请求、数据解析与缓存</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2018-10-27 23:41:37"><i class="far fa-calendar-alt"></i>2018-10-27</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content"> 
+
+
+Moya 在Swift开发中起着重要的网络交互作用，但是还有不如之处，比如网络不可用时，返回的 Response 为 nil，这时还得去解析相应的 Error
+Codable 可以帮助我们快速的解析数据，但是一旦声明的属性类型与json中的不一致，将无法正常解析; 而且对于模型中自定义属性名的处理也十分繁琐
+
++
+
+
+
+
+
+Moya 在Swift开发中起着重要的网络交互作用，但是还有不如之处，比如网络不可用时，返回的 Response 为 nil，这时还得去解析相应的 Error
+Codable 可以帮助我们快速的解析数据，但是一旦声明的属性类型与json中的不一致，将无法正常解析; 而且对于模型中自定义属性名的处理也十分繁琐
+
+解决的方案有很多，不过我比较习惯使用 MoyaMapper ，不仅可以解决上述问题，还提供了多种模型转换、数据互转、多种数据类型任意存储的便捷方法。掌控Moya的网络请求、数据解析与缓存简直易如反掌。
+
+MoyaMapper是基于Moya和SwiftyJSON封装的工具，以Moya的plugin的方式来实现间接解析，支持RxSwift
+ GitHub: ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2018/10/24/Swift-%E4%BC%98%E9%9B%85%E7%9A%84%E9%80%82%E9%85%8D%E5%A4%A7%E5%B0%8F/" title="Swift 优雅的适配大小">     <img class="post_bg" data-src="/images/others/cover/cover_4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Swift 优雅的适配大小"></a></div><div class="recent-post-info"><a class="article-title" href="/2018/10/24/Swift-%E4%BC%98%E9%9B%85%E7%9A%84%E9%80%82%E9%85%8D%E5%A4%A7%E5%B0%8F/" title="Swift 优雅的适配大小">Swift 优雅的适配大小</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2018-10-24 20:44:50"><i class="far fa-calendar-alt"></i>2018-10-24</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content"> 
+
+
+在日常开发中常常会对设备进行一定的适配，为了方便在多个项目里统一管理和使用，所以封装并开源了SwiftyFitsize这个库，可用于适配视图及字体大小，同时也支持 xib 和 storyboard
+
+GitHub: SwiftyFitsize
++
+
+
+
+在日常开发中常常会对设备进行一定的适配，为了方便在多个项目里统一管理和使用，所以封装并开源了SwiftyFitsize这个库，可用于适配视图及字体大小，同时也支持 xib 和 storyboard
+
+GitHub: SwiftyFitsize
+最终的效果如下图所示
+
+安装使用Cocoapods安装，或手动拖入项目1pod &#39;SwiftyFitsize&#39;
+使用SwiftyFitsize在默认状况下所使用的参照宽度为iphone6的375如果设计图所选用设备的宽度与默认值不同，可以在AppDelegate下初始化所参照的宽度
+1SwiftyFitsize.reference(width: 414)
+下面列出一些设备对应的分辨率，方便查找
+
+
+
+设备
+逻辑分辨率(point)
+设备分辨率(pixel)
+
+
+
+
+SE
+3 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2018/09/15/iOS-%E9%9D%A2%E5%90%91%E5%8D%8F%E8%AE%AE%E5%B0%81%E8%A3%85%E5%85%A8%E5%B1%8F%E6%97%8B%E8%BD%AC%E5%8A%9F%E8%83%BD/" title="iOS-面向协议封装全屏旋转功能">     <img class="post_bg" data-src="/images/others/cover/cover_2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="iOS-面向协议封装全屏旋转功能"></a></div><div class="recent-post-info"><a class="article-title" href="/2018/09/15/iOS-%E9%9D%A2%E5%90%91%E5%8D%8F%E8%AE%AE%E5%B0%81%E8%A3%85%E5%85%A8%E5%B1%8F%E6%97%8B%E8%BD%AC%E5%8A%9F%E8%83%BD/" title="iOS-面向协议封装全屏旋转功能">iOS-面向协议封装全屏旋转功能</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2018-09-15 18:05:45"><i class="far fa-calendar-alt"></i>2018-09-15</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content"> 
+
+
+关于使用面向协议来封装功能的实战可以参考我上篇文章 【iOS-面向协议方式封装空白页功能】，这里就不再赘述，我们直接进入使用阶段吧。本篇文章只有一个目的，那就是只要遵守协议，一行代码随意切换全屏～
+
+如果对面向协议有疑问的同学可以看下我之前的两篇文章
+iOS - Swift 面向协议编程（一） 
+iOS - Swift 面向协议编程（二）
++
+
+
+
+关于使用面向协议来封装功能的实战可以参考我上篇文章 【iOS-面向协议方式封装空白页功能】，这里就不再赘述，我们直接进入使用阶段吧。本篇文章只有一个目的，那就是只要遵守协议，一行代码随意切换全屏～
+
+如果对面向协议有疑问的同学可以看下我之前的两篇文章
+iOS - Swift 面向协议编程（一） 
+iOS - Swift 面向协议编程（二）
+开源库
+
+
+Name
+Link
+
+
+
+
+GitHub
+LXFProtocolTool
+
+
+Wiki
+Wiki首页
+
+
+本文 Demo
+LXFFullScreenable
+
+
+
+使用Cocoapods的方式来安装即可
+1pod &#x27;LXFProtocolTool/FullScreenable ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2018/06/07/AppRTC%E5%AE%9E%E6%88%98/" title="AppRTC实战">     <img class="post_bg" data-src="/images/others/cover/cover_5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AppRTC实战"></a></div><div class="recent-post-info"><a class="article-title" href="/2018/06/07/AppRTC%E5%AE%9E%E6%88%98/" title="AppRTC实战">AppRTC实战</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2018-06-07 22:49:36"><i class="far fa-calendar-alt"></i>2018-06-07</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Linux/">Linux</a></span></div><div class="content"> 
+
+记录AppRTC的搭建过程，实现iOS、Android、Browser同异设备的视频通信
+
+
+
+
+1、记录AppRTC的搭建过程，实现iOS、安卓、browser同异设备的视频通信2、以下直接以root身份进行操作，所有的需要下载的文件均放置于/root目录下，需要的话，可以自行决定存放位置，但是要注意修改相关的配置路径～
+
+一、设备配置
+阿里云ESC服务器 Ubuntu 16.04 64位
+腾讯云域名
+
+二、相关环境1、JDK123add-apt-repository ppa:openjdk-r/ppa apt-get update apt-get install openjdk-8-jdk
+2、nodejsnodejs官网123// 这里的版本8.x可以按自己的需求去修改curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -apt-get install -y nodejs至此已经安装了最新版的nodejs和npm了,可以使用-v来查看当前版本
+12node -vnpm -v
+安装grunt-cli，后面需 ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://avatars3.githubusercontent.com/u/19367531?s=460&amp;u=50f180a9aead4aaf6b0eeba3ec83ea336416bf14&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">LinXunFeng</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives"><div class="headline">Articles</div><div class="length_num">39</div></a></div><div class="card-info-data-item is-center">      <a href="/tags"><div class="headline">Tags</div><div class="length_num">17</div></a></div><div class="card-info-data-item is-center">     <a href="/categories"><div class="headline">Categories</div><div class="length_num">5</div></a></div></div><div class="card-info-bookmark is-center"><button class="button--animated" id="bookmark-it" title="Bookmark"><i class="fas fa-bookmark"></i><span>Bookmark</span></button></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/LinXunFeng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:linxunfeng@yeah.net" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://twitter.com/xunfenghellolo" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a><a class="social-icon" href="https://juejin.im/user/58f8065e61ff4b006646c72d" target="_blank" title="Juejin"><i class="fab fa-blogger"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-recent-item"><div class="aside-recent-post"><a href="/2020/07/12/Flutter/Flutter%20-%20%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91/"><div class="aside-post-cover"><img class="aside-post-bg" data-src="/images/others/cover/cover_6.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="Flutter - 混合开发" alt="Flutter - 混合开发"/></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/07/12/Flutter/Flutter%20-%20%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91/" title="Flutter - 混合开发">Flutter - 混合开发</div><time class="aside-post_meta post-meta__date" title="Created 2020-07-12 00:00:00">2020-07-12</time></div></a></div><div class="aside-recent-post"><a href="/2020/06/26/Flutter/Flutter%20-%20%E6%89%93%E5%8D%B0%E5%A5%BD%E7%94%A8%E7%9A%84Debug%E6%97%A5%E5%BF%97/"><div class="aside-post-cover"><img class="aside-post-bg" data-src="/images/others/cover/cover_8.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="Flutter - 打印好用的Debug日志" alt="Flutter - 打印好用的Debug日志"/></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/06/26/Flutter/Flutter%20-%20%E6%89%93%E5%8D%B0%E5%A5%BD%E7%94%A8%E7%9A%84Debug%E6%97%A5%E5%BF%97/" title="Flutter - 打印好用的Debug日志">Flutter - 打印好用的Debug日志</div><time class="aside-post_meta post-meta__date" title="Created 2020-06-26 00:35:00">2020-06-26</time></div></a></div><div class="aside-recent-post"><a href="/2020/06/07/Flutter/Dart-%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96/"><div class="aside-post-cover"><img class="aside-post-bg" data-src="/images/others/cover/cover_1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="Dart - 抽象类的实例化" alt="Dart - 抽象类的实例化"/></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/06/07/Flutter/Dart-%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96/" title="Dart - 抽象类的实例化">Dart - 抽象类的实例化</div><time class="aside-post_meta post-meta__date" title="Created 2020-06-07 11:27:00">2020-06-07</time></div></a></div><div class="aside-recent-post"><a href="/2020/03/14/%E8%A7%A3%E5%86%B3SecurityEnvSDK%E4%B8%8ESGMain%E7%9A%84%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/"><div class="aside-post-cover"><img class="aside-post-bg" data-src="/images/others/cover/cover_7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="解决SecurityEnvSDK与SGMain的冲突问题" alt="解决SecurityEnvSDK与SGMain的冲突问题"/></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/03/14/%E8%A7%A3%E5%86%B3SecurityEnvSDK%E4%B8%8ESGMain%E7%9A%84%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/" title="解决SecurityEnvSDK与SGMain的冲突问题">解决SecurityEnvSDK与SGMain的冲突问题</div><time class="aside-post_meta post-meta__date" title="Created 2020-03-14 13:21:00">2020-03-14</time></div></a></div><div class="aside-recent-post"><a href="/2020/03/12/%E8%A7%A3%E5%86%B3Transporter%E4%B8%80%E7%9B%B4%E5%8D%A1%E6%AD%A3%E5%9C%A8%E9%AA%8C%E8%AF%81%E7%9A%84%E9%97%AE%E9%A2%98/"><div class="aside-post-cover"><img class="aside-post-bg" data-src="/images/others/cover/cover_7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="解决Transporter一直卡正在验证的问题" alt="解决Transporter一直卡正在验证的问题"/></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/03/12/%E8%A7%A3%E5%86%B3Transporter%E4%B8%80%E7%9B%B4%E5%8D%A1%E6%AD%A3%E5%9C%A8%E9%AA%8C%E8%AF%81%E7%9A%84%E9%97%AE%E9%A2%98/" title="解决Transporter一直卡正在验证的问题">解决Transporter一直卡正在验证的问题</div><time class="aside-post_meta post-meta__date" title="Created 2020-03-12 22:16:00">2020-03-12</time></div></a></div></div></div></div><div class="card-widget card-categories"><div class="card-content"><div class="item-headline"><i class="fas fa-folder-open"></i><span>Categories</span></div><ul class="card-category-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Flutter/"><span class="card-category-list-name">Flutter</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Linux/"><span class="card-category-list-name">Linux</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Others/"><span class="card-category-list-name">Others</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Python/"><span class="card-category-list-name">Python</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/iOS/"><span class="card-category-list-name">iOS</span><span class="card-category-list-count">32</span></a></li>
+                       
+            </ul></div></div><div class="card-widget card-tags"><div class="card-content"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/Android/" style="font-size: 16px; color: #999">Android</a> <a href="/tags/Cocoapods/" style="font-size: 19.75px; color: #99a3b1">Cocoapods</a> <a href="/tags/Dart/" style="font-size: 17.5px; color: #999da3">Dart</a> <a href="/tags/FQ/" style="font-size: 16px; color: #999">FQ</a> <a href="/tags/Flutter/" style="font-size: 16.75px; color: #999b9e">Flutter</a> <a href="/tags/Git/" style="font-size: 19px; color: #99a1ac">Git</a> <a href="/tags/GitHub/" style="font-size: 19px; color: #99a1ac">GitHub</a> <a href="/tags/Linux/" style="font-size: 16.75px; color: #999b9e">Linux</a> <a href="/tags/Objective-C/" style="font-size: 20.5px; color: #99a5b6">Objective-C</a> <a href="/tags/RxSwift/" style="font-size: 17.5px; color: #999da3">RxSwift</a> <a href="/tags/Swift/" style="font-size: 21.25px; color: #99a7ba">Swift</a> <a href="/tags/Terminal/" style="font-size: 16px; color: #999">Terminal</a> <a href="/tags/Ubuntu/" style="font-size: 16.75px; color: #999b9e">Ubuntu</a> <a href="/tags/iOS/" style="font-size: 22px; color: #99a9bf">iOS</a> <a href="/tags/iOS%E9%A1%B9%E7%9B%AE/" style="font-size: 16.75px; color: #999b9e">iOS项目</a> <a href="/tags/python/" style="font-size: 16px; color: #999">python</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 18.25px; color: #999fa7">组件化</a></div></div></div><div class="card-widget card-archives"><div class="card-content"><div class="item-headline"><i class="fas fa-archive"></i><span>Archives</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/07/"><span class="card-archive-list-date">July 2020</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/06/"><span class="card-archive-list-date">June 2020</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/03/"><span class="card-archive-list-date">March 2020</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/01/"><span class="card-archive-list-date">January 2019</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2018/10/"><span class="card-archive-list-date">October 2018</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2018/09/"><span class="card-archive-list-date">September 2018</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2018/06/"><span class="card-archive-list-date">June 2018</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2018/05/"><span class="card-archive-list-date">May 2018</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item more is-center"><a class="card-archive-list-link-more" href="/archives">
+              <span>More</span><i class="fas fa-angle-right"  ></i></a></li></ul></div></div><div class="card-widget card-webinfo"><div class="card-content"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="webinfo-article-name">Article :</div><div class="webinfo-article-count">39</div></div><div class="webinfo-item">      <div class="webinfo-site-uv-name">UV :</div><div class="webinfo-site-uv-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="webinfo-site-name">PV :</div><div class="webinfo-site-pv-count" id="busuanzi_value_site_pv"></div></div></div></div></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2020 By LinXunFeng</div><div class="framework-info"><span>Driven </span><a target="_blank" rel="noopener" href="https://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button class="translate_chn_to_cht" id="translateLink" title="Switch Between Traditional Chinese And Simplified Chinese">繁</button><button id="darkmode" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="Setting"><i class="fas fa-cog"></i></button><button id="go-up" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="https://cdn.jsdelivr.net/npm/typed.js"></script><script>var subtitleEffect = true
+if (subtitleEffect) { 
+  var typed = new Typed("#subtitle", {
+    strings: "今日事&#44;今日畢,Never put off till tomorrow what you can do today".split(","),
+    startDelay: 300,
+    typeSpeed: 150,
+    loop: true,
+    backSpeed: 50
+  })
+} else {
+  document.getElementById("subtitle").innerHTML = '今日事&#44;今日畢'
+}</script></body></html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html><html data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>iOS-揭露Block的内部实现原理 | LinXunFeng‘s Blog</title><meta name="description" content="想必大家对block都很熟悉了，虽然都会用，但是你真的知道它的原理吗？比如为什么要加上__block，这个修饰符到底有什么用？不加会有什么后果？block又是如何实现的等等。。。该篇文章就为大家揭晓关于Block的实现原理~ +    想必大家对block都很熟悉了，虽然都会用，但是你真的知道它的原理吗？比如为什么要加上__block，这个修饰符到底有什么用？不加会有什么后果？block"><meta name="keywords" content="iOS,Objective-C"><meta name="author" content="LinXunFeng"><meta name="copyright" content="LinXunFeng"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://avatars3.githubusercontent.com/u/19367531?s=460&u=50f180a9aead4aaf6b0eeba3ec83ea336416bf14&v=4"><link rel="canonical" href="http://linxunfeng.top/2017/09/12/iOS-%E6%8F%AD%E9%9C%B2Block%E7%9A%84%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin="crossorigin"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//ta.qq.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="9LgZ2AlWYS"/><meta property="og:type" content="article"><meta property="og:title" content="iOS-揭露Block的内部实现原理"><meta property="og:url" content="http://linxunfeng.top/2017/09/12/iOS-%E6%8F%AD%E9%9C%B2Block%E7%9A%84%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"><meta property="og:site_name" content="LinXunFeng‘s Blog"><meta property="og:description" content="想必大家对block都很熟悉了，虽然都会用，但是你真的知道它的原理吗？比如为什么要加上__block，这个修饰符到底有什么用？不加会有什么后果？block又是如何实现的等等。。。该篇文章就为大家揭晓关于Block的实现原理~ +    想必大家对block都很熟悉了，虽然都会用，但是你真的知道它的原理吗？比如为什么要加上__block，这个修饰符到底有什么用？不加会有什么后果？block"><meta property="og:image" content="http://linxunfeng.top/images/others/cover/cover_7.jpg"><meta property="article:published_time" content="2017-09-12T09:42:47.000Z"><meta property="article:modified_time" content="2020-07-30T14:43:13.240Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="prev" title="iOS-给高仿微信添加直播聊天功能" href="http://linxunfeng.top/2017/09/12/iOS-%E7%BB%99%E9%AB%98%E4%BB%BF%E5%BE%AE%E4%BF%A1%E6%B7%BB%E5%8A%A0%E7%9B%B4%E6%92%AD%E8%81%8A%E5%A4%A9%E5%8A%9F%E8%83%BD/"><link rel="next" title="iOS-Swift面向协议编程（二）" href="http://linxunfeng.top/2017/09/12/iOS-Swift-%E9%9D%A2%E5%90%91%E5%8D%8F%E8%AE%AE%E7%BC%96%E7%A8%8B%EF%BC%88%E4%BA%8C%EF%BC%89/"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?031981f555deecc203818690c85ef421";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-131541294-1', 'auto');
+ga('send', 'pageview');
+</script><script src="https://tajs.qq.com/stats?sId=66150761" charset="UTF-8"></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  bookmark: {
+    message_prev: 'Press',
+    message_next: 'to bookmark this page'
+  },
+  runtime_unit: 'days',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 5.0.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://avatars3.githubusercontent.com/u/19367531?s=460&amp;u=50f180a9aead4aaf6b0eeba3ec83ea336416bf14&amp;v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">Articles</div><div class="length_num">39</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">Tags</div><div class="length_num">17</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">Categories</div><div class="length_num">5</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%9B%E7%A0%96%E5%BC%95%E7%8E%89"><span class="toc-number">1.</span> <span class="toc-text">抛砖引玉</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A2%E7%B4%A2%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">探索内部原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#block%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">__block的实现</span></a></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/others/cover/cover_7.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">LinXunFeng‘s Blog</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">iOS-揭露Block的内部实现原理</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="Created 2017-09-12 09:42:47"><i class="far fa-calendar-alt fa-fw"></i> Created 2017-09-12</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="Updated 2020-07-30 14:43:13"><i class="fas fa-history fa-fw"></i> Updated 2020-07-30</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta__icon"></i><span>Post View:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><Excerpt in index | 首页摘要> 
+
+<p>想必大家对block都很熟悉了，虽然都会用，但是你真的知道它的原理吗？比如为什么要加上__block，这个修饰符到底有什么用？不加会有什么后果？block又是如何实现的等等。。。该篇文章就为大家揭晓关于Block的实现原理~</p>
+<p>+<a id="more"></a></p>
+<The rest of contents | 余下全文>
+
+<blockquote>
+<p>想必大家对block都很熟悉了，虽然都会用，但是你真的知道它的原理吗？比如为什么要加上__block，这个修饰符到底有什么用？不加会有什么后果？block又是如何实现的等等。。。该篇文章就为大家揭晓关于Block的实现原理~</p>
+</blockquote>
+<h2 id="抛砖引玉"><a href="#抛砖引玉" class="headerlink" title="抛砖引玉"></a>抛砖引玉</h2><p>先给出问题，大家思考下结果吧，如果分别调用以下两个方法，结果如何？<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> blockFunc1()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> num = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">void</span> (^block)() = ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;num equal %d&quot;</span>, num);</span><br><span class="line">    &#125;;</span><br><span class="line">    num = <span class="number">200</span>;</span><br><span class="line">    block();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> blockFunc2()</span><br><span class="line">&#123;</span><br><span class="line">    __block <span class="keyword">int</span> num = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">void</span> (^block)() = ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;num equal %d&quot;</span>, num);</span><br><span class="line">    &#125;;</span><br><span class="line">    num = <span class="number">200</span>;</span><br><span class="line">    block();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>答案是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">blockFunc1 : num equal 100</span><br><span class="line">blockFunc2 : num equal 200</span><br></pre></td></tr></table></figure><br>是不是有人答错了？再来两个函数。这两个的结果与blockFunc2一样，打印出来的 num 为 200<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 全局变量</span></span><br><span class="line"><span class="keyword">int</span> num = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">void</span> blockFunc3()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">void</span> (^block)() = ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;num equal %d&quot;</span>, num);</span><br><span class="line">    &#125;;</span><br><span class="line">    num = <span class="number">200</span>;</span><br><span class="line">    block();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> blockFunc4()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> num = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">void</span> (^block)() = ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;num equal %d&quot;</span>, num);</span><br><span class="line">    &#125;;</span><br><span class="line">    num = <span class="number">200</span>;</span><br><span class="line">    block();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>疑问：<br>我们发现num做为局部变量时加上 _ _block 修饰符、num做为全局变量以及num为静态局部变量时在block中输出结果是一样的，皆为被修改之后的值，而做为局部变量并且未加上__block的num在block中输出的值却还是未赋值之前的值。这是为什么呢？探索这个问题我们就需要看看底层结构是如何实现的了</p>
+</blockquote>
+<h2 id="探索内部原理"><a href="#探索内部原理" class="headerlink" title="探索内部原理"></a>探索内部原理</h2><p>Objective-C是一个全动态语言，它的一切都是基于runtime实现的！在运行时会将OC转换成C，我们可以利用这个来查看关于block在内部是如何实现的<br>新建一个Command Line Tool项目，将以上代码放入main.m中，如图</p>
+<p><img src= "/img/loading.gif" data-src="https://linxunfeng.github.io/images/2017/09/iOS-揭露Block的内部实现原理/1.png" alt="main.m"></p>
+<p>这里我们打开终端，cd到项目目录下，然后将用下面的命令将OC重写为C<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -rewrite-objc main.m</span><br></pre></td></tr></table></figure></p>
+<p><img src= "/img/loading.gif" data-src="https://linxunfeng.github.io/images/2017/09/iOS-揭露Block的内部实现原理/2.png" alt="rewrite-objc"><br>这时我们可以发现当前目录下多了一个main.cpp文件，打开它并滚到最下面<br><img src= "/img/loading.gif" data-src="https://linxunfeng.github.io/images/2017/09/iOS-揭露Block的内部实现原理/3.png" alt="打开main.cpp"></p>
+<p><img src= "/img/loading.gif" data-src="https://linxunfeng.github.io/images/2017/09/iOS-揭露Block的内部实现原理/4.png" alt="main.cpp"><br>这里我们可以看到blockFunc1的C语言实现方法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">blockFunc1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> num = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">void</span> (*block)() = ((<span class="keyword">void</span> (*)())&amp;__blockFunc1_block_impl_0((<span class="keyword">void</span> *)__blockFunc1_block_func_0, &amp;__blockFunc1_block_desc_0_DATA, num));</span><br><span class="line">    num = <span class="number">200</span>;</span><br><span class="line">    ((<span class="keyword">void</span> (*)(__block_impl *))((__block_impl *)block)-&gt;FuncPtr)((__block_impl *)block);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>去掉类型转换<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">blockFunc1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> num = <span class="number">100</span>;</span><br><span class="line">    <span class="comment">// *************************重点句***********************</span></span><br><span class="line">    <span class="keyword">void</span> (*block)() = &amp;__blockFunc1_block_impl_0(__blockFunc1_block_func_0, &amp;__blockFunc1_block_desc_0_DATA, num));</span><br><span class="line">    <span class="comment">// *****************************************************</span></span><br><span class="line">    num = <span class="number">200</span>;</span><br><span class="line">    ((<span class="keyword">void</span> (*)(__block_impl *))((__block_impl *)block)-&gt;FuncPtr)((__block_impl *)block);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这里我们可以看到</p>
+<blockquote>
+<p>block实际上是指向结构体的指针</p>
+</blockquote>
+<p>该结构体为<br><img src= "/img/loading.gif" data-src="https://linxunfeng.github.io/images/2017/09/iOS-揭露Block的内部实现原理/5.png" alt="__blockFunc1_block_impl_0"></p>
+<p>我们来看下带__block的blockFunc2</p>
+<p><img src= "/img/loading.gif" data-src="https://linxunfeng.github.io/images/2017/09/iOS-揭露Block的内部实现原理/6.png" alt="blockFunc2"><br>在 blockFunc1 中，block指向了一个名为<strong>blockFunc1_block_impl_0的结构体，并且在初始化时输入了三个参数(</strong>blockFunc1_block_impl_0最后的flags有默认参数，所以可以不用传参)，第三个参数就是我们写的num，与blockFunc2相比较，这里的num并没有带*号，所以说在这里它只是传值而非传址，而下面的【num = 200;】也就没什么卵用了。这就是blockFunc2、blockFunc3与blockFunc4为什么能打印出num改变后的值，而blockFunc1不行的原因。</p>
+<p><img src= "/img/loading.gif" data-src="https://linxunfeng.github.io/images/2017/09/iOS-揭露Block的内部实现原理/7.png" alt=""></p>
+<p>在这里我们也可以看出：</p>
+<blockquote>
+<p>编译器会将block的内部代码生成对应的函数</p>
+</blockquote>
+<p><strong> SO </strong></p>
+<blockquote>
+<p>我们总结下，block在内部会作为一个指向结构体的指针，当调用block的时候其实就是根据block对应的指针找到相应的函数，进而进行调用，并传入自身</p>
+</blockquote>
+<h2 id="block的实现"><a href="#block的实现" class="headerlink" title="__block的实现"></a>__block的实现</h2><p>我们再来看看 _ <em>block，</em> _block也被转换成了结构体，并含有5个变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">struct __Block_byref_num_0 &#123;</span><br><span class="line">  void *__isa;  &#x2F;&#x2F; isa指针</span><br><span class="line">__Block_byref_num_0 *__forwarding;  &#x2F;&#x2F; 实例本身</span><br><span class="line"> int __flags; </span><br><span class="line"> int __size;</span><br><span class="line"> int num;  &#x2F;&#x2F; 我们的num值</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><img src= "/img/loading.gif" data-src="https://linxunfeng.github.io/images/2017/09/iOS-揭露Block的内部实现原理/8.png" alt=""><br>图片对应着blockFunc2中的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__block int num &#x3D; 100;</span><br></pre></td></tr></table></figure>
+<p>当创建num并用<strong>block修饰的时候，会初始化这五个变量<br>当我们执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num &#x3D; 200;</span><br></pre></td></tr></table></figure><br>对应着<br>&lt;!–hexoPostRenderEscape:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(num.</strong>forwarding-&gt;num) &#x3D; 200;</span><br></pre></td></tr></table></figure>:hexoPostRenderEscape–&gt;<br>上面刚刚提到过 _ _forwarding是实例本身，即类型结构体__Block_byref_num_0的&amp;num，再找到对应的num变量，将其原来的100修改为200~~</p>
+<p>到此，关于Block内部实现的揭晓也就到此结束了，希望本文能让你对block有更深的理解，感谢你耐心的阅读！</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">LinXunFeng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://linxunfeng.top/2017/09/12/iOS-%E6%8F%AD%E9%9C%B2Block%E7%9A%84%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">http://linxunfeng.top/2017/09/12/iOS-%E6%8F%AD%E9%9C%B2Block%E7%9A%84%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/iOS/">iOS</a><a class="post-meta__tags" href="/tags/Objective-C/">Objective-C</a></div><div class="post_share"><div class="social-share" data-image="/images/others/cover/cover_6.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2017/09/12/iOS-%E7%BB%99%E9%AB%98%E4%BB%BF%E5%BE%AE%E4%BF%A1%E6%B7%BB%E5%8A%A0%E7%9B%B4%E6%92%AD%E8%81%8A%E5%A4%A9%E5%8A%9F%E8%83%BD/"><img class="prev-cover" data-src="/images/others/cover/cover_3.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">iOS-给高仿微信添加直播聊天功能</div></div></a></div><div class="next-post pull-right"><a href="/2017/09/12/iOS-Swift-%E9%9D%A2%E5%90%91%E5%8D%8F%E8%AE%AE%E7%BC%96%E7%A8%8B%EF%BC%88%E4%BA%8C%EF%BC%89/"><img class="next-cover" data-src="/images/others/cover/cover_6.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">iOS-Swift面向协议编程（二）</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2017/09/12/iOS-ARC与MRC的单例设计模式/" title="iOS-ARC与MRC的单例设计模式"><img class="relatedPosts_cover" data-src="/images/others/cover/cover_2.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2017-09-12</div><div class="relatedPosts_title">iOS-ARC与MRC的单例设计模式</div></div></a></div><div class="relatedPosts_item"><a href="/2017/09/11/iOS-实现UINavigation全屏动返回-一/" title="iOS - 实现UINavigation全屏动返回(一)"><img class="relatedPosts_cover" data-src="/images/others/cover/cover_1.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2017-09-11</div><div class="relatedPosts_title">iOS - 实现UINavigation全屏动返回(一)</div></div></a></div><div class="relatedPosts_item"><a href="/2017/10/16/iOS-视频采集详解/" title="iOS - 视频采集详解"><img class="relatedPosts_cover" data-src="/images/others/cover/cover_8.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2017-10-16</div><div class="relatedPosts_title">iOS - 视频采集详解</div></div></a></div><div class="relatedPosts_item"><a href="/2017/09/12/iOS-通过runtime获取某个类中所有的变量和方法/" title="iOS - 通过runtime获取某个类中所有的变量和方法"><img class="relatedPosts_cover" data-src="/images/others/cover/cover_4.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2017-09-12</div><div class="relatedPosts_title">iOS - 通过runtime获取某个类中所有的变量和方法</div></div></a></div><div class="relatedPosts_item"><a href="/2017/10/24/RxSwift-MJRefresh-打造自动处理刷新控件状态/" title="RxSwift + MJRefresh 打造自动处理刷新控件状态"><img class="relatedPosts_cover" data-src="/images/others/cover/cover_5.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2017-10-24</div><div class="relatedPosts_title">RxSwift + MJRefresh 打造自动处理刷新控件状态</div></div></a></div><div class="relatedPosts_item"><a href="/2017/09/12/Swift-3-0-高仿喜马拉雅FM/" title="Swift 3.0 高仿喜马拉雅FM"><img class="relatedPosts_cover" data-src="/images/others/cover/cover_6.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2017-09-12</div><div class="relatedPosts_title">Swift 3.0 高仿喜马拉雅FM</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fas fa-comments fa-fw"></i><span> Comment</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var requestSetting = function (from,set) {
+  var from = from
+  var setting = set.split(',').filter(function(item){
+  return from.indexOf(item) > -1
+  });
+  setting = setting.length == 0 ? from :setting;
+  return setting
+}
+
+var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+var requiredFields = requestSetting(['nick','mail'],'nick,mail')
+
+window.valine = new Valine({
+  el:'#vcomment',
+  appId: '0rTljoibiQOAeo1tQ9qXExq9-gzGzoHsz',
+  appKey: '2N2gdmSHN6mIGpbmX8duHv6X',
+  placeholder: 'Please leave your footprints',
+  avatar: 'monsterid',
+  meta: guestInfo,
+  pageSize: '10',
+  lang: 'zh-CN',
+  recordIP: false,
+  serverURLs: '',
+  emojiCDN: '',
+  emojiMaps: "",
+  enableQQ: false,
+  requiredFields: requiredFields
+});</script></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2020 By LinXunFeng</div><div class="framework-info"><span>Driven </span><a target="_blank" rel="noopener" href="https://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button id="readmode" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="font_plus" title="Increase Font Size"><i class="fas fa-plus"></i></button><button id="font_minus" title="Decrease Font Size"><i class="fas fa-minus"></i></button><button class="translate_chn_to_cht" id="translateLink" title="Switch Between Traditional Chinese And Simplified Chinese">繁</button><button id="darkmode" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="Setting"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="Scroll To Comments"><i class="scroll_to_comment fas fa-comments"></i></a><button class="close" id="mobile-toc-button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script></body></html>
