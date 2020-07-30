@@ -1,0 +1,203 @@
+<!DOCTYPE html><html data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LinXunFeng‘s Blog</title><meta name="description"><meta name="author" content="LinXunFeng"><meta name="copyright" content="LinXunFeng"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://avatars3.githubusercontent.com/u/19367531?s=460&u=50f180a9aead4aaf6b0eeba3ec83ea336416bf14&v=4"><link rel="canonical" href="http://linxunfeng.top/page/4/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="website"><meta property="og:title" content="LinXunFeng‘s Blog"><meta property="og:url" content="http://linxunfeng.top/page/4/"><meta property="og:site_name" content="LinXunFeng‘s Blog"><meta property="og:description"><meta property="og:image" content="https://avatars3.githubusercontent.com/u/19367531?s=460&amp;u=50f180a9aead4aaf6b0eeba3ec83ea336416bf14&amp;v=4"><meta property="article:published_time" content="2020-07-30T13:30:15.605Z"><meta property="article:modified_time" content="2020-07-30T13:30:15.605Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  bookmark: {
+    message_prev: 'Press',
+    message_next: 'to bookmark this page'
+  },
+  runtime_unit: 'days',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isSidebar: false
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 5.0.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://avatars3.githubusercontent.com/u/19367531?s=460&amp;u=50f180a9aead4aaf6b0eeba3ec83ea336416bf14&amp;v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">Articles</div><div class="length_num">39</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">Tags</div><div class="length_num">17</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">Categories</div><div class="length_num">5</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(https://i.loli.net/2020/05/01/IuWi8QbHvzjlOPw.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">LinXunFeng‘s Blog</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="site-info"><h1 id="site_title">LinXunFeng‘s Blog</h1><div id="site_subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/LinXunFeng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:linxunfeng@yeah.net" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://twitter.com/xunfenghellolo" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a></div></div><div id="scroll_down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout_page" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2017/09/12/iOS-Swift-UIButton%E4%B8%ADImageView%E7%9A%84animationImages%E5%8A%A8%E7%94%BB%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%AF%95%E5%90%8E%EF%BC%8C%E5%9B%BE%E6%A0%87%E5%8F%98%E6%9A%97/" title="iOS-Swift-UIButton中ImageView的animationImages动画执行完毕后，图标变暗">     <img class="post_bg" data-src="/images/other/cover/cover_3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="iOS-Swift-UIButton中ImageView的animationImages动画执行完毕后，图标变暗"></a></div><div class="recent-post-info"><a class="article-title" href="/2017/09/12/iOS-Swift-UIButton%E4%B8%ADImageView%E7%9A%84animationImages%E5%8A%A8%E7%94%BB%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%AF%95%E5%90%8E%EF%BC%8C%E5%9B%BE%E6%A0%87%E5%8F%98%E6%9A%97/" title="iOS-Swift-UIButton中ImageView的animationImages动画执行完毕后，图标变暗">iOS-Swift-UIButton中ImageView的animationImages动画执行完毕后，图标变暗</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2017-09-12 09:22:32"><i class="far fa-calendar-alt"></i>2017-09-12</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content"> 
+
+查看官方文档的说明 当该属性设置为true时，按钮在高亮状态下，图片会绘制成高亮（前提是没有手动设置高亮图片）。并且该值的默认值为true所以我们也可以将属性adjustsImageWhenHighlighted设置为false，不让系统自动帮我们设置高亮状态下显示的图片即可。
++
+
+
+情况贴出重要代码
+123456// 设置按钮图片动画数组voiceButton.imageView?.animationImages = [    #imageLiteral(resourceName: &quot;message_voice_sender_playing_1&quot;),    #imageLiteral(resourceName: &quot;message_voice_sender_playing_2&quot;),    #imageLiteral(resourceName: &quot;message_voice_sender_playing_3&quot;)]
+12// 开始动画voiceButton.imageView?.startAnimating()
+12// ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2017/09/12/Swift-3-0-%E9%AB%98%E4%BB%BF%E5%96%9C%E9%A9%AC%E6%8B%89%E9%9B%85FM/" title="Swift 3.0 高仿喜马拉雅FM">     <img class="post_bg" data-src="/images/other/cover/cover_1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Swift 3.0 高仿喜马拉雅FM"></a></div><div class="recent-post-info"><a class="article-title" href="/2017/09/12/Swift-3-0-%E9%AB%98%E4%BB%BF%E5%96%9C%E9%A9%AC%E6%8B%89%E9%9B%85FM/" title="Swift 3.0 高仿喜马拉雅FM">Swift 3.0 高仿喜马拉雅FM</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2017-09-12 09:20:37"><i class="far fa-calendar-alt"></i>2017-09-12</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content"> 
+
+基于Swift 3.0 编写而成,运行环境要求: Xcode 8.0
++
+
+
+高仿喜马拉雅FMgitHub: https://github.com/LinXunFeng/LXFFM
+说明基于Swift 3.0 编写而成,运行环境要求: Xcode 8.0
+LXFFM原OC版: https://github.com/Eastwu5788/XMLYFM从原版作者的源代码上学到了很多,十分感谢.由于只是本人OC转Swift的试练项目,所以有些内容并没有实现,哈哈
+效果图
+
+
+
+
+
+
+
+</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2017/09/12/iOS-Swift-UITableView%E7%9A%84scrollToRow%E7%9A%84%E5%9D%91/" title="iOS - Swift UITableView的scrollToRow的坑">     <img class="post_bg" data-src="/images/other/cover/cover_2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="iOS - Swift UITableView的scrollToRow的坑"></a></div><div class="recent-post-info"><a class="article-title" href="/2017/09/12/iOS-Swift-UITableView%E7%9A%84scrollToRow%E7%9A%84%E5%9D%91/" title="iOS - Swift UITableView的scrollToRow的坑">iOS - Swift UITableView的scrollToRow的坑</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2017-09-12 09:16:39"><i class="far fa-calendar-alt"></i>2017-09-12</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content"> 
+
+今天鄙人使用SnapKit来布局cell，然后用scrollToRow来滚到底部就遇到了一个很奇葩的现象。我设置了在键盘弹出后聊天消息列表会自动滚到底部。1.随便输入一条消息，点发送后，在聊天消息列表中并没有滚到最新消息那一行。2.退出键盘不做任何操作再打开键盘也是滚到刚才那里(即最新消息的上一条所在位置)3.只有在退出键盘后把聊天消息列表的消息向上拉一点距离露出最新消息所在的cell之后，再点击才有用
++
+
+
+简介在tableView中，我们一般会用到scrollToRow这个来控制tableView滚到指定的某一行。一般写法如下所示123456// MARK: 滚到底部func scrollToBottom(animated: Bool = false) &#123;    if dataArr.count &gt; 0 &#123;        tableView.scrollToRow(at: IndexPath(row: dataArr.count - 1, section: 0), at: .bottom, animated: animated)    &#125; ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2017/09/12/iOS-Swift-%E4%BB%BF%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/" title="iOS-Swift 仿微信聊天图片显示">     <img class="post_bg" data-src="/images/other/cover/cover_2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="iOS-Swift 仿微信聊天图片显示"></a></div><div class="recent-post-info"><a class="article-title" href="/2017/09/12/iOS-Swift-%E4%BB%BF%E5%BE%AE%E4%BF%A1%E8%81%8A%E5%A4%A9%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/" title="iOS-Swift 仿微信聊天图片显示">iOS-Swift 仿微信聊天图片显示</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2017-09-12 08:57:35"><i class="far fa-calendar-alt"></i>2017-09-12</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content"> 
+
+其实原理比较简单，准备一张图片MaskImgae，先对其进行拉伸，然后按照其轮廓对图片进行裁剪就行了
++
+
+
+效果图如图所示，图片左侧有个小箭头
+原理其实原理比较简单，准备一张图片MaskImgae，先对其进行拉伸，然后按照其轮廓对图片进行裁剪就行了
+步骤这里摘重点说，布局什么的按自己意愿去弄吧。我固定了图片的显示大小为 102 * 152
+1、对MaskImgae进行拉伸123456// 设置拉伸范围let stretchInsets = UIEdgeInsetsMake(30, 28, 23, 28)// 待拉伸的图片let stretchImage = UIImage(named: &quot;SenderImageNodeMask&quot;)// 进行拉伸let bubbleMaskImage = stretchImage.resizableImage(withCapInsets: stretchInsets, resizingMode: .stretch)
+拉伸的效果如图
+2、对imageView设置裁剪区域这里我的 imageView 叫   chatImgView ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2017/09/12/iOS-Swift-UICollectionView%E6%A8%AA%E5%90%91%E5%88%86%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98/" title="iOS-Swift-UICollectionView横向分页的问题">     <img class="post_bg" data-src="/images/other/cover/cover_2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="iOS-Swift-UICollectionView横向分页的问题"></a></div><div class="recent-post-info"><a class="article-title" href="/2017/09/12/iOS-Swift-UICollectionView%E6%A8%AA%E5%90%91%E5%88%86%E9%A1%B5%E7%9A%84%E9%97%AE%E9%A2%98/" title="iOS-Swift-UICollectionView横向分页的问题">iOS-Swift-UICollectionView横向分页的问题</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2017-09-12 08:53:55"><i class="far fa-calendar-alt"></i>2017-09-12</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content"> 
+
+有两种方式可以解决，数据只有11个，要分两页需要16个，那我们可以直接添加数据到16个，然后在dataSource中返回cell时进行判断及处理即可。不过对于现在来说太小题大做了，我选第二种方式~
++
+
+
+UICollectionView横向分页的问题情况直接看图已经设置collectionView的isPagingEnabled为true了，可是出现了这种情况，原因就是collectionView的contentSize不够。
+12345678&lt;UICollectionView: 0x7fc565076000; frame &#x3D; (0 0; 375 197); clipsToBounds &#x3D; YES; gestureRecognizers &#x3D; &lt;NSArray: 0x6180000557e0&gt;; layer &#x3D; &lt;CALayer: 0x61000022a5a0&gt;; contentOffset: &#123;187.5, 0&#125;; contentSize: &#123;562.5, 192.25&#125 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2017/09/12/iOS-Swift-UICollectionView%E6%A8%AA%E5%90%91%E5%88%86%E9%A1%B5%E6%BB%9A%E5%8A%A8%EF%BC%8Ccell%E5%B7%A6%E5%8F%B3%E6%8E%92%E7%89%88/" title="iOS - Swift UICollectionView横向分页滚动，cell左右排版">     <img class="post_bg" data-src="/images/other/cover/cover_1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="iOS - Swift UICollectionView横向分页滚动，cell左右排版"></a></div><div class="recent-post-info"><a class="article-title" href="/2017/09/12/iOS-Swift-UICollectionView%E6%A8%AA%E5%90%91%E5%88%86%E9%A1%B5%E6%BB%9A%E5%8A%A8%EF%BC%8Ccell%E5%B7%A6%E5%8F%B3%E6%8E%92%E7%89%88/" title="iOS - Swift UICollectionView横向分页滚动，cell左右排版">iOS - Swift UICollectionView横向分页滚动，cell左右排版</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2017-09-12 08:49:37"><i class="far fa-calendar-alt"></i>2017-09-12</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content"> 
+
+最近在做表情键盘时遇到一个问题，我用UICollectionView来布局表情，使用横向分页滚动，但在最后一页出现了如图所示的情况
++
+
+
+情况最近在做表情键盘时遇到一个问题，我用UICollectionView来布局表情，使用横向分页滚动，但在最后一页出现了如图所示的情况
+情况分析图是的，现在的item分布就是这个鬼样子现在想要做的，就是将现在这个鬼样子变成另外一种样子，如图那怎么办？只好重新布局item了
+解决方案我是自定了一个Layout(LXFChatEmotionCollectionLayout)，让UICollectionView在创建的时候使用了它
+在 LXFChatEmotionCollectionLayout.swift 中
+添加一个属性来保存所有item的attributes12// 保存所有item的attributesfileprivate var attributesArr: [UICollectionViewLayoutAttributes] = []
+重新布局1234567891011121314151617181920212223242526272 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2017/09/12/iOS-%E9%80%9A%E8%BF%87runtime%E8%8E%B7%E5%8F%96%E6%9F%90%E4%B8%AA%E7%B1%BB%E4%B8%AD%E6%89%80%E6%9C%89%E7%9A%84%E5%8F%98%E9%87%8F%E5%92%8C%E6%96%B9%E6%B3%95/" title="iOS - 通过runtime获取某个类中所有的变量和方法">     <img class="post_bg" data-src="/images/other/cover/cover_2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="iOS - 通过runtime获取某个类中所有的变量和方法"></a></div><div class="recent-post-info"><a class="article-title" href="/2017/09/12/iOS-%E9%80%9A%E8%BF%87runtime%E8%8E%B7%E5%8F%96%E6%9F%90%E4%B8%AA%E7%B1%BB%E4%B8%AD%E6%89%80%E6%9C%89%E7%9A%84%E5%8F%98%E9%87%8F%E5%92%8C%E6%96%B9%E6%B3%95/" title="iOS - 通过runtime获取某个类中所有的变量和方法">iOS - 通过runtime获取某个类中所有的变量和方法</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2017-09-12 08:32:11"><i class="far fa-calendar-alt"></i>2017-09-12</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content"> 
+
+苹果官方的类中只提供给我们一小部分成员变量和方法,但有时候我们需要的恰好就没有提供,这样就会令开发人员十分懊恼了,那怎样才能获取该类中所有的变量及方法,用来查找是否有相对应的变量和方法呢?我们可以使用苹果自带的 运行时(runtime) 来获取+
+
+
+苹果官方的类中只提供给我们一小部分成员变量和方法,但有时候我们需要的恰好就没有提供,这样就会令开发人员十分懊恼了,那怎样才能获取该类中所有的变量及方法,用来查找是否有相对应的变量和方法呢?我们可以使用苹果自带的 运行时(runtime) 来获取
+运行时(Runtime):
+苹果官方一套C语言库 
+能做很多底层操作(比如访问隐藏的一些成员变量\成员方法….)
+
+以下以 UITextField 为例
+一. 包含运行时头文件1#import &lt;objc/runtime.h&gt;  
+二. 获取所有的成员变量123456789101112131415161718unsigned int count = 0;    // 拷贝出所胡的成员变量列表Ivar *ivars = class_copyIvarList([UITextField ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/2017/09/12/iOS-%E5%AE%9E%E7%8E%B0UINavigation%E5%85%A8%E5%B1%8F%E5%8A%A8%E8%BF%94%E5%9B%9E-%E4%BA%8C/" title="iOS - 实现UINavigation全屏动返回(二)">     <img class="post_bg" data-src="/images/other/cover/cover_2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="iOS - 实现UINavigation全屏动返回(二)"></a></div><div class="recent-post-info"><a class="article-title" href="/2017/09/12/iOS-%E5%AE%9E%E7%8E%B0UINavigation%E5%85%A8%E5%B1%8F%E5%8A%A8%E8%BF%94%E5%9B%9E-%E4%BA%8C/" title="iOS - 实现UINavigation全屏动返回(二)">iOS - 实现UINavigation全屏动返回(二)</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2017-09-12 01:05:03"><i class="far fa-calendar-alt"></i>2017-09-12</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content"> 
+
+在 iOS - 实现UINavigation全屏滑动返回(一) 中我们实现了滑动返回的功能，但不是全屏滑动返回，得在左侧边缘轻扫才能滑动返回~UINavigationController自带的只能在边缘轻扫才能滑动返回，这用户体验是不好的，接下来实现全屏滑动返回!
++
+
+
+回顾在 iOS - 实现UINavigation全屏滑动返回(一) 中我们实现了滑动返回的功能，但不是全屏滑动返回，得在左侧边缘轻扫才能滑动返回~UINavigationController自带的只能在边缘轻扫才能滑动返回，这用户体验是不好的，接下来实现全屏滑动返回!
+思路既然自带的滑动返回只能是在边缘，那我们能不能修改使它触摸范围变大甚至全屏呢？先来看下系统手势有没有提供属性或方法供我们使用1NSLog(@&quot;%@&quot;, self.interactivePopGestureRecognizer);打印信息：123456/*&lt;UIScreenEdgePanGestureRecognizer: 0x7fd542611e20; state = Possible; delaysTouches ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/2017/09/11/iOS-%E5%AE%9E%E7%8E%B0UINavigation%E5%85%A8%E5%B1%8F%E5%8A%A8%E8%BF%94%E5%9B%9E-%E4%B8%80/" title="iOS - 实现UINavigation全屏动返回(一)">     <img class="post_bg" data-src="/images/other/cover/cover_3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="iOS - 实现UINavigation全屏动返回(一)"></a></div><div class="recent-post-info"><a class="article-title" href="/2017/09/11/iOS-%E5%AE%9E%E7%8E%B0UINavigation%E5%85%A8%E5%B1%8F%E5%8A%A8%E8%BF%94%E5%9B%9E-%E4%B8%80/" title="iOS - 实现UINavigation全屏动返回(一)">iOS - 实现UINavigation全屏动返回(一)</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2017-09-11 21:53:59"><i class="far fa-calendar-alt"></i>2017-09-11</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content">interactivePopGestureRecognizer 是UINavigationController自带手势，当我们自定义了导航条的返回按钮后，这个手势就自动失效了，也就是说无法滑动返回。+
+
+
+要点interactivePopGestureRecognizer 是UINavigationController自带手势，当我们自定义了导航条的返回按钮后，这个手势就自动失效了，也就是说无法滑动返回。
+条件很多情况下我们不得不自定义导航条的返回按钮，但是我们也要滑动返回上一级的效果。
+思路既然自动失效，那我们就告诉它什么时候生效。
+
+在非根控制器下生效(用于滑动返回上一级)
+在根控制器下失效(防止根控制器被移除，当然系统不会让我们把它移除，只是会出现bug)翻译：第一个被添加的控制器成为永远不会被出栈的根控制器
+
+步骤自定义一个 UINavigationController ，即继承于 UINavigationController ，名字为 LXFNavigationController ，将代理设为自己，遵守协议 UINavigationControllerDelegate ， ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/3/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://avatars3.githubusercontent.com/u/19367531?s=460&amp;u=50f180a9aead4aaf6b0eeba3ec83ea336416bf14&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">LinXunFeng</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives"><div class="headline">Articles</div><div class="length_num">39</div></a></div><div class="card-info-data-item is-center">      <a href="/tags"><div class="headline">Tags</div><div class="length_num">17</div></a></div><div class="card-info-data-item is-center">     <a href="/categories"><div class="headline">Categories</div><div class="length_num">5</div></a></div></div><div class="card-info-bookmark is-center"><button class="button--animated" id="bookmark-it" title="Bookmark"><i class="fas fa-bookmark"></i><span>Bookmark</span></button></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/LinXunFeng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:linxunfeng@yeah.net" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://twitter.com/xunfenghellolo" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-recent-item"><div class="aside-recent-post"><a href="/2020/07/12/Flutter/Flutter%20-%20%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91/"><div class="aside-post-cover"><img class="aside-post-bg" data-src="/images/other/cover/cover_2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="Flutter - 混合开发" alt="Flutter - 混合开发"/></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/07/12/Flutter/Flutter%20-%20%E6%B7%B7%E5%90%88%E5%BC%80%E5%8F%91/" title="Flutter - 混合开发">Flutter - 混合开发</div><time class="aside-post_meta post-meta__date" title="Created 2020-07-12 00:00:00">2020-07-12</time></div></a></div><div class="aside-recent-post"><a href="/2020/06/26/Flutter/Flutter%20-%20%E6%89%93%E5%8D%B0%E5%A5%BD%E7%94%A8%E7%9A%84Debug%E6%97%A5%E5%BF%97/"><div class="aside-post-cover"><img class="aside-post-bg" data-src="/images/other/cover/cover_2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="Flutter - 打印好用的Debug日志" alt="Flutter - 打印好用的Debug日志"/></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/06/26/Flutter/Flutter%20-%20%E6%89%93%E5%8D%B0%E5%A5%BD%E7%94%A8%E7%9A%84Debug%E6%97%A5%E5%BF%97/" title="Flutter - 打印好用的Debug日志">Flutter - 打印好用的Debug日志</div><time class="aside-post_meta post-meta__date" title="Created 2020-06-26 00:35:00">2020-06-26</time></div></a></div><div class="aside-recent-post"><a href="/2020/06/07/Flutter/Dart-%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96/"><div class="aside-post-cover"><img class="aside-post-bg" data-src="/images/other/cover/cover_1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="Dart - 抽象类的实例化" alt="Dart - 抽象类的实例化"/></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/06/07/Flutter/Dart-%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96/" title="Dart - 抽象类的实例化">Dart - 抽象类的实例化</div><time class="aside-post_meta post-meta__date" title="Created 2020-06-07 11:27:00">2020-06-07</time></div></a></div><div class="aside-recent-post"><a href="/2020/03/14/%E8%A7%A3%E5%86%B3SecurityEnvSDK%E4%B8%8ESGMain%E7%9A%84%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/"><div class="aside-post-cover"><img class="aside-post-bg" data-src="/images/other/cover/cover_3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="解决SecurityEnvSDK与SGMain的冲突问题" alt="解决SecurityEnvSDK与SGMain的冲突问题"/></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/03/14/%E8%A7%A3%E5%86%B3SecurityEnvSDK%E4%B8%8ESGMain%E7%9A%84%E5%86%B2%E7%AA%81%E9%97%AE%E9%A2%98/" title="解决SecurityEnvSDK与SGMain的冲突问题">解决SecurityEnvSDK与SGMain的冲突问题</div><time class="aside-post_meta post-meta__date" title="Created 2020-03-14 13:21:00">2020-03-14</time></div></a></div><div class="aside-recent-post"><a href="/2020/03/12/%E8%A7%A3%E5%86%B3Transporter%E4%B8%80%E7%9B%B4%E5%8D%A1%E6%AD%A3%E5%9C%A8%E9%AA%8C%E8%AF%81%E7%9A%84%E9%97%AE%E9%A2%98/"><div class="aside-post-cover"><img class="aside-post-bg" data-src="/images/other/cover/cover_1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="解决Transporter一直卡正在验证的问题" alt="解决Transporter一直卡正在验证的问题"/></div><div class="aside-post-title"><div class="aside-post_title" href="/2020/03/12/%E8%A7%A3%E5%86%B3Transporter%E4%B8%80%E7%9B%B4%E5%8D%A1%E6%AD%A3%E5%9C%A8%E9%AA%8C%E8%AF%81%E7%9A%84%E9%97%AE%E9%A2%98/" title="解决Transporter一直卡正在验证的问题">解决Transporter一直卡正在验证的问题</div><time class="aside-post_meta post-meta__date" title="Created 2020-03-12 22:16:00">2020-03-12</time></div></a></div></div></div></div><div class="card-widget card-categories"><div class="card-content"><div class="item-headline"><i class="fas fa-folder-open"></i><span>Categories</span></div><ul class="card-category-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Flutter/"><span class="card-category-list-name">Flutter</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Linux/"><span class="card-category-list-name">Linux</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Others/"><span class="card-category-list-name">Others</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Python/"><span class="card-category-list-name">Python</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/iOS/"><span class="card-category-list-name">iOS</span><span class="card-category-list-count">32</span></a></li>
+                       
+            </ul></div></div><div class="card-widget card-tags"><div class="card-content"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/Android/" style="font-size: 16px; color: #999">Android</a> <a href="/tags/Cocoapods/" style="font-size: 19.75px; color: #99a3b1">Cocoapods</a> <a href="/tags/Dart/" style="font-size: 17.5px; color: #999da3">Dart</a> <a href="/tags/FQ/" style="font-size: 16px; color: #999">FQ</a> <a href="/tags/Flutter/" style="font-size: 16.75px; color: #999b9e">Flutter</a> <a href="/tags/Git/" style="font-size: 19px; color: #99a1ac">Git</a> <a href="/tags/GitHub/" style="font-size: 19px; color: #99a1ac">GitHub</a> <a href="/tags/Linux/" style="font-size: 16.75px; color: #999b9e">Linux</a> <a href="/tags/Objective-C/" style="font-size: 20.5px; color: #99a5b6">Objective-C</a> <a href="/tags/RxSwift/" style="font-size: 17.5px; color: #999da3">RxSwift</a> <a href="/tags/Swift/" style="font-size: 21.25px; color: #99a7ba">Swift</a> <a href="/tags/Terminal/" style="font-size: 16px; color: #999">Terminal</a> <a href="/tags/Ubuntu/" style="font-size: 16.75px; color: #999b9e">Ubuntu</a> <a href="/tags/iOS/" style="font-size: 22px; color: #99a9bf">iOS</a> <a href="/tags/iOS%E9%A1%B9%E7%9B%AE/" style="font-size: 16.75px; color: #999b9e">iOS项目</a> <a href="/tags/python/" style="font-size: 16px; color: #999">python</a> <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" style="font-size: 18.25px; color: #999fa7">组件化</a></div></div></div><div class="card-widget card-archives"><div class="card-content"><div class="item-headline"><i class="fas fa-archive"></i><span>Archives</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/07/"><span class="card-archive-list-date">July 2020</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/06/"><span class="card-archive-list-date">June 2020</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/03/"><span class="card-archive-list-date">March 2020</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/01/"><span class="card-archive-list-date">January 2019</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2018/10/"><span class="card-archive-list-date">October 2018</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2018/09/"><span class="card-archive-list-date">September 2018</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2018/06/"><span class="card-archive-list-date">June 2018</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2018/05/"><span class="card-archive-list-date">May 2018</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item more is-center"><a class="card-archive-list-link-more" href="/archives">
+              <span>More</span><i class="fas fa-angle-right"  ></i></a></li></ul></div></div><div class="card-widget card-webinfo"><div class="card-content"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="webinfo-article-name">Article :</div><div class="webinfo-article-count">39</div></div><div class="webinfo-item">      <div class="webinfo-site-uv-name">UV :</div><div class="webinfo-site-uv-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="webinfo-site-name">PV :</div><div class="webinfo-site-pv-count" id="busuanzi_value_site_pv"></div></div></div></div></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By LinXunFeng</div><div class="framework-info"><span>Driven </span><a target="_blank" rel="noopener" href="https://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button class="translate_chn_to_cht" id="translateLink" title="Switch Between Traditional Chinese And Simplified Chinese">繁</button><button id="darkmode" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="Setting"><i class="fas fa-cog"></i></button><button id="go-up" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="https://cdn.jsdelivr.net/npm/typed.js"></script><script>var subtitleEffect = true
+if (subtitleEffect) { 
+  var typed = new Typed("#subtitle", {
+    strings: "今日事&#44;今日畢,Never put off till tomorrow what you can do today".split(","),
+    startDelay: 300,
+    typeSpeed: 150,
+    loop: true,
+    backSpeed: 50
+  })
+} else {
+  document.getElementById("subtitle").innerHTML = '今日事&#44;今日畢'
+}</script></body></html>

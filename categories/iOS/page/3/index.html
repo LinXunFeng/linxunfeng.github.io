@@ -1,0 +1,62 @@
+.category-content ol,
+.category-content ul {
+  margin-top: 0.4rem;
+  padding: 0 0 0 0.8rem;
+  list-style: none;
+  counter-reset: li;
+}
+.category-content ol p,
+.category-content ul p {
+  margin: 0;
+}
+.category-content ol ol,
+.category-content ul ol,
+.category-content ol ul,
+.category-content ul ul {
+  padding-left: 0.5rem;
+}
+.category-content ol li,
+.category-content ul li {
+  position: relative;
+  margin: 0.3rem 0;
+  padding: 0.1rem 0.5rem 0.1rem 1.5rem !important;
+}
+.category-content ol li:hover:before,
+.category-content ul li:hover:before {
+  transform: rotate(360deg);
+}
+.category-content ol li:before,
+.category-content ul li:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: $light-blue;
+  color: $card-bg;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+.category-content ol li:before {
+  margin-top: 0.2rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 0.6rem;
+  content: counter(li);
+  counter-increment: li;
+  text-align: center;
+  font-size: 0.6rem;
+  line-height: 1.2rem;
+}
+.category-content ul li:hover:before {
+  border-color: $theme-button-hover-color;
+}
+.category-content ul li:before {
+  top: 10px;
+  margin-left: 0.45rem;
+  width: 0.3rem;
+  height: 0.3rem;
+  border: 0.15rem solid $light-blue;
+  border-radius: 0.3rem;
+  background: transparent;
+  content: '';
+  line-height: 0.3rem;
+}
