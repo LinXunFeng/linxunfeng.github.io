@@ -1,0 +1,290 @@
+<!DOCTYPE html><html data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LinXunFeng‘s Blog</title><meta name="description"><meta name="author" content="LinXunFeng"><meta name="copyright" content="LinXunFeng"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://avatars3.githubusercontent.com/u/19367531?s=460&u=50f180a9aead4aaf6b0eeba3ec83ea336416bf14&v=4"><link rel="canonical" href="http://linxunfeng.top/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin="crossorigin"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//ta.qq.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="9LgZ2AlWYS"/><meta property="og:type" content="website"><meta property="og:title" content="LinXunFeng‘s Blog"><meta property="og:url" content="http://linxunfeng.top/"><meta property="og:site_name" content="LinXunFeng‘s Blog"><meta property="og:description"><meta property="og:image" content="https://avatars3.githubusercontent.com/u/19367531?s=460&amp;u=50f180a9aead4aaf6b0eeba3ec83ea336416bf14&amp;v=4"><meta property="article:published_time" content="2021-04-05T06:43:30.129Z"><meta property="article:modified_time" content="2021-04-05T06:43:30.129Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?031981f555deecc203818690c85ef421";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-131541294-1', 'auto');
+ga('send', 'pageview');
+</script><script src="https://tajs.qq.com/stats?sId=66150761" charset="UTF-8"></script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  bookmark: {
+    message_prev: 'Press',
+    message_next: 'to bookmark this page'
+  },
+  runtime_unit: 'days',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isSidebar: false
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="LinXunFeng‘s Blog" type="application/atom+xml">
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://avatars3.githubusercontent.com/u/19367531?s=460&amp;u=50f180a9aead4aaf6b0eeba3ec83ea336416bf14&amp;v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">Articles</div><div class="length_num">51</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">Tags</div><div class="length_num">18</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">Categories</div><div class="length_num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(/images/others/banner/banner_2.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">LinXunFeng‘s Blog</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="site-info"><h1 id="site_title">LinXunFeng‘s Blog</h1><div id="site_subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/LinXunFeng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:linxunfeng@yeah.net" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://twitter.com/xunfenghellolo" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a><a class="social-icon" href="https://juejin.im/user/58f8065e61ff4b006646c72d" target="_blank" title="Juejin"><i class="fab fa-blogger"></i></a><a class="social-icon" href="https://linxunfeng.top/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div><div id="scroll_down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout_page" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/04/05/pages/e3acb4/" title="Docker - Compose">Docker - Compose</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2021-04-05 14:27:52"><i class="far fa-calendar-alt"></i>2021-04-05</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Docker/">Docker</a></span></div><div class="content">一、服务编排
+服务编排：按照一定的业务规则批量管理容器
+
+微服务架构的应用系统中一般包含若干个微服务，每个微服务一般都会部署多个实例，如果每个微服务都要手动启动和停止，那么维护的工作量就会很大。
+比如这些工作：
+
+要从 Dockerfile build image 或者去 dockerhub 拉取 image 
+要创建多个 container 
+要管理这些 container (启动停止删除)
+
+这时候需要使用官方推出的服务编排
+二、Docker Compose
+Docker Compose 是一个编排多容器分布式部署的工具，提供命令集管理容器化应用的完整开发周期，包括服务构建，启动和停止
+
+使用步骤：
+
+利用 Dockerfile 定义运行环境镜像
+使用 docker-compose.yml 定义组成应用的各服务（启动顺序、关联关系等）
+运行 docker-compose up 启动应用
+
+1、安装如果使用的是 Docker Desktop，那就不需要再额外安装 Compose 了，因为它已经包含了 Docker Compose 。
+下面是 Linux 系统下安装 Compose 的 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/01/31/pages/05278d/" title="Docker - Dockerfile的使用">Docker - Dockerfile的使用</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2021-01-31 14:23:49"><i class="far fa-calendar-alt"></i>2021-01-31</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Docker/">Docker</a></span></div><div class="content">
+Dockerfile: 是一个用来构建镜像的文本文件，文本内容包含了一条条构建镜像所需的指令和说明。
+应用: 将部署过程中涉及到的所有步骤全部写入到 Dockerfile 中，到时只需要执行 Dockerfile 就可以自动完成相应的操作
+
+快速入门编辑Dockerfile在当前目录下创建 Dockerfile 并进行编辑1vim Dockerfile操作：启动 ubuntu 镜像，在启动起来后去更新 ubuntu 容器下的软件资源内容如下1234# From: 启动运行一个镜像资源From ubuntu# Run: 在启动起来的容器中执行指令RUN apt-get update
+运行Dockerfile构建镜像命令1docker build -t [镜像名]:[版本号] [Dockerfile所在目录]指定在当前目录下去查找 Dockerfile 文件，并将 Dockerfile 自动化处理后的（更新了软件资源）容器打成名为 lxf 的镜像资源
+1docker build -t lxf .
+执行效果：待执行完成后，当前拥有的镜像资源就多出了 lxf 这一个，可以看到 lxf 这个镜 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/01/31/pages/337d0f/" title="Docker - 网络管理">Docker - 网络管理</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2021-01-31 14:23:39"><i class="far fa-calendar-alt"></i>2021-01-31</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Docker/">Docker</a></span></div><div class="content">
+
+默认情况下，容器和宿主机之间网络是隔离的 
+
+现在启动了一个 nginx 容器如图所示 nginx 使用了 80 端口，但是我们去浏览器里访问 localhost:80 是无法访问到 nginx 服务的这个时候可以通过端口映射的方式，将容器中的端口，映射到宿主机的某个端口上，从而使我们能够通过宿主机的 ip+端口 的方式来访问容器里的内容
+随机端口映射
+-P ：自动绑定所有对外提供服务的容器端口，映射的端口会从没有使用的端口池中自动随机选择，如果连续启动多个容器的话，则下一个容器的端口默认是当前容器的端口号+1
+
+命令1docker run -d -P [镜像名称]在刚才的命令基本上加 -P1docker run -dit -P --name lxfnginx nginx这样宿主机的 55000 端口就映射到了窗口的 80 端口，访问也是成功的。
+指定端口映射命令1docker run -d -p [宿主机ip]:[宿主机端口]:[容器端口] --name [容器名称] [镜像名称]将宿主机上的 8000 端口映射到 nginx 容器的 80 端口1docker run -dit  ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/01/31/pages/867207/" title="Docker - 数据管理">Docker - 数据管理</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2021-01-31 14:23:29"><i class="far fa-calendar-alt"></i>2021-01-31</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Docker/">Docker</a></span></div><div class="content">
+拷贝数据宿主机文件 -&gt; 容器内1docker cp 需要拷贝的文件或目录 容器名:容器内的目录路径
+如：把宿主机当前目录下的 lxf.sh 文件，拷贝到  lxfubuntu1 容器下的 /data 目录中1docker cp lxf.sh lxfubuntu1:/data
+容器内 -&gt; 宿主机文件1docker cp 容器名:容器内需要拷贝的文件或目录 宿主机目录
+如：把 lxfubuntu1 容器中 /data 目录下的 lxf.sh 文件，拷贝到宿主机 ~/lxf/ 目录下1docker cp lxfubuntu1:/data/lxf.sh ~/lxf/
+数据卷管理
+数据卷管理就是将容器的某个目录，映射到宿主机，作为数据存储同步的目录
+
+命令：1docker run -itd --name [容器名字] -v [宿主机目录]:[容器目录] [镜像名称] [命令(可选)]下面进行操作示范：
+在宿主机创建一个名为 data 的目录，这个名字可任意1mkdir data将宿主机的 data 目录映射到容器中的 /home 目录1docker run -it -v ~/l ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/01/31/pages/bfa843/" title="Docker - 私有仓库Registry">Docker - 私有仓库Registry</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2021-01-31 14:23:19"><i class="far fa-calendar-alt"></i>2021-01-31</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Docker/">Docker</a></span></div><div class="content">
+
+私有仓库: 在本地（局域网）搭建的一个类似公共仓库的东西，我们可以将镜像提交到私有仓库中，供局域网内的其它人拉取使用。本文以 Registry 为例，并在提供私有仓库的主机上操作
+
+拉取私有仓库镜像请先确保你当前拥有的镜像有 registry如果没有，可以先拉取下来
+1docker image pull registry
+设置私有仓库地址1vim /etc/docker/daemon.json
+修改 insecure-registries 的值，提供私有仓库的主机的ip地址和端口1234567&#123;  ...  "insecure-registries":[    "192.168.1.234:5000"  ],  ...&#125;Mac软件版修改后重新启动 docker 服务
+运行私有仓库镜像资源将 registry 镜像生成一个容器并运行起来123# -p 5000:5000 # 第一个是容器使用的端口，第二个是本地端口，这里是本地端口映射到把容器的端口docker run -d -p 5000:5000 registry1234~/lxf ❯ docker ps❯ d ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/01/31/pages/861244/" title="Docker - 操作容器">Docker - 操作容器</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2021-01-31 14:22:18"><i class="far fa-calendar-alt"></i>2021-01-31</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Docker/">Docker</a></span></div><div class="content">
+
+运行容器这里我使用 ubuntu 镜像，创建一个名为 lxfubuntu 的容器，并运行进入容器123# docker run -it --name [容器名] [镜像名] /bin/bashdocker run -it --name lxfubuntu ubuntu /bin/bash命令参数详解：
+
+--name : 定义容器名称，如果不使用，则会随机产生一个名字
+-i : 让容器的标准输入保持打开
+-t : 让 docker 分配一个伪终端，并绑定到窗口的标准输入上
+-d : 以守护进程的方式运行容器，不占用终端
+/bin/bash : 执行一个命令
+
+如图，执行后即可进入容器中
+如果想创建并以守护进程的方式运行容器，可以使用 -d1docker run -dit --name lxfubuntu1 ubuntu /bin/bash
+123# docker start [container_id]docker start c97abc3f151a
+进入容器如果我们想进入上述提及的以守护进程方式运行的容器中，可以使用 docker exec1docker exec -it lx ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/01/24/pages/084bf9/" title="Docker - 操作镜像资源">Docker - 操作镜像资源</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2021-01-24 22:38:10"><i class="far fa-calendar-alt"></i>2021-01-24</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Docker/">Docker</a></span></div><div class="content">
+
+搜索镜像资源1docker search nginx
+一般选择 STARS 数最大的
+拉取镜像比如拉取上提及的 nginx 镜像1docker image pull nginx命令执行后就开始对镜像进行拉取了
+查看当前拥有的镜像
+镜像ID: 镜像的唯一标识，如果镜像ID相同，则说明是同一个镜像
+TAG: 用来区分不同的发行版本，如果不指定具体标记，则默认使用latest来标记信息
+
+123docker image ls# 或docker images
+
+查看镜像的详情信息12# docker image inspect 镜像名docker image inspect ubuntu
+
+删除镜像完整写法1docker image rm ubuntu简洁写法1docker rmi ubuntu除了可以根据镜像名来删除外，也可以使用镜像ID，如使用上述的 ubuntu 镜像ID1docker rmi f643c72bc252如果我们对同一个镜像打了多个 tag ，导致同一个镜像ID存在多个镜像名称，那此时可以使用 name:tag 的格式来删除镜像，如：123docker rmi ubun ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2021/01/24/pages/2ffb7f/" title="Docker - 安装、加速和基本使用">Docker - 安装、加速和基本使用</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2021-01-24 21:52:14"><i class="far fa-calendar-alt"></i>2021-01-24</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Docker/">Docker</a></span></div><div class="content">
+Docker 容器是一个开源的应用容器引擎，让开发者可以以统一的方式打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何安装了docker引擎的服务器上
+
+本文主要以 Mac 平台为例
+安装方式一: Homebrew1brew cask install docker
+方式二: 桌面程序
+我使用该方式
+
+访问 https://www.docker.com/get-started，在 Docker Desktop 下选择你当前系统对应的软件进行下载安装
+
+镜像加速镜像Daocloud
+实测，速度不咋地
+
+打开 daocloud.io 网站，注册并登录，点击加速器按钮，或者直接打开 https://www.daocloud.io/mirror，打开的页面上会显示与你账号相关的加速地址
+
+其它
+实测，速度杠杠的，推荐使用
+
+
+
+
+镜像
+地址
+
+
+
+
+Docker中国区官方镜像
+https://registry.docker-cn.com
+
+
+网易
+http://hub-mirror.c.163.com
+
+
+ustc
+https://docker.mirrors.ustc.edu.cn ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2020/09/29/Flutter/Flutter%20-%20%E4%BD%8E%E7%89%88%E6%9C%AC%E5%9C%A8iOS14%E4%B8%8A%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="Flutter - 低版本在iOS14上遇到的问题与解决方案">Flutter - 低版本在iOS14上遇到的问题与解决方案</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2020-09-29 00:00:00"><i class="far fa-calendar-alt"></i>2020-09-29</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Flutter/">Flutter</a></span></div><div class="content"> 
+
+近期将测试机升级至 iOS14 ，测试使用 Flutter混合开发 的线上 APP，没发现什么问题，但是使用 Xcode 安装APP 的场景下，断开 Xcode 后再运行却闪退了。
++
+
+
+一、概述近期将测试机升级至 iOS14 ，测试使用 Flutter混合开发 的线上 APP，没发现什么问题，但是使用 Xcode 安装APP的场景下，断开 Xcode 后再运行却闪退了。
+公司的 APP 测试结果如下：
+
+
+
+APP来源
+是否闪退
+模式
+
+
+
+
+线上
+否
+release
+
+
+蒲公英
+是
+debug
+
+
+Xcode
+是（断开 Xcode 后再打开 APP ）
+debug
+
+
+
+问题原因闪退的原因是因为 Flutter SDK,  Flutter 官方的更新速度也是快，对 iOS14 进行了说明：  Flutter官网说明链接
+大致意思就是说，如果我们在 iOS14 的真机上安装了 debug模式 编译出来的 flutter 应用，那么在断开编译安装连接后，将无法从桌面上打开该应用程序。
+解决方案
+再次是使用 Xcode 或 flutter run 来运行。
+设置 Flutter  ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2020/09/11/Share/%E5%88%86%E4%BA%AB%20-%20Flutter%E6%89%93%E9%80%A0%E5%A5%BD%E7%94%A8%E7%9A%84%E6%89%93%E5%8D%B0%E5%B7%A5%E5%85%B7%E7%B1%BB/" title="分享 - Flutter打造好用的打印工具类">分享 - Flutter打造好用的打印工具类</a><div class="article-meta-wrap"><time class="post-meta__date" title="Created 2020-09-11 00:00:00"><i class="far fa-calendar-alt"></i>2020-09-11</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Share/">Share</a></span></div><div class="content"> 
+
+如果我们可以在调用函数时拿到当前调用堆栈，就可以取到一系列想要的数据。
++
+
+
+一、思考做 iOS 开发的同学都知道，我们在平时开发过程中，经常会用到非常实用的自定义打印功能，方便我们快速定位是在哪个控制器，哪一行代码。
+ 在 OC 和 Swift 中都可以很轻松实现，因为系统本来就提供了用于日志输出的预处理宏，只要我们拿来拼接就可以了，这里以 Swift 的打印为例：
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374enum LogType: String &#123;    case error = "❤️ ERROR"    case warning = "💛 WARNING"    case info = "💙 INFO"    case debug = "💚 DEBUG"&#125;let log = Logger.sharedfinal ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://avatars3.githubusercontent.com/u/19367531?s=460&amp;u=50f180a9aead4aaf6b0eeba3ec83ea336416bf14&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">LinXunFeng</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives"><div class="headline">Articles</div><div class="length_num">51</div></a></div><div class="card-info-data-item is-center">      <a href="/tags"><div class="headline">Tags</div><div class="length_num">18</div></a></div><div class="card-info-data-item is-center">     <a href="/categories"><div class="headline">Categories</div><div class="length_num">7</div></a></div></div><div class="card-info-bookmark is-center"><button class="button--animated" id="bookmark-it" title="Bookmark"><i class="fas fa-bookmark"></i><span>Bookmark</span></button></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/LinXunFeng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:linxunfeng@yeah.net" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://twitter.com/xunfenghellolo" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a><a class="social-icon" href="https://juejin.im/user/58f8065e61ff4b006646c72d" target="_blank" title="Juejin"><i class="fab fa-blogger"></i></a><a class="social-icon" href="https://linxunfeng.top/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content"><div><img src="https://cdn.jsdelivr.net/gh/FullStackAction/PicBed@resource/image/20210131111432.png" alt="微信公众号 FullStackAction"><br/><center>微信公众号:FullStackAction</center></div></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-recent-item"><div class="aside-recent-post"><a href="/2021/04/05/pages/e3acb4/"><div class="aside-post-title no-aside-cover"><div class="aside-post_title" href="/2021/04/05/pages/e3acb4/" title="Docker - Compose">Docker - Compose</div><time class="aside-post_meta post-meta__date" title="Created 2021-04-05 14:27:52">2021-04-05</time></div></a></div><div class="aside-recent-post"><a href="/2021/01/31/pages/05278d/"><div class="aside-post-title no-aside-cover"><div class="aside-post_title" href="/2021/01/31/pages/05278d/" title="Docker - Dockerfile的使用">Docker - Dockerfile的使用</div><time class="aside-post_meta post-meta__date" title="Created 2021-01-31 14:23:49">2021-01-31</time></div></a></div><div class="aside-recent-post"><a href="/2021/01/31/pages/337d0f/"><div class="aside-post-title no-aside-cover"><div class="aside-post_title" href="/2021/01/31/pages/337d0f/" title="Docker - 网络管理">Docker - 网络管理</div><time class="aside-post_meta post-meta__date" title="Created 2021-01-31 14:23:39">2021-01-31</time></div></a></div><div class="aside-recent-post"><a href="/2021/01/31/pages/867207/"><div class="aside-post-title no-aside-cover"><div class="aside-post_title" href="/2021/01/31/pages/867207/" title="Docker - 数据管理">Docker - 数据管理</div><time class="aside-post_meta post-meta__date" title="Created 2021-01-31 14:23:29">2021-01-31</time></div></a></div><div class="aside-recent-post"><a href="/2021/01/31/pages/bfa843/"><div class="aside-post-title no-aside-cover"><div class="aside-post_title" href="/2021/01/31/pages/bfa843/" title="Docker - 私有仓库Registry">Docker - 私有仓库Registry</div><time class="aside-post_meta post-meta__date" title="Created 2021-01-31 14:23:19">2021-01-31</time></div></a></div></div></div></div><div class="card-widget card-categories"><div class="card-content"><div class="item-headline"><i class="fas fa-folder-open"></i><span>Categories</span></div><ul class="card-category-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Docker/"><span class="card-category-list-name">Docker</span><span class="card-category-list-count">8</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Flutter/"><span class="card-category-list-name">Flutter</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Linux/"><span class="card-category-list-name">Linux</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Others/"><span class="card-category-list-name">Others</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Python/"><span class="card-category-list-name">Python</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Share/"><span class="card-category-list-name">Share</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/iOS/"><span class="card-category-list-name">iOS</span><span class="card-category-list-count">33</span></a></li>
+                       
+            </ul></div></div><div class="card-widget card-tags"><div class="card-content"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href='/tags/Android/' style='font-size:18px; color:rgb(51, 31, 73)'>Android</a><a href='/tags/Cocoapods/' style='font-size:18px; color:rgb(88, 136, 30)'>Cocoapods</a><a href='/tags/Dart/' style='font-size:18px; color:rgb(191, 139, 140)'>Dart</a><a href='/tags/Docker/' style='font-size:17px; color:rgb(36, 24, 32)'>Docker</a><a href='/tags/FQ/' style='font-size:17px; color:rgb(198, 10, 106)'>FQ</a><a href='/tags/Flutter/' style='font-size:16px; color:rgb(64, 91, 197)'>Flutter</a><a href='/tags/Git/' style='font-size:17px; color:rgb(122, 128, 129)'>Git</a><a href='/tags/GitHub/' style='font-size:21px; color:rgb(78, 169, 41)'>GitHub</a><a href='/tags/Linux/' style='font-size:19px; color:rgb(57, 128, 116)'>Linux</a><a href='/tags/Objective-C/' style='font-size:21px; color:rgb(164, 150, 6)'>Objective-C</a><a href='/tags/RxSwift/' style='font-size:16px; color:rgb(176, 133, 182)'>RxSwift</a><a href='/tags/Swift/' style='font-size:19px; color:rgb(142, 31, 188)'>Swift</a><a href='/tags/Terminal/' style='font-size:17px; color:rgb(121, 42, 130)'>Terminal</a><a href='/tags/Ubuntu/' style='font-size:18px; color:rgb(29, 50, 184)'>Ubuntu</a><a href='/tags/iOS/' style='font-size:17px; color:rgb(99, 111, 192)'>iOS</a><a href='/tags/iOS%E9%A1%B9%E7%9B%AE/' style='font-size:16px; color:rgb(49, 70, 95)'>iOS项目</a><a href='/tags/python/' style='font-size:18px; color:rgb(51, 75, 5)'>python</a><a href='/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/' style='font-size:19px; color:rgb(146, 35, 44)'>组件化</a></div></div></div><div class="card-widget card-archives"><div class="card-content"><div class="item-headline"><i class="fas fa-archive"></i><span>Archives</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/04/"><span class="card-archive-list-date">April 2021</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/01/"><span class="card-archive-list-date">January 2021</span><span class="card-archive-list-count">7</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/09/"><span class="card-archive-list-date">September 2020</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/08/"><span class="card-archive-list-date">August 2020</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/07/"><span class="card-archive-list-date">July 2020</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/06/"><span class="card-archive-list-date">June 2020</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/03/"><span class="card-archive-list-date">March 2020</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/01/"><span class="card-archive-list-date">January 2019</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item more is-center"><a class="card-archive-list-link-more" href="/archives">
+              <span>More</span><i class="fas fa-angle-right"  ></i></a></li></ul></div></div><div class="card-widget card-webinfo"><div class="card-content"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="webinfo-article-name">Article :</div><div class="webinfo-article-count">51</div></div><div class="webinfo-item"><div class="webinfo-runtime-name">Run time :</div><div class="webinfo-runtime-count" id="webinfo-runtime-count" publish_date="9/12/2017 00:00:00">     </div></div><div class="webinfo-item">      <div class="webinfo-site-uv-name">UV :</div><div class="webinfo-site-uv-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="webinfo-site-name">PV :</div><div class="webinfo-site-pv-count" id="busuanzi_value_site_pv"></div></div></div></div></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2021 By LinXunFeng</div><div class="framework-info"><span>Driven </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button class="translate_chn_to_cht" id="translateLink" title="Switch Between Traditional Chinese And Simplified Chinese">繁</button><button id="darkmode" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="Setting"><i class="fas fa-cog"></i></button><button id="go-up" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="https://cdn.jsdelivr.net/npm/typed.js"></script><script>var subtitleEffect = true
+if (subtitleEffect) { 
+  var typed = new Typed("#subtitle", {
+    strings: "GitHub LinXunFeng,欢迎订阅微信公众号 FullStackAction".split(","),
+    startDelay: 300,
+    typeSpeed: 150,
+    loop: true,
+    backSpeed: 50
+  })
+} else {
+  document.getElementById("subtitle").innerHTML = 'GitHub LinXunFeng'
+}</script></body></html>
